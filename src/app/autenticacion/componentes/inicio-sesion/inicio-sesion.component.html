@@ -1,0 +1,61 @@
+<div class="container-fluid fondo d-flex justify-content-center">
+  <div class="card contenedor-inicio-sesion">
+    <div class="card-body">
+      <div class="logos row">
+        <div class="logo-ministerio col-7">
+          <img class="img-fluid" src="assets/img/cabecera/ministerio.jpg" alt="ministerio-de-transporte">
+        </div>
+        <div class="logo-supertransporte col-3 ms-auto">
+          <img class="img-fluid" src="assets/img/cabecera/supertransporte.png" alt="ministerio-de-transporte">
+        </div>
+      </div>
+      <div>
+        <h2 class="fs-25px fw-semibold text-center texto-azul-004884">Formulario ADAP/PESV</h2>
+      </div>
+      <form class="w-100" [formGroup]="this.formulario">
+        <fieldset class="mb-4">
+          <label class="fs-16px mb-2 texto-gris-4B4B4B" for="usuario">Usuario</label>
+          <input placeholder="Ingrese aquí su número de documento" class="form-control" type="text" name="usuario" formControlName="usuario" required [ngClass]="{'input-error':this.formulario.controls['usuario'].errors &&
+                    this.formulario.controls['usuario'].dirty && this.formulario.controls['usuario'].errors['required']}">
+          <span class="validacion"
+            *ngIf="this.formulario.controls['usuario'].errors &&
+                    this.formulario.controls['usuario'].dirty && this.formulario.controls['usuario'].errors['required']">
+            Ingrese su usuario
+          </span>
+        </fieldset>
+        <fieldset class="mb-4">
+          <label class="fs-16px mb-2 texto-gris-4B4B4B" for="clave">Contraseña</label>
+          <input placeholder="Ingrese aquí su contraseña" class="form-control" type="password" name="clave" formControlName="clave" required [ngClass]="{'input-error':this.formulario.controls['clave'].errors &&
+                    this.formulario.controls['clave'].dirty}">
+          <span class="validacion" *ngIf="this.formulario.controls['clave'].invalid &&
+                    this.formulario.controls['clave'].dirty">
+            Ingrese su contraseña
+          </span>
+        </fieldset>
+<!--         <fieldset class="mb-3 d-flex align-items-start">
+          <div class="d-block" [ngClass]="{'input-error':this.formulario.controls['captcha'].errors &&
+                  this.formulario.controls['captcha'].dirty && this.formulario.controls['captcha'].errors['required']}">
+            <ngx-recaptcha2 #captchaElem [siteKey]="llaveCaptcha" [useGlobalDomain]="false" [theme]="'light'"
+              formControlName='captcha' required>
+            </ngx-recaptcha2>
+            <span class="validacion"
+              *ngIf="this.formulario.controls['captcha'].errors && this.formulario.controls['usuario'].dirty && this.formulario.controls['captcha'].errors['required']">
+              Debe marcar en check
+            </span>
+          </div>
+        </fieldset> -->
+        <fieldset>
+          <button type="button" class="boton primario relleno fs-14px" (click)="this.iniciarSesion()"
+            (keyup.enter)="this.iniciarSesion()">Ingresar</button>
+        </fieldset>
+      </form>
+    </div>
+    <div class="card-footer p-4 w-100 d-flex flex-column align-items-center">
+      <span class="fs-14px">¿Olvidó su contraseña?</span>
+      <span class="texto-primario fw-semibold fs-14px texto-azul-004884 cursor-pointer" (click)="this.abrirModalRecuperacion()">Recupérala
+        aquí</span>
+    </div>
+  </div>
+</div>
+
+<app-modal-recuperacion-contrasena #modalRecuperacion></app-modal-recuperacion-contrasena>

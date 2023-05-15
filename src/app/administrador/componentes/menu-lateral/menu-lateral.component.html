@@ -1,0 +1,27 @@
+<aside class="menu-lateral p-3 d-flex flex-column"
+  [ngClass]="{'abierto': this.desplegado, 'cerrado': !this.desplegado}">
+  <span class="material-symbols-outlined" id="cerrar-menu-lateral" (click)="this.cerrar()">
+    close
+  </span>
+  <!-- logo novafianza -->
+  <div class="logo d-flex justify-content-start mb-4">
+    <img class="pointer-events-none cursor-pointer" src="assets/img/logo.svg" alt="">
+  </div>
+  <hr *ngIf="usuario && usuario.idEmpresa && usuario.logoEmpresa">
+  <div class="logo-empresa d-flex justify-content-start" *ngIf="usuario && usuario.idEmpresa">
+    <img class="pointer-events-none cursor-pointer" [src]="usuario.logoEmpresa" draggable="false">
+  </div>
+  <div *ngIf="this.rol && this.rol._modulos">
+    <div class="d-flex flex-column" *ngFor="let module of this.rol._modulos">
+      <hr>
+      <div class="d-flex click" routerLink="/administrar/{{module._ruta}}">
+        <span class="me-2">
+          <img draggable="false" [src]="module._icono" [alt]="module._nombreMostrar">
+        </span>
+        <span class="fs-12px fw-semibold">
+          {{module._nombreMostrar}}
+        </span>
+      </div>
+    </div>
+  </div>
+</aside>

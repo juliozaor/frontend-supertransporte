@@ -1,0 +1,12 @@
+<div class="contenedor-input">
+    <div class="icono">
+        <img src="assets/img/buscar.svg" alt="buscar" draggable="false">
+    </div>
+    <input
+    #input
+    class="form-control" 
+    type="text" 
+    placeholder="Buscar..."
+    (change)="manejarAlCambiar(input.value)"
+    (keyup)="manejarAlEscribir(input.value)">
+</div>
