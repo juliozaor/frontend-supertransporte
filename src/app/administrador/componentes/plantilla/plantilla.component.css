@@ -2,7 +2,6 @@
 }
 .contenido{
     position: relative;
-    padding-top: var(--alto-barra-navegacion);
 }
 .seccion{
     padding: 0 !important;

@@ -1,0 +1,44 @@
+.menu{
+    height: 77px;
+    background-color: #004884;
+    color: white;
+}
+.modulos{
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+.modulo{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    padding: 23px 18px 26px;
+    cursor: pointer;
+}
+.modulo:hover::after{
+    content: "";
+    position: absolute;
+    top: 4px;
+    width: 100%;
+    border-top: 3px solid #2DB2EA;
+}
+.modulo .submodulos{
+    display: none;
+    padding: 0;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 100%;
+    background-color: #E6EFFD;
+    color: #3366CC;
+}
+.modulo:hover .submodulos{
+    display: block;
+}
+.submodulo{
+    padding: 8px 15px;
+    border-bottom: 1px solid black;
+}

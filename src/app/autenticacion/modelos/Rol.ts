@@ -1,20 +1,32 @@
 export interface Rol {
-  _id: string;
-  _nombre: string;
-  _estado: boolean;
-  _creacion: Date;
-  _actualizacion: Date
-  _modulos: Modulo[]
+  id: string;
+  nombre: string;
+  estado: boolean;
+  creacion: string;
+  actualizacion: string;
+  modulos: Modulo[]
 }
 
 export interface Modulo{
-  _id: string;
-  _nombre: string;
-  _nombreMostrar: string,
-  _ruta: string;
-  _icono: string;
-  _estado: boolean;
-  _creacion: Date;
-  _actualizacion: Date;
+  id: string;
+  nombre: string;
+  nombreMostrar: string,
+  ruta: string;
+  icono: string;
+  estado: boolean;
+  creacion: Date;
+  actualizacion: Date;
+  submodulos: Submodulo[]
+}
+
+export interface Submodulo{
+  id: string;
+  nombre: string;
+  nombreMostrar: string,
+  ruta: string;
+  icono: string;
+  estado: boolean;
+  creacion: Date;
+  actualizacion: Date;
 }
 

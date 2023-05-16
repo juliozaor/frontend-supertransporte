@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AutenticacionService } from 'src/app/autenticacion/servicios/autenticacion.service';
 import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.component';
-import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
+import { MenuComponent } from '../menu/menu.component';
 
 @Component({
   selector: 'app-plantilla',
@@ -10,7 +10,7 @@ import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
   styleUrls: ['./plantilla.component.css']
 })
 export class PlantillaComponent implements OnInit {
-  @ViewChild('menuLateral') menuLateral!:MenuLateralComponent
+  @ViewChild('menuLateral') menuLateral!:MenuComponent
   @ViewChild('barraDeNavegacion') barraDeNavegacion!:BarraNavegacionComponent
 
   constructor(private servicioAutenticacion:AutenticacionService, private enrutador:Router) { }

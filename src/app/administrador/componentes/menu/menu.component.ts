@@ -4,11 +4,11 @@ import { ServicioLocalStorage } from '../../servicios/local-storage.service';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 
 @Component({
-  selector: 'app-menu-lateral',
-  templateUrl: './menu-lateral.component.html',
-  styleUrls: ['./menu-lateral.component.css']
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css']
 })
-export class MenuLateralComponent implements OnInit {
+export class MenuComponent implements OnInit {
   rol?: Rol | null;
   usuario?: Usuario | null;
   isCollapsed = false;
