@@ -13,6 +13,7 @@ export class AutenticacionGuard implements CanActivate {
   public constructor(private enrutador:Router, private servicioUsuario: ServicioUsuarios ){}
 
   async canActivate(): Promise<boolean>{
+    console.log('entrando a guar autenticación')
     const fechaUnixActual = new Date().getTime()
     let token = localStorage.getItem(this.llaveToken)
     let expiracion = localStorage.getItem(this.llaveExpiracion)
@@ -21,7 +22,7 @@ export class AutenticacionGuard implements CanActivate {
       this.enrutador.navigateByUrl('/inicio-sesion')
       return false
     }
-    if(!expiracion){
+/*     if(!expiracion){
       this.enrutador.navigateByUrl('/inicio-sesion')
       return false
     }
@@ -30,7 +31,7 @@ export class AutenticacionGuard implements CanActivate {
       console.log('jwt expirado')
       this.enrutador.navigateByUrl('/inicio-sesion')
       return false;
-    }
+    } */
 
     return true;
   }

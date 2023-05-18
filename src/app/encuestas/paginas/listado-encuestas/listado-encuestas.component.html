@@ -1,0 +1,41 @@
+<div class="container px-5 py-4">
+    <h2 class="fw-semibold texto-azul-004884 mb-3">Encuestas</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <app-input-busqueda></app-input-busqueda>
+        <button type="button" class="boton primario relleno">Exportar</button>
+        <button type="button" class="boton primario relleno">Resumen</button>
+    </div>
+    <div class="d-flex">
+        <table class="table">
+            <thead>
+                <tr class="fs-14px">
+                    <th class="encabezado-tabla"></th>
+                    <th class="encabezado-tabla">No. Reporte</th>
+                    <th class="encabezado-tabla">Encuesta</th>
+                    <th class="encabezado-tabla">Descripción</th>
+                    <th class="encabezado-tabla">Fecha inicio</th>
+                    <th class="encabezado-tabla">Fecha final</th>
+                    <th class="encabezado-tabla">Fecha de envío a ST</th>
+                    <th class="encabezado-tabla">Razón social - NIT</th>
+                    <th class="encabezado-tabla">Email</th>
+                    <th class="encabezado-tabla">Estado actual</th>
+                </tr>
+            </thead>
+            <tbody class="fs-14px">
+                <tr *ngFor="let fila of [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] ; let i = index">
+                    <td><img [routerLink]="['/administrar', 'encuestas', 'abc-def']" class="cursor-pointer" src="assets/img/buscar-documento.png" alt="buscar-encuesta" draggable="false"></td>
+                    <td>{{ fila }}</td>
+                    <td>FORMULARIO ADAP/PESV</td>
+                    <td>AutoGestión para el Diagnóstico Anticipado y Preventivo del avance de documentación e implementación de los Planes Estratégicos de Seguridad Vial - PESV</td>
+                    <td>02/11/2022</td>
+                    <td>15/12/2023	</td>
+                    <td>15/12/2023</td>
+                    <td>TRANSPORTES AUTO ALFAN S.A.S - 800037047</td>
+                    <td>alfangruas@hotmail.com</td>
+                    <td>FORMULARIO EN BORRADOR</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ngb-pagination [collectionSize]="100" [page]="1" [boundaryLinks]="true"></ngb-pagination>
+</div>

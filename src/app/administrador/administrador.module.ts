@@ -7,6 +7,7 @@ import { BarraNavegacionComponent } from './componentes/barra-navegacion/barra-n
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { EncuestasModule } from '../encuestas/encuestas.module';
 
 
 
@@ -19,6 +20,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
   imports: [
     CommonModule,
     AdministradorRoutingModule,
+    EncuestasModule,
     ReactiveFormsModule,
     FormsModule,
     NgbModule,

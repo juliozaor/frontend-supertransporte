@@ -40,8 +40,6 @@ export class AutenticacionService {
   }
 
   public guardarInformacionInicioSesion(jwt:string, rol:object, Usuario: object):void{
-    console.log('Guardando Información de inicio de sesión')
-    console.log('Nuevo token', jwt)
     localStorage.setItem(this.llaveTokenLocalStorage, jwt),
     localStorage.setItem(this.llaveRolesLocalStorage, JSON.stringify(rol))
     localStorage.setItem(this.llaveUsuarioLocalStorage, JSON.stringify(Usuario))
