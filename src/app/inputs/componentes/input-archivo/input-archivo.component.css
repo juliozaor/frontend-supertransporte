@@ -1,4 +1,7 @@
-#file{
+:host{
+    width: 100%;
+}
+input[type="file"]{
     display: none;
 }
 .input-archivo{

@@ -46,9 +46,10 @@ export class InicioSesionComponent implements OnInit {
         if (respuesta.claveTemporal === true) {
           this.enrutador.navigateByUrl('/actualizar-contrasena')
         } else {
-          console.log('entrando a /administrar')
-  /*         this.enrutador.navigateByUrl(`/administrar${respuesta.rol._modulos[0]._ruta}`)
-   */        this.enrutador.navigateByUrl(`/administrar`)
+          if(respuesta.rol.modulos.length > 0)
+            this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].ruta}`);
+          else
+            this.enrutador.navigateByUrl(`/administrar`);
         }
       },
 

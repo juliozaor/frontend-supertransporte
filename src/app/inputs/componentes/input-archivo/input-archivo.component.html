@@ -1,4 +1,4 @@
-<label for="file" class="input-archivo d-flex">
+<label [for]="nombre" class="input-archivo d-flex">
     <div class="archivos">
         <div class="archivo d-flex" *ngIf="archivo">
             <span class="nombre-archivo">{{ archivo.name }}</span>
@@ -6,5 +6,5 @@
         </div>
     </div>
     <div class="boton-adjuntar d-flex align-items-center justify-content-center">Adjuntar</div>
-    <input id="file" type="file" (change)="onChangeFiles($event)">
+    <input [accept]="unirAcepta()" [id]="nombre" type="file" (change)="onChangeFiles($event)">
 </label>

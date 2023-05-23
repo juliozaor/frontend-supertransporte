@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { EncuestaComponent } from './componentes/encuesta/encuesta.component';
 import { PreguntaEncuestaComponent } from './componentes/pregunta-encuesta/pregunta-encuesta.component';
 import { ClasificacionEncuestaComponent } from './componentes/clasificacion-encuesta/clasificacion-encuesta.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -22,6 +23,8 @@ import { ClasificacionEncuestaComponent } from './componentes/clasificacion-encu
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     InputsModule
   ]

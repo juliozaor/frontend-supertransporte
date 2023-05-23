@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Rol } from 'src/app/autenticacion/modelos/Rol';
 import { ServicioLocalStorage } from '../../servicios/local-storage.service';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
+import { AutenticacionService } from 'src/app/autenticacion/servicios/autenticacion.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -14,7 +16,11 @@ export class MenuComponent implements OnInit {
   isCollapsed = false;
   desplegado = true
   
-  constructor(private servicioLocalStorage: ServicioLocalStorage) { 
+  constructor(
+    private servicioLocalStorage: ServicioLocalStorage, 
+    private servicioAutenticacion: AutenticacionService,
+    private router: Router
+  ) { 
   }
 
   ngOnInit(): void {
@@ -31,4 +37,8 @@ export class MenuComponent implements OnInit {
     this.desplegado = false
   }
 
+  public cerrarSesion(){
+    this.servicioAutenticacion.cerrarSesion()
+    this.router.navigateByUrl('/inicio-sesion')
+  }
 }

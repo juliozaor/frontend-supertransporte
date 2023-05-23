@@ -7,6 +7,8 @@ import { AutenticacionGuard } from './guards/autenticacion.guard';
 import { AutorizacionGuard } from './guards/autorizacion.guard';
 import { ListadoEncuestasComponent } from './encuestas/paginas/listado-encuestas/listado-encuestas.component';
 import { PaginaEncuestaComponent } from './encuestas/paginas/pagina-encuesta/pagina-encuesta.component';
+import { PaginaInformacionGeneralVigiladoComponent } from './administrador/paginas/pagina-informacion-general-vigilado/pagina-informacion-general-vigilado.component';
+import { PaginaSoporteComponent } from './administrador/paginas/pagina-soporte/pagina-soporte.component';
 
 
 
@@ -23,6 +25,14 @@ const routes: Routes = [
       {
         path: 'encuestas/:idEncuestaDiligenciada',
         component: PaginaEncuestaComponent
+      },
+      {
+        path: 'informacion-general',
+        component: PaginaInformacionGeneralVigiladoComponent
+      },
+      {
+        path: 'soporte',
+        component: PaginaSoporteComponent
       }
     ]
   },

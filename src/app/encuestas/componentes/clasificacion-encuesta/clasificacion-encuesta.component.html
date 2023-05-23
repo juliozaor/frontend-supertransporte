@@ -5,17 +5,17 @@
             <img *ngIf="!desplegado" src="assets/img/replegado.png" class="cursor-pointer" draggable="false">
         </span>
         <span class="texto-azul-004884 fs-14px fw-semibold">
-            General
+            {{ clasificacion.clasificacion }}
         </span>
     </div>
     <div class="w-100" [ngClass]="{'d-none': !desplegado, 'd-block': desplegado}">
-        <div class="row m-none">
+        <div class="row mx-0">
             <div class="col-2 encabezado">
                 <div class="d-flex justify-content-center">
                     <span class="fs-14px">No.</span>
                 </div>
             </div>
-            <div class="col-4 encabezado">
+            <div class="col-3 encabezado">
                 <div class="d-flex justify-content-start">
                     <span class="fs-14px">Pregunta</span>
                 </div>
@@ -30,12 +30,16 @@
                     <span class="fs-14px">Tipo de evidencia</span>
                 </div>
             </div>
-            <div class="col-2 encabezado">
+            <div class="col-3 encabezado">
                 <div class="d-flex justify-content-start">
                     <span class="fs-14px">Documento</span>
                 </div>
             </div>
         </div>
-        <app-pregunta-encuesta></app-pregunta-encuesta>
+        <app-pregunta-encuesta
+        [soloLectura]="soloLectura"
+        *ngFor="let pregunta of clasificacion.preguntas" 
+        [pregunta]="pregunta"
+        (valorModificado)="agregarPreguntaRespondida($event)"/>
     </div>
 </div>

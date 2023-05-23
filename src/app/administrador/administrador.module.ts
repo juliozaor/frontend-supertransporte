@@ -8,6 +8,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { EncuestasModule } from '../encuestas/encuestas.module';
+import { PaginaInformacionGeneralVigiladoComponent } from './paginas/pagina-informacion-general-vigilado/pagina-informacion-general-vigilado.component';
+import { PaginaSoporteComponent } from './paginas/pagina-soporte/pagina-soporte.component';
+import { InputsModule } from '../inputs/inputs.module';
 
 
 
@@ -16,12 +19,15 @@ import { EncuestasModule } from '../encuestas/encuestas.module';
     PlantillaComponent,
     MenuComponent,
     BarraNavegacionComponent,
+    PaginaInformacionGeneralVigiladoComponent,
+    PaginaSoporteComponent,
   ],
   imports: [
     CommonModule,
     AdministradorRoutingModule,
     EncuestasModule,
     ReactiveFormsModule,
+    InputsModule,
     FormsModule,
     NgbModule,
     SweetAlert2Module.forRoot(),

@@ -1,13 +1,13 @@
 <div class="d-flex flex-column w-100">
     <ul class="clasificaciones">
-        <li>
-            <app-clasificacion-encuesta></app-clasificacion-encuesta>
-        </li>
-        <li>
-            <app-clasificacion-encuesta></app-clasificacion-encuesta>
+        <li *ngFor="let clasificacion of encuesta.clasificaciones">
+            <app-clasificacion-encuesta 
+            #clasificacion 
+            [clasificacion]="clasificacion"
+            [soloLectura]="soloLectura"/>
         </li>
     </ul>
-    <div class="d-flex mt-4">
-        <button class="boton primario relleno ms-auto">Guardar</button>
+    <div class="d-flex mt-4" *ngIf="!soloLectura">
+        <button class="boton primario relleno ms-auto" (click)="obtenerRespuestas()">Guardar</button>
     </div>
 </div>
