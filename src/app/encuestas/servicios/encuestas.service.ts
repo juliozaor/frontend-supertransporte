@@ -9,8 +9,8 @@ export class EncuestasService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerEncuestaTysa(){
-    return this.http.get<Encuesta>('https://tysa.co//alcaldiawilson/super/encuestas/visualizar.php?idUsuario=1&idVigilado=1&idEncuesta=1')
+  obtenerEncuestaTysa(idUsuario: string, idVigilado: string, idEncuesta: number){
+    return this.http.get<Encuesta>(`https://tysa.co//alcaldiawilson/super/encuestas/visualizar.php?idUsuario=${idUsuario}&idVigilado=${idVigilado}&idEncuesta=${idEncuesta}`)
   }
 
   obtenerEncuesta():Encuesta{
