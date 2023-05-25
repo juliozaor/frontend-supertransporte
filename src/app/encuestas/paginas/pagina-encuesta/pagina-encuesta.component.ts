@@ -13,12 +13,12 @@ export class PaginaEncuestaComponent implements OnInit {
   constructor(private servicioEncuesta: EncuestasService) { }
 
   ngOnInit(): void {
-    this.encuesta = this.servicioEncuesta.obtenerEncuesta()
-    /* this.servicioEncuesta.obtenerEncuestaTysa().subscribe({
+    /* this.encuesta = this.servicioEncuesta.obtenerEncuesta() */
+    this.servicioEncuesta.obtenerEncuestaTysa().subscribe({
       next: ( encuesta )=>{
         this.encuesta = encuesta
       }
-    }) */
+    })
   }
 
 }

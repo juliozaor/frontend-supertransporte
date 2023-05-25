@@ -24,7 +24,7 @@ export class AutenticacionService {
   }
 
   public iniciarSesion(documento:string, clave:string):Observable<IniciarSesionRespuesta>{
-    const endpoint = '/api/v1/autenticacion/inicio-sesion/empresa'
+    const endpoint = '/api/v1/autenticacion/inicio-sesion'
     return this.clientHttp.post<IniciarSesionRespuesta>(`${this.urlBackend}${endpoint}`, {usuario: documento, contrasena: clave})
   }
 
