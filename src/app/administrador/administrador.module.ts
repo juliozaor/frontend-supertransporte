@@ -11,6 +11,7 @@ import { EncuestasModule } from '../encuestas/encuestas.module';
 import { PaginaInformacionGeneralVigiladoComponent } from './paginas/pagina-informacion-general-vigilado/pagina-informacion-general-vigilado.component';
 import { PaginaSoporteComponent } from './paginas/pagina-soporte/pagina-soporte.component';
 import { InputsModule } from '../inputs/inputs.module';
+import { AlertasModule } from '../alertas/alertas.module';
 
 
 
@@ -28,6 +29,7 @@ import { InputsModule } from '../inputs/inputs.module';
     EncuestasModule,
     ReactiveFormsModule,
     InputsModule,
+    AlertasModule,
     FormsModule,
     NgbModule,
     SweetAlert2Module.forRoot(),
