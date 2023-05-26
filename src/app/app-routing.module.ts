@@ -19,11 +19,11 @@ const routes: Routes = [
     canActivate: [AutenticacionGuard],
     children: [
       {
-        path: 'encuestas',
+        path: 'encuestas/:idEncuesta',
         component: ListadoEncuestasComponent
       },
       {
-        path: 'encuestas/:idEncuestaDiligenciada',
+        path: 'encuesta/:idEncuestaDiligenciada',
         component: PaginaEncuestaComponent
       },
       {

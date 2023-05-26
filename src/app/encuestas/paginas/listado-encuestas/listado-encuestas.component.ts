@@ -4,6 +4,7 @@ import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { Rol } from 'src/app/autenticacion/modelos/Rol';
 import { EncuestasService } from '../../servicios/encuestas.service';
 import { ResumenReporte } from '../../modelos/ResumenReporte';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-listado-encuestas',
@@ -14,19 +15,24 @@ export class ListadoEncuestasComponent implements OnInit {
   usuario: Usuario | null
   rol: Rol | null
   reportes: ResumenReporte[] = []
-  idEncuesta = 1
+  idEncuesta?: number
 
-  constructor(private servicioEncuestas: EncuestasService, private servicioLocalStorage: ServicioLocalStorage) { 
+  constructor(private servicioEncuestas: EncuestasService, private servicioLocalStorage: ServicioLocalStorage, private activatedRoute: ActivatedRoute) {
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
     this.rol = this.servicioLocalStorage.obtenerRol()
+    this.activatedRoute.params.subscribe({
+      next: (params) =>{
+        this.idEncuesta = Number(params['idEncuesta'])
+        this.servicioEncuestas.obtenerEncuestas(this.usuario!.usuario, this.idEncuesta).subscribe({
+          next: ( respuesta )=>{
+            this.reportes = respuesta.reportadas
+          }
+        })
+      }
+    })
   }
 
   ngOnInit(): void {
-    this.servicioEncuestas.obtenerEncuestas(this.usuario!.usuario, this.idEncuesta).subscribe({
-      next: ( respuesta )=>{
-        this.reportes = respuesta.reportadas
-      }
-    })
   }
 
 }
