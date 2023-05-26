@@ -23,7 +23,10 @@
             </thead>
             <tbody class="fs-14px">
                 <tr *ngFor="let reporte of reportes ; let i = index">
-                    <td><img [routerLink]="['/administrar', 'encuesta', reporte.idEncuestaDiligenciada]" class="cursor-pointer" src="assets/img/buscar-documento.png" alt="buscar-encuesta" draggable="false"></td>
+                    <td><img 
+                        [routerLink]="['/administrar', 'encuesta', reporte.idEncuestaDiligenciada]"
+                        [queryParams]="{ vigilado: reporte.razonSocial }"  
+                        class="cursor-pointer" src="assets/img/buscar-documento.png" alt="buscar-encuesta" draggable="false"></td>
                     <td>{{ reporte.numeroReporte }}</td>
                     <td>{{ reporte.encuesta }}</td>
                     <td>{{ reporte.descripcion }}</td>

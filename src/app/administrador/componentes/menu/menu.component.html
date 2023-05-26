@@ -1,4 +1,4 @@
-<nav class="menu" *ngIf="this.rol && this.rol.modulos">
+<nav class="menu d-flex" *ngIf="this.rol && this.rol.modulos">
   <ul class="modulos">
     <li class="modulo" *ngFor="let modulo of this.rol.modulos" routerLink="/administrar/{{modulo.ruta}}">
       {{modulo.nombre}}
@@ -17,6 +17,9 @@
       </ul>
     </li>
   </ul>
+  <div class="d-flex align-items-center justify-content-end ms-auto" *ngIf="usuario">
+    <span class="fs-12px p-3 cursor-pointer">{{ usuario.nombre }} {{ usuario.apellido }}</span>
+  </div>
 </nav>
 
 <!-- <div *ngIf="this.rol && this.rol._modulos">

@@ -1,5 +1,15 @@
 <div class="container px-5 py-4">
     <h2 class="fw-semibold texto-azul-004884 mb-3">	Resumen - Ficha cuestionario</h2>
+    <div class="d-block w-100">
+        <div class="d-block" *ngIf="usuario">
+            <span class="fs-14px fw-semibold texto-azul-004884">Quien realiza la encuesta: </span>
+            <span>{{ usuario.usuario }}</span>
+        </div>
+        <div class="d-block mb-3" *ngIf="idVigilado">
+            <span class="fs-14px fw-semibold texto-azul-004884">A quien se le realiza la encuesta: </span>
+            <span>{{ idVigilado }}</span>
+        </div>
+    </div>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <button type="button" class="boton primario relleno">Exportar</button>
         <button type="button" class="boton primario delineado">Volver</button>

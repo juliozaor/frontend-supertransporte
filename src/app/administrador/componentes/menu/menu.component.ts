@@ -26,7 +26,6 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.rol = this.servicioLocalStorage.obtenerRol()
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
-
   }
 
   public abrir():void{

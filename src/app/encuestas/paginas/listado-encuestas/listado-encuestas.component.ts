@@ -15,11 +15,17 @@ export class ListadoEncuestasComponent implements OnInit {
   usuario: Usuario | null
   rol: Rol | null
   reportes: ResumenReporte[] = []
+  vigilado?: string
   idEncuesta?: number
 
-  constructor(private servicioEncuestas: EncuestasService, private servicioLocalStorage: ServicioLocalStorage, private activatedRoute: ActivatedRoute) {
+  constructor(
+    private servicioEncuestas: EncuestasService, 
+    private servicioLocalStorage: ServicioLocalStorage, 
+    private activatedRoute: ActivatedRoute
+  ) {
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
     this.rol = this.servicioLocalStorage.obtenerRol()
+    
     this.activatedRoute.params.subscribe({
       next: (params) =>{
         this.idEncuesta = Number(params['idEncuesta'])
