@@ -14,6 +14,7 @@ export class ListadoEncuestasComponent implements OnInit {
   usuario: Usuario | null
   rol: Rol | null
   reportes: ResumenReporte[] = []
+  idEncuesta = 1
 
   constructor(private servicioEncuestas: EncuestasService, private servicioLocalStorage: ServicioLocalStorage) { 
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
@@ -21,9 +22,9 @@ export class ListadoEncuestasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.servicioEncuestas.obtenerEncuestasTysa(this.usuario!.id).subscribe({
-      next: (reportes)=>{
-        this.reportes = reportes
+    this.servicioEncuestas.obtenerEncuestas(this.usuario!.usuario, this.idEncuesta).subscribe({
+      next: ( respuesta )=>{
+        this.reportes = respuesta.reportadas
       }
     })
   }

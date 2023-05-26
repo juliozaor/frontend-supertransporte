@@ -21,19 +21,19 @@ export class PaginaEncuestaComponent implements OnInit {
     private servicioLocalStorage: ServicioLocalStorage, 
     private activeRoute: ActivatedRoute
   ) {
-    const usuario = servicioLocalStorage.obtenerUsuario()
-    const rol = servicioLocalStorage.obtenerRol()
-    this.idUsuario = usuario!.id
+    const usuario = this.servicioLocalStorage.obtenerUsuario()
+    const rol = this.servicioLocalStorage.obtenerRol()
+    this.idUsuario = usuario!.usuario
     if(rol && rol.id === '003'){
-      /* this.idVigilado = usuario!.id */
-      this.idVigilado = '111'
+      this.idVigilado = usuario!.usuario
+      /* this.idVigilado = '111' */
     }else{
       this.idVigilado = '111'
     }
-    activeRoute.params.subscribe({
+    this.activeRoute.params.subscribe({
       next: (parametros)=>{
         this.idEncuesta = parametros['idEncuestaDiligenciada']
-        this.servicioEncuesta.obtenerEncuestaTysa(this.idUsuario, this.idVigilado, this.idEncuesta!).subscribe({
+        this.servicioEncuesta.obtenerEncuesta(this.idUsuario, this.idVigilado, this.idEncuesta!).subscribe({
           next: ( encuesta )=>{
             console.log(encuesta)
             this.encuesta = encuesta

@@ -2,19 +2,31 @@ import { Injectable } from '@angular/core';
 import { Encuesta } from '../modelos/Encuesta';
 import { HttpClient } from '@angular/common/http';
 import { ResumenReporte } from '../modelos/ResumenReporte';
+import { environment } from 'src/environments/environment';
+import { Autenticable } from 'src/app/administrador/servicios/compartido/Autenticable';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EncuestasService {
+export class EncuestasService extends Autenticable {
 
-  constructor(private http: HttpClient) { }
+  private readonly host = environment.urlBackend 
 
-  obtenerEncuestasTysa(idUsuario: string){
-    return this.http.get<ResumenReporte[]>(`https://tysa.co//alcaldiawilson/super/encuestas/listar.php?idUsuario=${idUsuario}`)
+  constructor(private http: HttpClient) { 
+    super()
   }
 
-  obtenerEncuestaTysa(idUsuario: string, idVigilado: string, idEncuesta: number){
-    return this.http.get<Encuesta>(`https://tysa.co//alcaldiawilson/super/encuestas/visualizar.php?idUsuario=${idUsuario}&idVigilado=${idVigilado}&idEncuesta=${idEncuesta}`)
+  obtenerEncuestas(idUsuario: string, idEncuesta: number){
+    return this.http.get<{ reportadas: ResumenReporte[]}>(
+      `${this.host}/api/v1/encuestas/listar?idUsuario=${idUsuario}&idEncuesta=${idEncuesta}`,
+      { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
+    )
+  }
+
+  obtenerEncuesta(idUsuario: string, idVigilado: string, idEncuesta: number){
+    return this.http.get<Encuesta>(
+      `${this.host}/api/v1/encuestas/visualizar?idUsuario=${idUsuario}&idVigilado=${idVigilado}&idEncuesta=${idEncuesta}`, 
+      { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
+    ) 
   }
 }
