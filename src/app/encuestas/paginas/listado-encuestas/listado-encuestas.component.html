@@ -22,17 +22,17 @@
                 </tr>
             </thead>
             <tbody class="fs-14px">
-                <tr *ngFor="let fila of [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] ; let i = index">
-                    <td><img [routerLink]="['/administrar', 'encuestas', 'abc-def']" class="cursor-pointer" src="assets/img/buscar-documento.png" alt="buscar-encuesta" draggable="false"></td>
-                    <td>{{ fila }}</td>
-                    <td>FORMULARIO ADAP/PESV</td>
-                    <td>AutoGestión para el Diagnóstico Anticipado y Preventivo del avance de documentación e implementación de los Planes Estratégicos de Seguridad Vial - PESV</td>
-                    <td>02/11/2022</td>
-                    <td>15/12/2023	</td>
-                    <td>15/12/2023</td>
-                    <td>TRANSPORTES AUTO ALFAN S.A.S - 800037047</td>
-                    <td>alfangruas@hotmail.com</td>
-                    <td>FORMULARIO EN BORRADOR</td>
+                <tr *ngFor="let reporte of reportes ; let i = index">
+                    <td><img [routerLink]="['/administrar', 'encuestas', reporte.idEncuestaDiligenciada]" class="cursor-pointer" src="assets/img/buscar-documento.png" alt="buscar-encuesta" draggable="false"></td>
+                    <td>{{ reporte.numeroReporte }}</td>
+                    <td>{{ reporte.encuesta }}</td>
+                    <td>{{ reporte.descripcion }}</td>
+                    <td>{{ reporte.fechaInicio }}</td>
+                    <td>{{ reporte.fechaFinal }}</td>
+                    <td>{{ reporte.fechaEnvioST }}</td>
+                    <td>{{ reporte.razonSocial }} - {{ reporte.nit }}</td>
+                    <td>{{ reporte.email }}</td>
+                    <td>{{ reporte.estado }}</td>
                 </tr>
             </tbody>
         </table>
