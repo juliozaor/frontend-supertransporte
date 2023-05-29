@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Rol } from 'src/app/autenticacion/modelos/Rol';
+import { Rol, Submodulo } from 'src/app/autenticacion/modelos/Rol';
 import { ServicioLocalStorage } from '../../servicios/local-storage.service';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { AutenticacionService } from 'src/app/autenticacion/servicios/autenticacion.service';
@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.rol = this.servicioLocalStorage.obtenerRol()
+    console.log(this.rol)
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
   }
 
@@ -39,5 +40,8 @@ export class MenuComponent implements OnInit {
   public cerrarSesion(){
     this.servicioAutenticacion.cerrarSesion()
     this.router.navigateByUrl('/inicio-sesion')
+  }
+  imprimirRuta(submodulo: Submodulo){
+    console.log(`/administrar${submodulo.ruta}`)
   }
 }

@@ -10,12 +10,15 @@
 }
 .modulo{
     position: relative;
+}
+.nombre-modulo{
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 14px;
-    padding: 23px 18px 26px;
     cursor: pointer;
+    padding: 23px 18px 26px;
+    font-size: 14px;
 }
 .modulo:hover::after{
     content: "";
@@ -38,6 +41,9 @@
     display: block;
 }
 .submodulo{
-    padding: 8px 15px;
     border-bottom: 1px solid black;
+    cursor: pointer;
+}
+.nombre-submodulo{
+    padding: 8px 15px;
 }

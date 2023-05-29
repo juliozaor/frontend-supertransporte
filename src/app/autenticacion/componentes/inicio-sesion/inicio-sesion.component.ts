@@ -46,10 +46,16 @@ export class InicioSesionComponent implements OnInit {
         if (respuesta.claveTemporal === true) {
           this.enrutador.navigateByUrl('/actualizar-contrasena')
         } else {
-          if(respuesta.rol.modulos.length > 0)
-            this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].ruta}`);
-          else
+          if(respuesta.rol.modulos.length > 0){
+            if(!respuesta.rol.modulos[0].ruta && respuesta.rol.modulos[0].submodulos.length > 0){
+              this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].submodulos[0].ruta}`);
+            }else{
+              this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].ruta}`);
+            }
+          }
+          else{
             this.enrutador.navigateByUrl(`/administrar`);
+          }
         }
       },
 
