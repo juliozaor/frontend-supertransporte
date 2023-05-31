@@ -12,6 +12,7 @@ import { PaginaInformacionGeneralVigiladoComponent } from './paginas/pagina-info
 import { PaginaSoporteComponent } from './paginas/pagina-soporte/pagina-soporte.component';
 import { InputsModule } from '../inputs/inputs.module';
 import { AlertasModule } from '../alertas/alertas.module';
+import { SoportesModule } from '../soportes/soportes.module';
 
 
 
@@ -27,6 +28,7 @@ import { AlertasModule } from '../alertas/alertas.module';
     CommonModule,
     AdministradorRoutingModule,
     EncuestasModule,
+    SoportesModule,
     ReactiveFormsModule,
     InputsModule,
     AlertasModule,

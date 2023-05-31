@@ -5,6 +5,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AlertaComponent } from './componentes/alerta/alerta.component';
 import { ValidacionComponent } from './componentes/validacion/validacion.component';
 import { LoadingComponent } from './componentes/loading/loading.component';
+import { NotificacionComponent } from './componentes/notificacion/notificacion.component';
 
 
 
@@ -14,6 +15,7 @@ import { LoadingComponent } from './componentes/loading/loading.component';
     AlertaComponent,
     ValidacionComponent,
     LoadingComponent,
+    NotificacionComponent,
   ],
   imports: [
     CommonModule,

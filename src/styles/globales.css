@@ -22,7 +22,9 @@ input[type=number] {
 .max-width-300px{max-width: 300px;}
 .max-width-400px{max-width: 400px;}
 
-.fondo-gris{background-color: #B7B7B7;}
+.fondo-gris-2{background-color: #B7B7B7;}
+.fondo-gris-1{background-color: #f6f8f9;}
+
 .fondo-azul-degradado{background: linear-gradient(241deg, var(--azul) 30%, var(--azul-oscuro) 100%);}
 .fondo-celeste{background-color: #A8D8ED}
 
@@ -273,4 +275,12 @@ input[type=number] {
   background-color: transparent;
   border-radius: 50%;
   border-top: 2px solid ;
+}
+
+.encabezado-tabla{
+  background-color: #E6EFFD !important;
+  color: #004884;
+  padding: 12px 15px;
+  text-align: center;
+  vertical-align: middle;
 }

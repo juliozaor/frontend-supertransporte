@@ -12,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./listado-encuestas.component.css']
 })
 export class ListadoEncuestasComponent implements OnInit {
+  usuarioCategorizado: boolean = true
+  encuestaCategorizable: boolean = true
   usuario: Usuario | null
   rol: Rol | null
   reportes: ResumenReporte[] = []
@@ -25,8 +27,18 @@ export class ListadoEncuestasComponent implements OnInit {
   ) {
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
     this.rol = this.servicioLocalStorage.obtenerRol()
-    
-    this.activatedRoute.params.subscribe({
+  }
+
+  ngOnInit(): void {
+    if(!this.usuarioCategorizado && this.encuestaCategorizable){
+      // redireccion
+      return;
+    }
+    this.obtenerEncuestas(1)
+  }
+
+  obtenerEncuestas(idEncuesta: number){
+    return this.activatedRoute.params.subscribe({
       next: (params) =>{
         this.idEncuesta = Number(params['idEncuesta'])
         this.servicioEncuestas.obtenerEncuestas(this.usuario!.usuario, this.idEncuesta).subscribe({
@@ -36,9 +48,6 @@ export class ListadoEncuestasComponent implements OnInit {
         })
       }
     })
-  }
-
-  ngOnInit(): void {
   }
 
 }

@@ -1,50 +1,53 @@
 import { Observable } from "rxjs"
 import { Paginacion } from "./Paginacion"
 
-export class Paginador {
+export class Paginador<T>{
     public readonly opcionesLimiteRegistros = [ 5, 10, 15, 20, 30 ]
-    private readonly limiteRegistrosPorDefecto = 5
+    private readonly limitePorDefecto = 5
     private readonly paginaActualPorDefecto = 1
     private _totalRegistros?: number
-    private _paginaActual: number
+    private _pagina: number
     private _totalPaginas?: number
-    private _limiteRegistros: number
-    _funcionObtenerRecursos: (pagina: number, limite: number, ...args:any) => Observable<Paginacion>
+    private _limite: number
+    private _filtros?: T
+    private _funcionObtenerRecursos: (pagina: number, limite: number, filtros?: T) => Observable<Paginacion>
 
-    constructor(funcionObtenerRecursos: (pagina: number, limite: number, ...args:any)=> Observable<Paginacion>) {
-        this._limiteRegistros = this.limiteRegistrosPorDefecto
-        this._paginaActual = this.paginaActualPorDefecto
+    constructor(funcionObtenerRecursos: (pagina: number, limite: number, filtros?: T)=> Observable<Paginacion>) {
+        this._limite = this.limitePorDefecto
+        this._pagina = this.paginaActualPorDefecto
         this._funcionObtenerRecursos = funcionObtenerRecursos
-        console.log(funcionObtenerRecursos)
     }
 
-    inicializarPaginacion(
+    inicializar(
         pagina:number = this.paginaActualPorDefecto, 
-        limite: number = this.limiteRegistrosPorDefecto, 
-        ...argumentos:any
+        limite: number = this.limitePorDefecto, 
+        filtros?: T
     ){
-        this._funcionObtenerRecursos(pagina, limite, ...argumentos).subscribe({
+        this._pagina = pagina
+        this._limite = limite
+        this._filtros = filtros
+        this._funcionObtenerRecursos(pagina, limite, filtros).subscribe({
             next: (paginacion) => {
                 this.cambiarTotales(paginacion)
             }
         })
     }
 
-    cambiarLimitePorPagina(nuevoLimite: number, ...argumentos: any){
-        this._limiteRegistros = nuevoLimite;
-        if(!this._paginaActual){
+    cambiarLimitePorPagina(nuevoLimite: number){
+        this._limite = nuevoLimite;
+        if(!this._pagina){
             throw Error('No se ha establecido una pagina actual');
         }
-        this._funcionObtenerRecursos(this._paginaActual, nuevoLimite, ...argumentos).subscribe({
+        this._funcionObtenerRecursos(this.pagina, nuevoLimite, this._filtros).subscribe({
             next: (paginacion) => {
                 this.cambiarTotales(paginacion)
             }
         })
     }
 
-    cambiarPagina(pagina: number, ...argumentos: any){
-        this._paginaActual = pagina
-        this._funcionObtenerRecursos(pagina, this._limiteRegistros, ...argumentos).subscribe({
+    cambiarPagina(pagina: number){
+        this._pagina = pagina
+        this._funcionObtenerRecursos(pagina, this._limite, this._filtros).subscribe({
             next: (paginacion) => {
                 this.cambiarTotales(paginacion)
             }
@@ -62,10 +65,10 @@ export class Paginador {
     public get totalPaginas(){
         return this._totalPaginas
     }
-    public get paginaActual(){
-        return this._paginaActual
+    public get pagina(){
+        return this._pagina
     }
-    public get limiteRegistros(){
-        return this._limiteRegistros
+    public get limite(){
+        return this._limite
     }
 }

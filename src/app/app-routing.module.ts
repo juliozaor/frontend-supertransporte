@@ -10,6 +10,7 @@ import { PaginaEncuestaComponent } from './encuestas/paginas/pagina-encuesta/pag
 import { PaginaInformacionGeneralVigiladoComponent } from './administrador/paginas/pagina-informacion-general-vigilado/pagina-informacion-general-vigilado.component';
 import { PaginaSoporteComponent } from './administrador/paginas/pagina-soporte/pagina-soporte.component';
 import { PaginaSoportesComponent } from './soportes/paginas/pagina-soportes/pagina-soportes.component';
+import { PaginaResponderSoporteComponent } from './soportes/paginas/pagina-responder-soporte/pagina-responder-soporte.component';
 
 
 
@@ -34,6 +35,10 @@ const routes: Routes = [
       {
         path: 'soporte',
         component: PaginaSoporteComponent
+      },
+      {
+        path: 'responder-soporte/:idSoporte',
+        component: PaginaResponderSoporteComponent
       },
       {
         path: 'soportes',
