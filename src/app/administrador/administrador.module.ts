@@ -13,6 +13,7 @@ import { PaginaSoporteComponent } from './paginas/pagina-soporte/pagina-soporte.
 import { InputsModule } from '../inputs/inputs.module';
 import { AlertasModule } from '../alertas/alertas.module';
 import { SoportesModule } from '../soportes/soportes.module';
+import { CategorizacionModule } from '../categorizacion/categorizacion.module';
 
 
 
@@ -29,6 +30,7 @@ import { SoportesModule } from '../soportes/soportes.module';
     AdministradorRoutingModule,
     EncuestasModule,
     SoportesModule,
+    CategorizacionModule,
     ReactiveFormsModule,
     InputsModule,
     AlertasModule,

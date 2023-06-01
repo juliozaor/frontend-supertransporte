@@ -11,6 +11,7 @@ import { PaginaInformacionGeneralVigiladoComponent } from './administrador/pagin
 import { PaginaSoporteComponent } from './administrador/paginas/pagina-soporte/pagina-soporte.component';
 import { PaginaSoportesComponent } from './soportes/paginas/pagina-soportes/pagina-soportes.component';
 import { PaginaResponderSoporteComponent } from './soportes/paginas/pagina-responder-soporte/pagina-responder-soporte.component';
+import { PaginaCategorizacion } from './categorizacion/paginas/pagina-categorizacion/pagina-categorizacion.component';
 
 
 
@@ -43,6 +44,10 @@ const routes: Routes = [
       {
         path: 'soportes',
         component: PaginaSoportesComponent
+      },
+      {
+        path: 'categorizacion',
+        component: PaginaCategorizacion
       }
     ]
   },

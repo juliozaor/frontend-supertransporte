@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { IniciarSesionRespuesta } from '../../modelos/IniciarSesionRespuesta';
 import { AutenticacionService } from '../../servicios/autenticacion.service';
 import { ModalRecuperacionContrasenaComponent } from '../modal-recuperacion-contrasena/modal-recuperacion-contrasena.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -15,12 +16,14 @@ import { ModalRecuperacionContrasenaComponent } from '../modal-recuperacion-cont
 export class InicioSesionComponent implements OnInit {
   @ViewChild('modalRecuperacion') modalRecuperacion!: ModalRecuperacionContrasenaComponent
   public formulario: FormGroup
+  public readonly llaveCaptcha = environment.llaveCaptcha
 
 
   constructor(private servicioAutenticacion: AutenticacionService, private enrutador: Router) {
     this.formulario = new FormGroup({
       usuario: new FormControl('', [Validators.required]),
-      clave: new FormControl('', [Validators.required])
+      clave: new FormControl('', [Validators.required]),
+      captcha: new FormControl(false, [Validators.required])
     })
   }
 
@@ -28,7 +31,6 @@ export class InicioSesionComponent implements OnInit {
   }
 
   public iniciarSesion(): void {
-    console.log('iniciar sesión')
     if (this.formulario.invalid) {
       this.marcarFormularioComoSucio()
       return;

@@ -40,7 +40,7 @@
             Ingrese su contraseña
           </span>
         </fieldset>
-<!--         <fieldset class="mb-3 d-flex align-items-start">
+        <fieldset class="mb-3 d-flex align-items-start">
           <div class="d-block" [ngClass]="{'input-error':this.formulario.controls['captcha'].errors &&
                   this.formulario.controls['captcha'].dirty && this.formulario.controls['captcha'].errors['required']}">
             <ngx-recaptcha2 #captchaElem [siteKey]="llaveCaptcha" [useGlobalDomain]="false" [theme]="'light'"
@@ -51,7 +51,7 @@
               Debe marcar en check
             </span>
           </div>
-        </fieldset> -->
+        </fieldset>
         <fieldset>
           <button type="button" class="boton primario relleno fs-14px" (click)="this.iniciarSesion()"
             (keyup.enter)="this.iniciarSesion()">Ingresar</button>

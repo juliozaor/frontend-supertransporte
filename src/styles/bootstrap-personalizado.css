@@ -48,20 +48,14 @@
     display: none;
     visibility: hidden;
 }
-/* .form-control[type='file']::before{
-    position: absolute;
-    right: 0;
-    top: -1px;
-    content: 'Cargar imagen';
-    color: var(--rojo-flamingo);
-    height: 40px;
-    padding: 0 10px;
-    line-height: 3;
-    font-size: 12px;
-    font-weight: bold;
-    outline: none;
-    white-space: nowrap;
-} */
+input.form-control[type='number']::-webkit-outer-spin-button,
+input.form-control[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input.form-control[type=number] {
+  -moz-appearance: textfield;
+}
 
 .form-select {
     display: block;

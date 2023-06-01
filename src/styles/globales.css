@@ -4,19 +4,13 @@
     text-decoration: none;
     list-style: none;
     margin: 0;
+    box-sizing: border-box !important;
 }
 body{
     background-color: #FFF;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input[type=number] {
-  -moz-appearance: textfield;
-}
+
 
 .max-width-200px{max-width: 200px;}
 .max-width-300px{max-width: 300px;}
@@ -24,9 +18,8 @@ input[type=number] {
 
 .fondo-gris-2{background-color: #B7B7B7;}
 .fondo-gris-1{background-color: #f6f8f9;}
-
-.fondo-azul-degradado{background: linear-gradient(241deg, var(--azul) 30%, var(--azul-oscuro) 100%);}
-.fondo-celeste{background-color: #A8D8ED}
+.fondo-primario{background-color: var(--azul) !important;}
+.fondo-secundario{background-color: #e6effd !important;}
 
 .cursor-pointer{
     cursor: pointer;
