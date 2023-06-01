@@ -13,13 +13,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr height="37px" *ngFor="let fila of categoria.filas"> 
+                <tr #fila height="37px" *ngFor="let fila of categoria.filas ; let nFila = index"> 
                     <td height="37px">{{ fila.nombre }}</td>
                     <td height="37px" 
                     class="border p-0" 
-                    *ngFor="let dato of fila.datos">
+                    *ngFor="let dato of fila.datos ; let nColumna = index">
                         <app-selector-cantidad
-                        #selectores
+                        #selector
+                        [fila]="nFila"
+                        [columna]="nColumna"
                         [valor]="dato.valor ? +dato.valor : null" 
                         (nuevoValor)="calcularTotal()"/>
                     </td>
@@ -27,8 +29,8 @@
             </tbody>
         </table>
     </div>
-    <div class="col-sm-12 col-md-3 d-flex align-items-center justify-content-center">
-        <table  class="table border fs-14px">
+    <div class="col-sm-12 col-md-3 d-flex flex-column align-items-center justify-content-center">
+        <table  class="table border fs-14px" [ngClass]="clases">
             <thead>
                 <tr>
                     <th class="fondo-secundario texto-primario">Total</th>
@@ -40,5 +42,6 @@
                 </tr>
             </tbody>
         </table>
+        <span *ngIf="hayInconsistencia" class="validacion fs-12px">Los totales no coinciden.</span>
     </div>
 </div>

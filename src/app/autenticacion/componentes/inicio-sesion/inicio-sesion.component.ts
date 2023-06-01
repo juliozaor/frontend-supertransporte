@@ -23,7 +23,7 @@ export class InicioSesionComponent implements OnInit {
     this.formulario = new FormGroup({
       usuario: new FormControl('', [Validators.required]),
       clave: new FormControl('', [Validators.required]),
-      captcha: new FormControl(false, [Validators.required])
+      captcha: new FormControl(undefined, [Validators.required])
     })
   }
 
