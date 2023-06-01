@@ -5,8 +5,7 @@
 export const environment = {
   production: false,
   urlBackend: 'http://127.0.0.1:3333',
-  rutaZonaPagos: '/wordpress/zona-pagos',
-  urlPoliticasDePrivacidad: 'https://novafianza.com/politicas-de-privacidad/',
+  urlBackendVigia: 'http://127.0.0.1:3334',
   llaveCaptcha: '6LemnwgjAAAAAD4NV9ROf1inZOsO5tmM71nNfaQn'
 };
 

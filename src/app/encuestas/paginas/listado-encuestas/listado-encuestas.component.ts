@@ -4,7 +4,8 @@ import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { Rol } from 'src/app/autenticacion/modelos/Rol';
 import { EncuestasService } from '../../servicios/encuestas.service';
 import { ResumenReporte } from '../../modelos/ResumenReporte';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CategorizacionService } from 'src/app/categorizacion/servicios/categorizacion.service';
 
 @Component({
   selector: 'app-listado-encuestas',
@@ -21,31 +22,40 @@ export class ListadoEncuestasComponent implements OnInit {
   idEncuesta?: number
 
   constructor(
-    private servicioEncuestas: EncuestasService, 
+    private servicioEncuestas: EncuestasService,
+    private servicioCategorizacion: CategorizacionService,
     private servicioLocalStorage: ServicioLocalStorage, 
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
     this.rol = this.servicioLocalStorage.obtenerRol()
   }
 
   ngOnInit(): void {
-    if(!this.usuarioCategorizado && this.encuestaCategorizable){
-      // redireccion
-      return;
-    }
-    this.obtenerEncuestas(1)
+    this.activatedRoute.params.subscribe({
+      next: (params) =>{
+        console.log('obteniendo parametros')
+        this.idEncuesta = Number(params['idEncuesta'])
+        this.servicioCategorizacion.informacionCategorizacion(this.idEncuesta).subscribe({
+          next: ( informacion )=>{
+            console.log('obteniendo información', informacion)
+            if(!informacion.categorizado && informacion.encuestaCategorizable){
+              this.router.navigateByUrl('/administrar/categorizacion')
+              return;
+            }
+            this.obtenerEncuestas(this.idEncuesta!)
+          }
+        })
+      }
+    })
   }
 
   obtenerEncuestas(idEncuesta: number){
-    return this.activatedRoute.params.subscribe({
-      next: (params) =>{
-        this.idEncuesta = Number(params['idEncuesta'])
-        this.servicioEncuestas.obtenerEncuestas(this.usuario!.usuario, this.idEncuesta).subscribe({
-          next: ( respuesta )=>{
-            this.reportes = respuesta.reportadas
-          }
-        })
+    this.idEncuesta = idEncuesta
+    this.servicioEncuestas.obtenerEncuestas(this.usuario!.usuario, this.idEncuesta).subscribe({
+      next: ( respuesta )=>{
+        this.reportes = respuesta.reportadas
       }
     })
   }

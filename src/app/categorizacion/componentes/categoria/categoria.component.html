@@ -1,28 +1,33 @@
 <div class="row">
-    <div class="col-sm-12 col-md-8">
+    <div class="col-sm-12 col-md-9">
         <table class="table fs-14px">
             <thead>
                 <tr>
-                    <th width="300px">Rol en la vía</th> <!-- titulo categoria -->
+                    <th width="300px">{{ categoria.nombre }}</th> <!-- titulo categoria -->
                     <!-- ----------------------------------- -->
-                    <th>Eléctrico</th>
-                    <th>Gasolina</th>
-                    <th>Mecánica</th>
+                    <th 
+                    class="border fondo-secundario texto-primario" 
+                    *ngFor="let cabecera of categoria.cabeceras">
+                        {{ cabecera }}
+                    </th>   
                 </tr>
             </thead>
             <tbody>
-                <tr height="37px" *ngFor="let fila of ['Ciclista', 'Motociclista', 'Conductor Vehículo particular']"> 
-                    <td height="37px">{{ fila }}</td>
+                <tr height="37px" *ngFor="let fila of categoria.filas"> 
+                    <td height="37px">{{ fila.nombre }}</td>
                     <td height="37px" 
                     class="border p-0" 
-                    *ngFor="let valor of [1, 2, 3]">
-                        <app-selector-cantidad [valor]="valor" (cambio)="$event"/>
+                    *ngFor="let dato of fila.datos">
+                        <app-selector-cantidad
+                        #selectores
+                        [valor]="dato.valor ? +dato.valor : null" 
+                        (nuevoValor)="calcularTotal()"/>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="col-sm-12 col-md-4 d-flex align-items-center justify-content-center">
+    <div class="col-sm-12 col-md-3 d-flex align-items-center justify-content-center">
         <table  class="table border fs-14px">
             <thead>
                 <tr>
@@ -31,7 +36,7 @@
             </thead>
             <tbody>
                 <tr> 
-                    <td height="37px">20</td>
+                    <td height="37px">{{ total }}</td>
                 </tr>
             </tbody>
         </table>

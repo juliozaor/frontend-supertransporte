@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ModalidadRadio } from '../../modelos/Categorizacion';
 
 @Component({
   selector: 'app-formulario-modalidad-radio-operacion',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./formulario-modalidad-radio-operacion.component.css']
 })
 export class FormularioModalidadRadioOperacionComponent {
-
+  @Input('modalidadRadio') modalidadRadio!: ModalidadRadio
 }

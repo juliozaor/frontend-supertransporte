@@ -1,7 +1,6 @@
 export const environment = {
   production: true,
   urlBackend: 'https://novafianza.com:4333',
-  rutaZonaPagos: '/zona-pagos',
-  urlPoliticasDePrivacidad: 'https://novafianza.com/politicas-de-privacidad/',
+  urlBackendVigia: 'http://127.0.0.1:3334',
   llaveCaptcha: '6LemnwgjAAAAAD4NV9ROf1inZOsO5tmM71nNfaQn'
 }; 

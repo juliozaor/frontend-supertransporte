@@ -1,14 +1,17 @@
 <table class="tabla-modalidad-radio table border mb-1">
     <thead>
         <tr class="fs-14px  fondo-secundario texto-primario">
-            <th class="w-50 fw-semibold">Modalidad</th>
-            <th class="w-50 fw-semibold">Radio de acción u operación</th>
+            <th class="w-50 fw-semibold" *ngFor="let cabecera of modalidadRadio.cabeceras">{{ cabecera }}</th>
         </tr>
     </thead>
     <tbody>
-        <tr class="fs-14px">
+        <tr class="fs-14px" *ngIf="modalidadRadio.filas.length === 0">
             <td>-</td>
             <td>-</td>
+        </tr>
+        <tr class="fs-14px" *ngFor="let fila of modalidadRadio.filas">
+            <td>{{ fila.modalidad }}</td>
+            <td>{{ fila.radio }}</td>
         </tr>
     </tbody>
 </table>
