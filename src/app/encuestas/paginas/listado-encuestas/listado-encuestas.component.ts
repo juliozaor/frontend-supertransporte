@@ -6,6 +6,9 @@ import { EncuestasService } from '../../servicios/encuestas.service';
 import { ResumenReporte } from '../../modelos/ResumenReporte';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategorizacionService } from 'src/app/categorizacion/servicios/categorizacion.service';
+import { Paginador } from 'src/app/administrador/modelos/compartido/Paginador';
+import { Observable } from 'rxjs';
+import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 
 @Component({
   selector: 'app-listado-encuestas',
@@ -13,6 +16,7 @@ import { CategorizacionService } from 'src/app/categorizacion/servicios/categori
   styleUrls: ['./listado-encuestas.component.css']
 })
 export class ListadoEncuestasComponent implements OnInit {
+  paginador: Paginador<number>
   usuarioCategorizado: boolean = true
   encuestaCategorizable: boolean = true
   usuario: Usuario | null
@@ -28,6 +32,7 @@ export class ListadoEncuestasComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
+    this.paginador = new Paginador<number>(this.obtenerEncuestas)
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
     this.rol = this.servicioLocalStorage.obtenerRol()
   }
@@ -44,19 +49,21 @@ export class ListadoEncuestasComponent implements OnInit {
               this.router.navigateByUrl('/administrar/categorizacion')
               return;
             }
-            this.obtenerEncuestas(this.idEncuesta!)
+            this.paginador.inicializar()
           }
         })
       }
     })
   }
 
-  obtenerEncuestas(idEncuesta: number){
-    this.idEncuesta = idEncuesta
-    this.servicioEncuestas.obtenerEncuestas(this.usuario!.usuario, this.idEncuesta).subscribe({
-      next: ( respuesta )=>{
-        this.reportes = respuesta.reportadas
-      }
+  obtenerEncuestas = (pagina: number, limite: number)=> {
+    return new Observable<Paginacion>(subscriptor => {
+      this.servicioEncuestas.obtenerEncuestas(pagina, limite, this.usuario!.usuario, this.idEncuesta!).subscribe({
+        next: ( respuesta )=>{
+          this.reportes = respuesta.reportadas
+          subscriptor.next(respuesta.paginacion)
+        }
+      })
     })
   }
 

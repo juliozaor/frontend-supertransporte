@@ -40,5 +40,12 @@
             </tbody>
         </table>
     </div>
-    <ngb-pagination [collectionSize]="100" [page]="1" [boundaryLinks]="true"></ngb-pagination>
+    <div class="d-flex align-items-center justify-content-center">
+        <ngb-pagination 
+        [collectionSize]="this.paginador.totalRegistros ?? 0" 
+        [page]="this.paginador.pagina"
+        (pageChange)="this.paginador.cambiarPagina($event)"
+        [pageSize]="this.paginador.limite"
+        ></ngb-pagination>
+    </div>
 </div>

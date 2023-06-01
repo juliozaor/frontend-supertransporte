@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ResumenReporte } from '../modelos/ResumenReporte';
 import { environment } from 'src/environments/environment';
 import { Autenticable } from 'src/app/administrador/servicios/compartido/Autenticable';
+import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,9 @@ export class EncuestasService extends Autenticable {
     super()
   }
 
-  obtenerEncuestas(idUsuario: string, idEncuesta: number){
-    return this.http.get<{ reportadas: ResumenReporte[]}>(
-      `${this.host}/api/v1/encuestas/listar?idUsuario=${idUsuario}&idEncuesta=${idEncuesta}`,
+  obtenerEncuestas(pagina:number, limite: number, idUsuario: string, idEncuesta: number){
+    return this.http.get<{ reportadas: ResumenReporte[], paginacion: Paginacion}>(
+      `${this.host}/api/v1/encuestas/listar?pagina=${pagina}&limite=${limite}&idUsuario=${idUsuario}&idEncuesta=${idEncuesta}`,
       { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
     )
   }
