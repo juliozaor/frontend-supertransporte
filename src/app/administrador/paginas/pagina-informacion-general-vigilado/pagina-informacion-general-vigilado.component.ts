@@ -30,7 +30,12 @@ export class PaginaInformacionGeneralVigiladoComponent implements OnInit {
       numeroDocuRepresentante: new FormControl({ value: undefined, disabled: true }),
       nombreRepresentante: new FormControl({ value: undefined, disabled: true }),
       apellidoRepresentante: new FormControl({ value: undefined, disabled: true }),
-      correoElectronicoRepres: new FormControl({ value: undefined, disabled: true })
+      correoElectronicoRepres: new FormControl({ value: undefined, disabled: true }),
+      correoElectronico: new FormControl({ value: undefined, disabled: true}),
+      correoPrincipalNotificacion: new FormControl({ value: undefined, disabled: true}),
+      correoOpcionalNotificacion: new FormControl({ value: undefined, disabled: true}),
+      tipoDoc: new FormControl({ value: undefined, disabled: true}),
+      telefono: new FormControl({ value: undefined, disabled: true})
     })
     const usuario = localStorage.obtenerUsuario()
     if(!usuario){
@@ -69,6 +74,11 @@ export class PaginaInformacionGeneralVigiladoComponent implements OnInit {
     this.formulario.controls['numeroDocuRepresentante'].setValue( informacion.numeroDocuRepresentante) 
     this.formulario.controls['nombreRepresentante'].setValue( informacion.nombreRepresentante) 
     this.formulario.controls['apellidoRepresentante'].setValue( informacion.apellidoRepresentante) 
-    this.formulario.controls['correoElectronicoRepres'].setValue( informacion.correoElectronicoRepres) 
+    this.formulario.controls['correoElectronicoRepres'].setValue( informacion.correoElectronicoRepres)
+    this.formulario.controls['correoElectronico'].setValue(informacion.correoElectronico)
+    this.formulario.controls['correoPrincipalNotificacion'].setValue(informacion.correoPrincipalNotificacion)
+    this.formulario.controls['correoOpcionalNotificacion'].setValue(informacion.correoOpcionalNotificacion)
+    this.formulario.controls['telefono'].setValue(informacion.telefono)
+    this.formulario.controls['tipoDoc'].setValue(informacion.tipoDoc)
   }
 }

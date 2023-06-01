@@ -12,4 +12,9 @@ export interface InfoSistemaVigia {
     nombreRepresentante: string
     apellidoRepresentante: string
     correoElectronicoRepres: string
+    correoElectronico: string,
+    correoPrincipalNotificacion: string
+    correoOpcionalNotificacion: string
+    tipoDoc: string
+    telefono: string
 }
