@@ -40,11 +40,9 @@ export class ListadoEncuestasComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe({
       next: (params) =>{
-        console.log('obteniendo parametros')
         this.idEncuesta = Number(params['idEncuesta'])
         this.servicioCategorizacion.informacionCategorizacion(this.idEncuesta).subscribe({
           next: ( informacion )=>{
-            console.log('obteniendo información', informacion)
             if(!informacion.categorizado && informacion.encuestaCategorizable){
               this.router.navigateByUrl('/administrar/categorizacion')
               return;

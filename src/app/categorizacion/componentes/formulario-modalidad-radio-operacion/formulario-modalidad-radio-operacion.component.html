@@ -1,26 +1,85 @@
+
+<div class="d-flex my-3">
+    <button type="button" class="boton primario relleno" (click)="mostrarFormulario()">
+        Agregar
+    </button>
+</div>
 <table class="tabla-modalidad-radio table border mb-1">
     <thead>
-        <tr class="fs-14px  fondo-secundario texto-primario">
-            <th class="w-50 fw-semibold" *ngFor="let cabecera of modalidadRadio.cabeceras">{{ cabecera }}</th>
+        <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
+            <th class="fw-semibold"></th>
+            <th class="fw-semibold"></th>
+            <th class="fw-semibold" *ngFor="let cabecera of modalidadRadio.cabeceras">{{ cabecera }}</th>
         </tr>
     </thead>
     <tbody>
         <tr class="fs-14px" *ngIf="modalidadRadio.filas.length === 0">
+            <td colspan="2">-</td>
             <td>-</td>
             <td>-</td>
         </tr>
-        <tr class="fs-14px" *ngFor="let fila of modalidadRadio.filas">
+        <tr 
+        class="fs-14px" 
+        *ngFor="let fila of modalidadRadio.filas" 
+        [ngClass]="{ 'table-danger': esRegistroAEliminar(fila.id) }">
+            <td colspan="2">
+                <span
+                *ngIf="esRegistroAEliminar(fila.id)"
+                class="text-danger cursor-pointer" 
+                (click)="cancelarEliminacionRegistro(fila.id)">
+                    Cancelar
+                </span>
+                <span
+                *ngIf="!esRegistroAEliminar(fila.id)"
+                class="text-danger cursor-pointer" 
+                (click)="eliminarRegistro(fila.id)">
+                    Eliminar
+                </span>
+            </td>
             <td>{{ fila.modalidad }}</td>
             <td>{{ fila.radio }}</td>
         </tr>
+        <tr class="fs-14px table-success" *ngFor="let registro of registrosACrear ; let indice = index">
+            <td colspan="2"><span class="text-danger cursor-pointer" (click)="retirarDeRam(indice)">Cancelar</span></td>
+            <td>{{ nombreModalidad(registro.idModalidad!) }}</td>
+            <td>{{ nombreRadio(registro.idRadio!) }}</td>
+        </tr>
+        <tr class="fs-14px" [formGroup]="formulario" *ngIf="formularioVisible">
+            <td class="align-middle"><span class="text-danger cursor-pointer" (click)="ocultarFormulario()">Cancelar</span></td>
+            <td class="align-middle"><span class="text-success cursor-pointer" (click)="agregarARam()">Confirmar</span></td>
+            <td>
+                <select formControlName="idModalidad" style="max-width: 300px;" class="form-select">
+                    <option disabled value="">Selecciona una modalidad</option>
+                    <option *ngFor="let modalidad of modalidades" [value]="modalidad.id">{{ modalidad.nombre }}</option>
+                </select>
+                <app-validacion 
+                [control]="this.formulario.controls['idModalidad']" 
+                [validacion]="'required'"
+                [texto]="'Selecciona una modalidad.'" />
+            </td>
+            <td>
+                <select formControlName="idRadio" style="max-width: 300px; width: 300px;" class="form-select">
+                    <option disabled value="">Selecciona un radio de acción u operación</option>
+                    <option *ngFor="let radio of radios" [value]="radio.id">{{ radio.nombre }}</option>
+                </select>
+                <app-validacion 
+                [control]="this.formulario.controls['idRadio']" 
+                [validacion]="'required'"
+                [texto]="'Selecciona un radio.'" />
+            </td>
+        </tr>
     </tbody>
 </table>
-<form class="row">
+
+
+
+<!-- <form class="row">
     <div class="col-sm-12 col-md-6 p-3">
         <fieldset>
             <label class="fs-14px fw-semibold">Modalidad</label>
             <select class="form-select">
                 <option value="">Selecciona una modalidad</option>
+                <option *ngFor="let modalidad of modalidades" [value]="modalidad.id">{{ modalidad.nombre }}</option>
             </select>
         </fieldset>
     </div>
@@ -29,6 +88,7 @@
             <label class="fs-14px fw-semibold">Radio de acción u operación</label>
             <select class="form-select">
                 <option value="">Selecciona un radio de acción u operación</option>
+                <option *ngFor="let radio of radios" [value]="radio.id">{{ radio.nombre }}</option>
             </select>
         </fieldset>
     </div>
@@ -37,4 +97,4 @@
             Agregar modalidad
         </button>
     </fieldset>
-</form>
+</form> -->

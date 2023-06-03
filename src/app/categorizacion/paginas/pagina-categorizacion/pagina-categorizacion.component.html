@@ -8,14 +8,17 @@
     </div>
     <section class="mb-4 p-3">
         <h3 class="fs-18px fw-semibold texto-azul-004884 mb-3 mt-3 w-100">Datos de modalidad y radio de acción.</h3>
-        <!-- <h3 class="fs-16px texto-azul-004884 fw-semibold mb-3">Modalidad</h3> -->
-        <app-formulario-modalidad-radio-operacion [modalidadRadio]="filtros.modalidadRadio"/>
+        <app-formulario-modalidad-radio-operacion
+        #formularioModalidades
+        [modalidadRadio]="filtros.modalidadRadio"/>
         <hr>
     </section>
     <section class="mb-4 p-3">
-        <app-tipo-categoria *ngFor="let tipoCategoria of filtros.tipoCategoria" [tipoCategoria]="tipoCategoria"></app-tipo-categoria>
+        <app-tipo-categoria #tipoCategoria *ngFor="let tipoCategoria of filtros.tipoCategoria" [tipoCategoria]="tipoCategoria"></app-tipo-categoria>
     </section>
     <div class="d-flex align-items-center justify-content-end">
-        <button type="button" class="boton primario relleno mb-5">Guardar</button>
+        <button type="button" class="boton primario relleno mb-5" (click)="guardarInformacion()">Guardar</button>
     </div>
 </div>
+<app-modal-confirmacion #modalConfirmacion></app-modal-confirmacion>
+<app-popup #popup />

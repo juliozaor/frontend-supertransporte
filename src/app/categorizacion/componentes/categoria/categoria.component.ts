@@ -1,5 +1,5 @@
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
-import { CategoriaClasificacion, CategoriaClasificacionFila } from '../../modelos/Categorizacion';
+import { CategoriaClasificacion, CategoriaClasificacionFila, Dato } from '../../modelos/Categorizacion';
 import { SelectorCantidadComponent } from '../selector-cantidad/selector-cantidad.component';
 
 @Component({
@@ -10,7 +10,6 @@ import { SelectorCantidadComponent } from '../selector-cantidad/selector-cantida
 export class CategoriaComponent implements OnInit, AfterViewInit, AfterViewChecked {
   @Output('cambioTotal') cambioTotal: EventEmitter<number>
   @Input('categoria') categoria!: CategoriaClasificacion
-  @ViewChildren('fila') filas!: QueryList<ElementRef<HTMLElement>>
   @ViewChildren('selector') selectores!: QueryList<SelectorCantidadComponent>
   total: number = 0
   especial = false
@@ -19,7 +18,6 @@ export class CategoriaComponent implements OnInit, AfterViewInit, AfterViewCheck
   
   constructor(){
     this.cambioTotal = new EventEmitter<number>()
-    
   }
 
   ngAfterViewChecked(): void {}
@@ -87,5 +85,18 @@ export class CategoriaComponent implements OnInit, AfterViewInit, AfterViewCheck
   informarEstado(hayInconsistencia: boolean){
     this.hayInconsistencia = hayInconsistencia
     this.clases.invalido = hayInconsistencia
+  }
+
+  obtenerDatos(): Dato[]{
+    const datos: Dato[] = []
+    this.selectores.forEach( selector =>{
+      let dato: Dato = {
+        idColumna: selector.idColumna,
+        idFila: selector.idFila,
+        valor: selector.valor!.toString()
+      }
+      datos.push(dato)
+    })
+    return datos
   }
 }

@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, Input, QueryList, ViewChildren } from '@angular/core';
-import { TipoCategoria } from '../../modelos/Categorizacion';
+import { Dato, TipoCategoria } from '../../modelos/Categorizacion';
 import { CategoriaComponent } from '../categoria/categoria.component';
-import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-tipo-categoria',
@@ -11,6 +10,8 @@ import { timeout } from 'rxjs';
 export class TipoCategoriaComponent implements AfterViewInit {
   @Input('tipoCategoria') tipoCategoria!:TipoCategoria
   @ViewChildren('categoria') categorias!: QueryList<CategoriaComponent>
+  inconsistencia: boolean = false;
+  total: number = 0;
 
   ngAfterViewInit(): void {
     setTimeout(()=>{
@@ -21,7 +22,6 @@ export class TipoCategoriaComponent implements AfterViewInit {
   validarTotales(): boolean{
     let categoriaAnterior: CategoriaComponent | undefined
     let categoriaActual: CategoriaComponent
-    console.log(this.categorias)
     for (const categoria of this.categorias) {
       categoriaActual = categoria
       if(categoriaAnterior){
@@ -34,12 +34,29 @@ export class TipoCategoriaComponent implements AfterViewInit {
       continue;
     }
     this.existeInconsistencia(false)
+    this.establecerTotal()
     return true
   }
 
   existeInconsistencia(inconsistencia: boolean){
+    this.inconsistencia = inconsistencia;
     this.categorias.forEach( categoria => {
       categoria.informarEstado(inconsistencia)
     })
+  }
+
+  obtenerDatos(): Dato[]{
+    let datos: Dato[] = []
+    this.categorias.forEach( categoria => {
+      datos = [...datos, ...categoria.obtenerDatos()]
+    })
+    return datos
+  }
+
+  establecerTotal(){
+    const primeraCategoria = this.categorias.get(0)
+    if(primeraCategoria){
+      this.total = primeraCategoria.total
+    }
   }
 }

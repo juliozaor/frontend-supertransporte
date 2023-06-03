@@ -7,9 +7,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class SelectorCantidadComponent implements OnInit {
   @Output('nuevoValor') nuevoValor: EventEmitter<number>
-  @Input('fila') fila!: number
-  @Input('columna') columna!: number
-  @Input('valor') valor: number | null =  SelectorCantidadComponent.VALOR_POR_DEFECTO
+  @Input('fila') fila!            : number
+  @Input('columna') columna!      : number
+  @Input('idFila') idFila!        : number
+  @Input('idColumna') idColumna!  : number
+  @Input('valor') valor           : number | null =  SelectorCantidadComponent.VALOR_POR_DEFECTO
 
   static readonly VALOR_POR_DEFECTO = 0
   static readonly VALOR_MINIMO = 0

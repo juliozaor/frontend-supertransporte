@@ -45,7 +45,6 @@ export class ModalRecuperacionContrasenaComponent implements OnInit {
         this.popup.abrirPopupExitoso('Hemos enviado a su correo electronico las instrucciones para recuperar su contraseña')
         this.limpiarFormulario();
         this.servicioModal.dismissAll();
-        console.log(respuesta);
       }), (error: HttpErrorResponse) => {
         this.popup.abrirPopupFallido('Error')
         }

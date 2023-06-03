@@ -21,7 +21,9 @@
                         <app-selector-cantidad
                         #selector
                         [fila]="nFila"
+                        [idFila]="dato.idFila"
                         [columna]="nColumna"
+                        [idColumna]="dato.idColumna"
                         [valor]="dato.valor ? +dato.valor : null" 
                         (nuevoValor)="calcularTotal()"/>
                     </td>

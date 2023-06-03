@@ -24,6 +24,5 @@ export class EncuestaComponent implements OnInit {
     this.clasificaciones.forEach(clasificacion => {
       this.respuestas = [ ...this.respuestas, ...clasificacion.obtenerRespuestas()]
     })
-    console.log(this.respuestas)
   }
 }
