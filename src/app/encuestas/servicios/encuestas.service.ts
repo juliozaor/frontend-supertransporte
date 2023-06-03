@@ -19,14 +19,14 @@ export class EncuestasService extends Autenticable {
 
   obtenerEncuestas(pagina:number, limite: number, idUsuario: string, idEncuesta: number){
     return this.http.get<{ reportadas: ResumenReporte[], paginacion: Paginacion}>(
-      `${this.host}/api/v1/encuestas/listar?pagina=${pagina}&limite=${limite}&idUsuario=${idUsuario}&idEncuesta=${idEncuesta}`,
+      `${this.host}/api/v1/encuestas/listar?pagina=${pagina}&limite=${limite}&idVigilado=${idUsuario}&idEncuesta=${idEncuesta}`,
       { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
     )
   }
 
-  obtenerEncuesta(idUsuario: string, idVigilado: string, idEncuesta: number){
+  obtenerEncuesta(idVigilado: string, idEncuesta: number, idReporte: number){
     return this.http.get<Encuesta>(
-      `${this.host}/api/v1/encuestas/visualizar?idUsuario=${idUsuario}&idVigilado=${idVigilado}&idEncuesta=${idEncuesta}`, 
+      `${this.host}/api/v1/encuestas/visualizar?idVigilado=${idVigilado}&idEncuesta=${idEncuesta}&idReporte=${idReporte}`, 
       { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
     ) 
   }

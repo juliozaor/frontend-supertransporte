@@ -14,6 +14,7 @@ export class PaginaEncuestaComponent implements OnInit {
   usuario?: Usuario | null
   encuesta?: Encuesta
   idVigilado?: string
+  idReporte?: number
   idUsuario: string
   idEncuesta?: number
   soloLectura: boolean = true
@@ -29,12 +30,13 @@ export class PaginaEncuestaComponent implements OnInit {
     this.activeRoute.queryParams.subscribe({
       next: (qs) => {
         this.idVigilado = qs['vigilado']
+        this.idReporte = Number(qs['reporte'])
       }
     })
     this.activeRoute.params.subscribe({
       next: (parametros)=>{
         this.idEncuesta = parametros['idEncuestaDiligenciada']
-        this.servicioEncuesta.obtenerEncuesta(this.idUsuario, this.idVigilado!, this.idEncuesta!).subscribe({
+        this.servicioEncuesta.obtenerEncuesta(this.idVigilado!, this.idEncuesta!, this.idReporte!).subscribe({
           next: ( encuesta )=>{
             console.log(encuesta)
             this.encuesta = encuesta
