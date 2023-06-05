@@ -9,6 +9,7 @@ import { FormularioModalidadRadioOperacionComponent } from '../../componentes/fo
 import { PeticionGuardarCategorizacion } from '../../modelos/PeticionGuardarCategorizacion';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { ModalConfirmacionComponent } from '../../componentes/modal-confirmacion/modal-confirmacion.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagina-categorizacion',
@@ -23,7 +24,11 @@ export class PaginaCategorizacion implements OnInit {
   usuario: Usuario
   filtros?: Categorizacion
 
-  constructor(private localStorage: ServicioLocalStorage, private servicioCategorizacion: CategorizacionService){
+  constructor(
+    private localStorage: ServicioLocalStorage, 
+    private servicioCategorizacion: CategorizacionService,
+    private router: Router
+    ){
     const usuario = this.localStorage.obtenerUsuario()
     if(!usuario){
       throw new ErrorAutorizacion()
@@ -88,8 +93,9 @@ export class PaginaCategorizacion implements OnInit {
         }
         console.log(info)
         this.servicioCategorizacion.guardarInformacionCategorizacion(info).subscribe({
-          next: ()=>{
-            this.popup.abrirPopupExitoso('Información guardado con éxito')
+          next: (respuesta: any)=>{
+            this.popup.abrirPopupExitoso('Información guardado con éxito', 'Clasificado', respuesta.nombre)
+            this.router.navigateByUrl('/administrar/encuestas/1')
           }
         })
       },
