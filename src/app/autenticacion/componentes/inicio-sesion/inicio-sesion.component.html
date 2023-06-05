@@ -46,10 +46,10 @@
             <ngx-recaptcha2 #captchaElem [siteKey]="llaveCaptcha" [useGlobalDomain]="false" [theme]="'light'"
               formControlName='captcha' required>
             </ngx-recaptcha2>
-            <span class="validacion"
-              *ngIf="this.formulario.controls['captcha'].errors && this.formulario.controls['usuario'].dirty && this.formulario.controls['captcha'].errors['required']">
-              Debe marcar en check
-            </span>
+            <app-validacion
+            [texto]="'Debe marcar la casilla'"
+            [validacion]="'required'" 
+            [control]="this.formulario.controls['captcha']"/>
           </div>
         </fieldset>
         <fieldset>
