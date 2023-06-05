@@ -5,6 +5,7 @@ import { ResumenReporte } from '../modelos/ResumenReporte';
 import { environment } from 'src/environments/environment';
 import { Autenticable } from 'src/app/administrador/servicios/compartido/Autenticable';
 import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
+import { RespuestaEnviar } from '../modelos/RespuestaEnviar';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,10 @@ export class EncuestasService extends Autenticable {
       `${this.host}/api/v1/encuestas/visualizar?idVigilado=${idVigilado}&idEncuesta=${idEncuesta}&idReporte=${idReporte}`, 
       { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
     ) 
+  }
+
+  guardarRespuesta(idReporte: number, peticion: { respuestas: RespuestaEnviar[] }){
+    const enpoint = `/api/v1/respuestas/${idReporte}`
+    return this.http.post<{ mensaje: string }>(`${this.host}${enpoint}`, peticion, { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } })
   }
 }

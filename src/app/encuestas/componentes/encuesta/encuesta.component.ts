@@ -1,7 +1,11 @@
-import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Encuesta } from '../../modelos/Encuesta';
 import { ClasificacionEncuestaComponent } from '../clasificacion-encuesta/clasificacion-encuesta.component';
 import { Respuesta } from '../../modelos/Respuesta';
+import { RespuestaEnviar } from '../../modelos/RespuestaEnviar';
+import { EncuestasService } from '../../servicios/encuestas.service';
+import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-encuesta',
@@ -10,19 +14,45 @@ import { Respuesta } from '../../modelos/Respuesta';
 })
 export class EncuestaComponent implements OnInit {
   @Input('encuesta') encuesta!: Encuesta
+  @Input('idReporte') idReporte!: number
   @Input('soloLectura') soloLectura: boolean = true
   @ViewChildren('clasificacion') clasificaciones!: QueryList<ClasificacionEncuestaComponent>
+  @ViewChild('popup') popup!: PopupComponent
   respuestas: Respuesta[] = []
   
-  constructor() { }
+  constructor(private servicioEncuestas: EncuestasService) { }
 
   ngOnInit(): void {
   }
 
-  obtenerRespuestas(){
+  guardarRespuestas(){
+    this.servicioEncuestas.guardarRespuesta(this.idReporte, { respuestas: this.obtenerRespuestas() }).subscribe({
+      next: ( respuesta ) =>{
+        this.popup.abrirPopupExitoso(respuesta.mensaje)
+      },
+      error: (error: HttpErrorResponse) =>{
+        this.popup.abrirPopupFallido('Error', error.error.message)
+      }
+    })
+
+  }
+
+  obtenerRespuestas(): RespuestaEnviar[]{
     this.respuestas = []
     this.clasificaciones.forEach(clasificacion => {
       this.respuestas = [ ...this.respuestas, ...clasificacion.obtenerRespuestas()]
     })
+    return this.respuestas.map(respuesta => {
+      const respuestaEnviar: RespuestaEnviar = {
+        preguntaId: respuesta.preguntaId,
+        valor: respuesta.valor,
+        documento: '',
+        nombreArchivo: respuesta.documento ? respuesta.documento.name : undefined,
+        ruta: ''
+      }
+      return respuestaEnviar
+    })
   }
+
+
 }
