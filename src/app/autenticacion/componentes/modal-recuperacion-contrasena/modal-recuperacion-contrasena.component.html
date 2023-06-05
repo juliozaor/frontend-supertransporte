@@ -14,11 +14,16 @@
           <div class="col-6">
             <fieldset>
               <label for="usuario" class="fw-semibold">Usuario</label>
-              <input class="form-control" formControlName="usuario" type="number" required>
+              <input class="form-control" formControlName="usuario" type="text" required>
               <span class="validacion"
                     *ngIf="this.formulario.controls['usuario'].errors &&
                     this.formulario.controls['usuario'].dirty && this.formulario.controls['usuario'].errors['required']">
                     Ingrese su usuario
+                </span>
+              <span class="validacion"
+                    *ngIf="this.formulario.controls['usuario'].errors &&
+                    this.formulario.controls['usuario'].dirty && this.formulario.controls['usuario'].errors['pattern']">
+                    Debe tener almenos 6 dígitos.
                 </span>
             </fieldset>
           </div>
@@ -42,7 +47,7 @@
       </form>
     </div>
     <div class="modal-footer d-flex">
-      <button type="button" class="boton primario relleno ms-auto fw-semibold" (click)="this.recuperacion()">Enviar</button>
+      <button type="button" class="boton primario relleno ms-auto fw-semibold" (click)="recuperacion()">Enviar</button>
     </div>
   </ng-template>
 
