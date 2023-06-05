@@ -6,7 +6,7 @@
   </div>
 </nav>
 
-<div class="container-fluid fondo d-flex justify-content-center">
+<div class="fondo d-flex justify-content-center">
   <div class="card contenedor-inicio-sesion">
     <div class="card-body">
       <div class="logos row">
@@ -58,10 +58,37 @@
         </fieldset>
       </form>
     </div>
-    <div class="card-footer p-4 w-100 d-flex flex-column align-items-center">
-      <span class="fs-14px">¿Olvidó su contraseña?</span>
-      <span class="texto-primario fw-semibold fs-14px texto-azul-004884 cursor-pointer" (click)="this.abrirModalRecuperacion()">Recupérala
-        aquí</span>
+    <div class="card-footer p-4 w-100 d-flex flex-column">
+      <span class="texto-primario fw-semibold fs-14px texto-azul-004884 cursor-pointer" (click)="this.abrirModalRecuperacion()">
+        Olvidé mi contraseña
+      </span>
+      <span class="fw-semibold fs-14px texto-azul-004884 cursor-pointer">
+        <a href="/assets/documentos/videotutorial_pesv_2023.pdf" target="_blank">
+          Video tutorial
+        </a>    
+      </span>
+      <span class="fw-semibold fs-14px texto-azul-004884 cursor-pointer">
+        <a href="/assets/documentos/manual_usuario_pesv_2023.pdf" target="_blank">
+          Manual de usuario
+        </a> 
+      </span>
+      <span class="fw-semibold fs-14px texto-azul-004884 cursor-pointer">
+        <a href="/assets/documentos/Preguntas_Frecuentes_PESV.pdf" target="_blank">
+          Preguntas frecuentes
+        </a>         
+      </span>
+      <span class="fw-semibold fs-14px texto-azul-004884 cursor-pointer" [routerLink]="['/soporte']">     
+        Problema de acceso
+      </span>
+      <p class="fs-14px mt-3">
+        La información aquí contenida es solicitada por esta Autoridad 
+        con fines de vigilancia, inspección y control propios de sus funciones. 
+        Podrá consultar la Política Institucional de Seguridad y Privacidad de 
+        la información en el siguiente enlace
+        <a class="fw-semibold fs-14px texto-azul-004884 cursor-pointer" href="/assets/documentos/TIC-PO-001-V2-Seguridad-y-Privacidad-de-la-Informacion.pdf" target="_blank">
+          ver política
+        </a>
+      </p>
     </div>
   </div>
 </div>

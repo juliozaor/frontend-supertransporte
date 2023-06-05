@@ -12,6 +12,7 @@ import { PaginaSoporteComponent } from './administrador/paginas/pagina-soporte/p
 import { PaginaSoportesComponent } from './soportes/paginas/pagina-soportes/pagina-soportes.component';
 import { PaginaResponderSoporteComponent } from './soportes/paginas/pagina-responder-soporte/pagina-responder-soporte.component';
 import { PaginaCategorizacion } from './categorizacion/paginas/pagina-categorizacion/pagina-categorizacion.component';
+import { SoporteAccesoComponent } from './autenticacion/componentes/soporte-acceso/soporte-acceso.component';
 
 
 
@@ -58,6 +59,10 @@ const routes: Routes = [
   {
     path: 'actualizar-contrasena',
     component: ActualizarContrasenaComponent
+  },
+  {
+    path: 'soporte',
+    component: SoporteAccesoComponent
   },
   {
     path: '**',

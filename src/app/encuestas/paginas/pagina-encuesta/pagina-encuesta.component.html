@@ -17,9 +17,10 @@
     <div class="d-flex w-100">
         <app-encuesta 
         [soloLectura]="soloLectura" 
-        *ngIf="encuesta && idReporte" 
+        *ngIf="encuesta && idReporte && idEncuesta" 
         class="w-100" 
         [encuesta]="encuesta"
-        [idReporte]="idReporte"/>
+        [idReporte]="idReporte"
+        [idEncuesta]="idEncuesta"/>
     </div>
 </div>

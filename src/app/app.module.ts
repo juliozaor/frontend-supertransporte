@@ -9,6 +9,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorAutorizacion } from './administrador/interceptores/InterceptorAutorizacion';
 import { AlertasModule } from './alertas/alertas.module';
 import { InputsModule } from './inputs/inputs.module';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { InputsModule } from './inputs/inputs.module';
     AdministradorModule,
     AutenticacionModule,
     AlertasModule,
-    InputsModule
+    InputsModule,
+    SweetAlert2Module.forRoot(),
   ],
   exports:[
   ],

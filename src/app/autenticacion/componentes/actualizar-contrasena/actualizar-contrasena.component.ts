@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServicioUsuarios } from 'src/app/administrador/servicios/usuarios.service';
 import { PeticionActualizarContrasena } from '../../modelos/PeticionActualizarContrasena';
-import { PopupComponent } from '../popup/popup.component';
+import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { AutenticacionService } from '../../servicios/autenticacion.service';
 
 @Component({

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IniciarSesionRespuesta } from '../modelos/IniciarSesionRespuesta';
 import { PeticionRecuperarContrasena } from '../modelos/PeticionRecuperarContrasena';
+import { PeticionCrearSoporte } from '../modelos/PeticionCrearSoporte';
+import { Soporte } from 'src/app/soportes/modelos/Soporte';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +45,17 @@ export class AutenticacionService {
     localStorage.setItem(this.llaveTokenLocalStorage, jwt),
     localStorage.setItem(this.llaveRolesLocalStorage, JSON.stringify(rol))
     localStorage.setItem(this.llaveUsuarioLocalStorage, JSON.stringify(Usuario))
+  }
 
+  public crearSoporte(peticion: PeticionCrearSoporte){
+    const endpoint = `/api/v1/soportes/acceso`
+    const formData = new FormData()
+    formData.append('descripcion', peticion.descripcion)
+    formData.append('razonSocial', peticion.razonSocial)
+    formData.append('correo', peticion.correo)
+    formData.append('nit', peticion.nit)
+    peticion.telefono ? formData.append('telefono', peticion.correo) : undefined;
+    peticion.adjunto ? formData.append('adjunto', peticion.adjunto) : undefined;
+    return this.clientHttp.post<Soporte>(`${this.urlBackend}${endpoint}`, formData)
   }
 }

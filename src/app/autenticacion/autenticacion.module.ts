@@ -6,17 +6,20 @@ import { HttpClientModule } from '@angular/common/http'
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { PopupComponent } from './componentes/popup/popup.component';
 import { ModalRecuperacionContrasenaComponent } from './componentes/modal-recuperacion-contrasena/modal-recuperacion-contrasena.component';
 import { ActualizarContrasenaComponent } from './componentes/actualizar-contrasena/actualizar-contrasena.component';
+import { SoporteAccesoComponent } from './componentes/soporte-acceso/soporte-acceso.component';
+import { AlertasModule } from '../alertas/alertas.module';
+import { InputsModule } from '../inputs/inputs.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
   declarations: [
     InicioSesionComponent,
     ModalRecuperacionContrasenaComponent,
-    PopupComponent,
-    ActualizarContrasenaComponent
+    ActualizarContrasenaComponent,
+    SoporteAccesoComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +28,10 @@ import { ActualizarContrasenaComponent } from './componentes/actualizar-contrase
     FormsModule,
     NgxCaptchaModule,
     NgbModule,
-    SweetAlert2Module.forRoot()
+    InputsModule,
+    SweetAlert2Module.forRoot(),
+    AlertasModule,
+    RouterModule
   ]
 })
 export class AutenticacionModule { }

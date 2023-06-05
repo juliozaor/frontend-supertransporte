@@ -6,6 +6,7 @@ import { RespuestaEnviar } from '../../modelos/RespuestaEnviar';
 import { EncuestasService } from '../../servicios/encuestas.service';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-encuesta',
@@ -15,12 +16,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class EncuestaComponent implements OnInit {
   @Input('encuesta') encuesta!: Encuesta
   @Input('idReporte') idReporte!: number
+  @Input('idEncuesta') idEncuesta!: number
   @Input('soloLectura') soloLectura: boolean = true
   @ViewChildren('clasificacion') clasificaciones!: QueryList<ClasificacionEncuestaComponent>
   @ViewChild('popup') popup!: PopupComponent
   respuestas: Respuesta[] = []
   
-  constructor(private servicioEncuestas: EncuestasService) { }
+  constructor(private servicioEncuestas: EncuestasService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -29,6 +31,7 @@ export class EncuestaComponent implements OnInit {
     this.servicioEncuestas.guardarRespuesta(this.idReporte, { respuestas: this.obtenerRespuestas() }).subscribe({
       next: ( respuesta ) =>{
         this.popup.abrirPopupExitoso(respuesta.mensaje)
+        this.router.navigate(['/administrar','encuestas', this.idEncuesta])
       },
       error: (error: HttpErrorResponse) =>{
         this.popup.abrirPopupFallido('Error', error.error.message)
