@@ -3,6 +3,7 @@ import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.componen
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AutenticacionService } from '../../servicios/autenticacion.service';
 import { marcarFormularioComoSucio } from 'src/app/administrador/utilidades/Utilidades';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-soporte-acceso',
@@ -12,7 +13,7 @@ import { marcarFormularioComoSucio } from 'src/app/administrador/utilidades/Util
 export class SoporteAccesoComponent {
   @ViewChild('popup') popup!: PopupComponent
   formulario: FormGroup
-  constructor(private servicioSoporte: AutenticacionService){
+  constructor(private servicioSoporte: AutenticacionService, private router: Router){
     this.formulario = new FormGroup({
       nit: new FormControl<string | undefined>( undefined, [ Validators.required ] ),
       correo: new FormControl<string | undefined>( undefined, [ Validators.required ] ),
@@ -39,6 +40,7 @@ export class SoporteAccesoComponent {
     }).subscribe({
       next: ( soporte: any )=>{
         this.popup.abrirPopupExitoso('Soporte creado', 'Radicado', soporte.radicado)
+        this.router.navigate(['/inicio-sesion'])
       }
     })
   }
