@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   urlBackend: 'http://127.0.0.1:3333',
   urlBackendVigia: 'http://127.0.0.1:3334',
-  urlBackendArchivos: 'http://127.0.0.1:3333',
+  urlBackendArchivos: 'http://127.0.0.1:4333',
   llaveCaptcha: '6Ldw7FwmAAAAAJZyFVhvohzUI7mEK4wRPEqpGU9g'
 };
 
