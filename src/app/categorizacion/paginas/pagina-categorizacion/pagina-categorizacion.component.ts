@@ -64,6 +64,10 @@ export class PaginaCategorizacion implements OnInit {
     return totalesValidos
   }
 
+  estaAgregandoModuloRadio(): boolean{
+    return this.formularioModalidadesRadios.estaAgregandoModuloRadio()
+  }
+
   obtenerDatos(): Dato[]{
     let datos: Dato[] = []
     this.tiposCategoria.forEach( categoria => {
@@ -89,6 +93,13 @@ export class PaginaCategorizacion implements OnInit {
   }
 
   guardarInformacion(){
+    if(this.estaAgregandoModuloRadio()){
+      this.popup.abrirPopupFallido(
+        'Hay cambios en curso.', 
+        'Estás agregando datos de modalidad y radio de acción.\nConfirma o cancela los cambios para poder continuar.'
+      )
+      return;
+    }
     if(!this.totalesValidos() || !this.totalesMayoresACero()){
       this.popup.abrirPopupFallido('Totales inválidos.', 'Porfavor rectifica que los totales coinciden y son mayores a cero.')
       return;

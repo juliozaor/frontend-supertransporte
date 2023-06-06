@@ -117,4 +117,8 @@ export class FormularioModalidadRadioOperacionComponent implements OnInit {
   mostrarMensajeDeGuardado(){
     return this.registrosACrear.length > 0 || this.registrosAEliminar.length > 0 ? true : false;
   }
+
+  estaAgregandoModuloRadio(): boolean{
+    return this.formularioVisible
+  }
 }
