@@ -1,4 +1,5 @@
-<input #input 
+<input #input
+[disabled]="!habilitado || !estado"
 class="input-cantidad" 
 type="number"
 [(ngModel)]="valor"

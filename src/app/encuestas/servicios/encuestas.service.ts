@@ -34,6 +34,10 @@ export class EncuestasService extends Autenticable {
 
   guardarRespuesta(idReporte: number, peticion: { respuestas: RespuestaEnviar[] }){
     const enpoint = `/api/v1/respuestas/${idReporte}`
-    return this.http.post<{ mensaje: string }>(`${this.host}${enpoint}`, peticion, { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } })
+    return this.http.post<{ mensaje: string }>(
+      `${this.host}${enpoint}`, 
+      peticion, 
+      { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } 
+    })
   }
 }

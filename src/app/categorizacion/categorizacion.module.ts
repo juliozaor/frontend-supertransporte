@@ -9,6 +9,8 @@ import { SelectorCantidadComponent } from './componentes/selector-cantidad/selec
 import { AlertasModule } from '../alertas/alertas.module';
 import { ModalConfirmacionComponent } from './componentes/modal-confirmacion/modal-confirmacion.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PaginaAsignacionTamanoOrganizacionComponent } from './paginas/pagina-asignacion-tamano-organizacion/pagina-asignacion-tamano-organizacion.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -19,11 +21,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TipoCategoriaComponent,
     CategoriaComponent,
     SelectorCantidadComponent,
-    ModalConfirmacionComponent
+    ModalConfirmacionComponent,
+    PaginaAsignacionTamanoOrganizacionComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     FormsModule,
     NgbModule,
     AlertasModule

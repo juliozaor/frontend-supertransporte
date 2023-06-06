@@ -17,6 +17,7 @@ export class EncuestaComponent implements OnInit {
   @Input('encuesta') encuesta!: Encuesta
   @Input('idReporte') idReporte!: number
   @Input('idEncuesta') idEncuesta!: number
+  @Input('idVigilado') idVigilado!: string
   @Input('soloLectura') soloLectura: boolean = true
   @ViewChildren('clasificacion') clasificaciones!: QueryList<ClasificacionEncuestaComponent>
   @ViewChild('popup') popup!: PopupComponent
@@ -28,6 +29,8 @@ export class EncuestaComponent implements OnInit {
   }
 
   guardarRespuestas(){
+    console.log(this.obtenerRespuestas())
+    return;
     this.servicioEncuestas.guardarRespuesta(this.idReporte, { respuestas: this.obtenerRespuestas() }).subscribe({
       next: ( respuesta ) =>{
         this.popup.abrirPopupExitoso(respuesta.mensaje)
@@ -40,21 +43,12 @@ export class EncuestaComponent implements OnInit {
 
   }
 
-  obtenerRespuestas(): RespuestaEnviar[]{
+  obtenerRespuestas(): Respuesta[]{
     this.respuestas = []
     this.clasificaciones.forEach(clasificacion => {
       this.respuestas = [ ...this.respuestas, ...clasificacion.obtenerRespuestas()]
     })
-    return this.respuestas.map(respuesta => {
-      const respuestaEnviar: RespuestaEnviar = {
-        preguntaId: respuesta.preguntaId,
-        valor: respuesta.valor,
-        documento: '',
-        nombreArchivo: respuesta.documento ? respuesta.documento.name : undefined,
-        ruta: ''
-      }
-      return respuestaEnviar
-    })
+    return this.respuestas
   }
 
 

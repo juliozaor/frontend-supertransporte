@@ -1,7 +1,7 @@
 export interface Respuesta{
-    preguntaId: number,
-    valor:string, //"N"
-    documento?: File,
-    ruta?: string,
-    nombreArchivo?: string,
+    preguntaId: number
+    valor:string //"N"
+    documento?: string
+    ruta?: string
+    nombreArchivo?: string
 }

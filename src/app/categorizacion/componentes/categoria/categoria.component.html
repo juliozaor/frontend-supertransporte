@@ -20,12 +20,14 @@
                     *ngFor="let dato of fila.datos ; let nColumna = index">
                         <app-selector-cantidad
                         #selector
+                        [estado]="dato.estado!"
                         [fila]="nFila"
                         [idFila]="dato.idFila"
                         [columna]="nColumna"
                         [idColumna]="dato.idColumna"
                         [valor]="dato.valor ? +dato.valor : null" 
-                        (nuevoValor)="calcularTotal()"/>
+                        (nuevoValor)="calcularTotal()"
+                        (nuevoValorEspecial)="manejarNuevoValorEspecial($event)"/>
                     </td>
                 </tr>
             </tbody>
@@ -45,5 +47,7 @@
             </tbody>
         </table>
         <span *ngIf="hayInconsistencia" class="validacion fs-12px">Los totales no coinciden.</span>
+        <span *ngIf="esIgualACero" class="validacion fs-12px">El total debe ser mayor a cero.</span>
+
     </div>
 </div>

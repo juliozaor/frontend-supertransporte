@@ -9,6 +9,7 @@ import { Respuesta } from '../../modelos/Respuesta';
 })
 export class ClasificacionEncuestaComponent implements OnInit {
   @Output('preguntasRespondidas') seHanRespondidoPreguntas: EventEmitter<Respuesta[]>
+  @Input('idVigilado') idVigilado!: string
   @Input('clasificacion') clasificacion!: Clasificacion
   @Input('soloLectura') soloLectura: boolean = true
   desplegado: boolean = true

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, forwardRef } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -14,24 +14,24 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ]
 })
 export class InputArchivoComponent implements OnInit, ControlValueAccessor {
-  @Output('change') haCambiado: EventEmitter<void>
+  @ViewChild('input') input!: ElementRef<HTMLInputElement>
   @Input('nombre') nombre!: string
   @Input('acepta') acepta: string[] = []
   archivo?: File | null;
   disabled: boolean = false
   constructor() { 
-    this.haCambiado = new EventEmitter<void>();
   }
 
   onChangeFiles = (evento: Event) => {
+    console.log("Ha cambiado")
     if (!evento.target) {
       throw Error('El target del evento no es un input')
     }
     const input = evento.target as HTMLInputElement
     if (input.files) {
+      console.log(input.files)
       this.archivo = input.files.item(0)
       this.onChange(this.archivo)
-      this.haCambiado.emit()
     }
   }
 
@@ -57,6 +57,14 @@ export class InputArchivoComponent implements OnInit, ControlValueAccessor {
 
   unirAcepta(){
     return this.acepta.join(',')
+  }
+
+  removeFile(event: Event){
+    console.log("Ha cambiado")
+    event.preventDefault();
+    this.archivo = null;
+    this.input.nativeElement.value = ""
+    this.onChange(this.archivo)
   }
 
 }

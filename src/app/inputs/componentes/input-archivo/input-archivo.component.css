@@ -48,6 +48,7 @@ input[type="file"]{
 }
 .archivo{
     box-sizing: border-box;
+    max-width: 100%;
     height: 27px;
     border: 1px solid #C4C4C4;
     background-color: #EAEAEA;
@@ -56,13 +57,18 @@ input[type="file"]{
     gap: 10px;
 }
 .nombre-archivo{
-    display: flex;
-    align-items: center;
+    width: 100%;
+    display: block;
     font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .eliminar-archivo{
     display: flex;
     align-items: center;
+    outline: none;
+    border: none;
 }
 .placeholder{
     height: 100%;

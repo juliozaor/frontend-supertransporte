@@ -13,6 +13,7 @@ import { PaginaSoportesComponent } from './soportes/paginas/pagina-soportes/pagi
 import { PaginaResponderSoporteComponent } from './soportes/paginas/pagina-responder-soporte/pagina-responder-soporte.component';
 import { PaginaCategorizacion } from './categorizacion/paginas/pagina-categorizacion/pagina-categorizacion.component';
 import { SoporteAccesoComponent } from './autenticacion/componentes/soporte-acceso/soporte-acceso.component';
+import { PaginaAsignacionTamanoOrganizacionComponent } from './categorizacion/paginas/pagina-asignacion-tamano-organizacion/pagina-asignacion-tamano-organizacion.component';
 
 
 
@@ -49,7 +50,11 @@ const routes: Routes = [
       {
         path: 'categorizacion',
         component: PaginaCategorizacion
-      }
+      },
+      {
+        path: 'asignacion',
+        component: PaginaAsignacionTamanoOrganizacionComponent
+      },
     ]
   },
   {

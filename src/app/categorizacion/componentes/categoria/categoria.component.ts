@@ -14,6 +14,7 @@ export class CategoriaComponent implements OnInit, AfterViewInit, AfterViewCheck
   total: number = 0
   especial = false
   hayInconsistencia = false
+  esIgualACero = false
   clases: any
   
   constructor(){
@@ -25,7 +26,7 @@ export class CategoriaComponent implements OnInit, AfterViewInit, AfterViewCheck
   ngOnInit(): void {
     this.especial = this.categoria.id === 4 ? true : false;
     this.clases = {
-      'invalido': this.hayInconsistencia
+      'invalido': this.hayInconsistencia || this.esIgualACero
     }
     this.calcularTotalInicial()
   }
@@ -47,6 +48,13 @@ export class CategoriaComponent implements OnInit, AfterViewInit, AfterViewCheck
       nuevoTotal+= selector.valor ?? 0
     })
     this.total = nuevoTotal;
+    if(this.total === 0){
+      this.esIgualACero = true
+      this.actualizarClasesTablaTotal()
+    }else{
+      this.esIgualACero = false
+      this.actualizarClasesTablaTotal()
+    }; 
   }
 
   calcularTotalEspecial(){
@@ -57,6 +65,13 @@ export class CategoriaComponent implements OnInit, AfterViewInit, AfterViewCheck
       }
     })
     this.total = nuevoTotal;
+    if(this.total === 0){
+      this.esIgualACero = true
+      this.actualizarClasesTablaTotal()
+    }else{
+      this.esIgualACero = false
+      this.actualizarClasesTablaTotal()
+    }; 
     this.cambioTotal.emit(this.total)
   }
 
@@ -70,7 +85,14 @@ export class CategoriaComponent implements OnInit, AfterViewInit, AfterViewCheck
           }
         })
       })
-      this.total = nuevoTotal   
+      this.total = nuevoTotal
+      if(this.total === 0){
+        this.esIgualACero = true
+        this.actualizarClasesTablaTotal()
+      }else{
+        this.esIgualACero = false
+        this.actualizarClasesTablaTotal()
+      }; 
     }else{
       let nuevoTotal = 0
       this.categoria.filas.forEach( fila => {
@@ -79,12 +101,19 @@ export class CategoriaComponent implements OnInit, AfterViewInit, AfterViewCheck
         })
       })
       this.total = nuevoTotal
+      if(this.total === 0){
+        this.esIgualACero = true
+        this.actualizarClasesTablaTotal()
+      }else{
+        this.esIgualACero = false
+        this.actualizarClasesTablaTotal()
+      }; 
     }
   }
 
   informarEstado(hayInconsistencia: boolean){
     this.hayInconsistencia = hayInconsistencia
-    this.clases.invalido = hayInconsistencia
+    this.actualizarClasesTablaTotal()
   }
 
   obtenerDatos(): Dato[]{
@@ -98,5 +127,26 @@ export class CategoriaComponent implements OnInit, AfterViewInit, AfterViewCheck
       datos.push(dato)
     })
     return datos
+  }
+
+  manejarNuevoValorEspecial({valor, fila}:{ valor: number, fila: number }){
+    if(!this.especial){
+      return;
+    }
+    this.selectores.forEach( selector => {
+      if(selector.columna !== 0 && selector.fila === fila){
+        if(valor <= 0){
+          selector.habilitado = false
+        }else{
+          selector.habilitado = true
+        }
+      }
+    })
+  }
+
+  actualizarClasesTablaTotal(){
+    this.clases = {
+      'invalido': this.hayInconsistencia || this.esIgualACero
+    }
   }
 }

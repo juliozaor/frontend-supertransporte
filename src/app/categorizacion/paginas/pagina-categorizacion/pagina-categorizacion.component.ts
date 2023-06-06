@@ -54,6 +54,16 @@ export class PaginaCategorizacion implements OnInit {
     return totalesValidos
   }
 
+  totalesMayoresACero(): boolean{
+    let totalesValidos = true
+    this.tiposCategoria.forEach( tipoCategoria => {
+      if(!tipoCategoria.validarTotalesMayoresACero()){
+        totalesValidos = false
+      }
+    })
+    return totalesValidos
+  }
+
   obtenerDatos(): Dato[]{
     let datos: Dato[] = []
     this.tiposCategoria.forEach( categoria => {
@@ -79,10 +89,11 @@ export class PaginaCategorizacion implements OnInit {
   }
 
   guardarInformacion(){
-    if(!this.totalesValidos()){
-      this.popup.abrirPopupFallido('Los totales no coinciden.', 'Porfavor rectifica que has digitado correctamente la información.')
+    if(!this.totalesValidos() || !this.totalesMayoresACero()){
+      this.popup.abrirPopupFallido('Totales inválidos.', 'Porfavor rectifica que los totales coinciden y son mayores a cero.')
       return;
     }
+
     this.modalConfirmacion.abrir({
       alAceptar: ()=>{
         const info: PeticionGuardarCategorizacion = {
@@ -94,8 +105,7 @@ export class PaginaCategorizacion implements OnInit {
         console.log(info)
         this.servicioCategorizacion.guardarInformacionCategorizacion(info).subscribe({
           next: (respuesta: any)=>{
-            this.popup.abrirPopupExitoso('Información guardado con éxito', 'Clasificado', respuesta.nombre)
-            this.router.navigateByUrl('/administrar/encuestas/1')
+            this.router.navigateByUrl(`/administrar/asignacion?clasificacion=${respuesta.nombre}`)
           }
         })
       },

@@ -40,6 +40,7 @@
         [soloLectura]="soloLectura"
         *ngFor="let pregunta of clasificacion.preguntas" 
         [pregunta]="pregunta"
+        [idVigilado]="idVigilado"
         (valorModificado)="agregarPreguntaRespondida($event)"/>
     </div>
 </div>

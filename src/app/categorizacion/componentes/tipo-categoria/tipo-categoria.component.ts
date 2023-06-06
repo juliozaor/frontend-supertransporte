@@ -38,6 +38,15 @@ export class TipoCategoriaComponent implements AfterViewInit {
     return true
   }
 
+  validarTotalesMayoresACero():boolean{
+    for (const categoria of this.categorias) {
+      if(categoria.total <= 0){
+        return false;
+      }
+    }
+    return true
+  }
+
   existeInconsistencia(inconsistencia: boolean){
     this.inconsistencia = inconsistencia;
     this.categorias.forEach( categoria => {

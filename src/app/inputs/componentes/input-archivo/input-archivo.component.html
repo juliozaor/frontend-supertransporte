@@ -2,9 +2,9 @@
     <div class="archivos">
         <div class="archivo d-flex" *ngIf="archivo">
             <span class="nombre-archivo">{{ archivo.name }}</span>
-            <span class="eliminar-archivo">x</span>
+            <button class="eliminar-archivo" (click)="removeFile($event)">x</button>
         </div>
     </div>
     <div class="boton-adjuntar d-flex align-items-center justify-content-center">Adjuntar</div>
-    <input [accept]="unirAcepta()" [id]="nombre" type="file" (change)="onChangeFiles($event)">
+    <input #input [accept]="unirAcepta()" [id]="nombre" type="file" (change)="onChangeFiles($event)">
 </label>
