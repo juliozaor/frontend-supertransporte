@@ -16,11 +16,13 @@ export class ArchivosEncuestasService extends Autenticable {
   }
 
   guardarArchivoTemporal(archivo: File, idPregunta: number, idVigilado: string){
-    const endpoint = '/api/v1/archivos/temporales'
+    const endpoint = '/api/v1/archivos'
     const formData = new FormData()
     formData.append('archivo', archivo)
     formData.append('idPregunta', idPregunta.toString())
     formData.append('idVigilado', idVigilado.toString())
+    formData.append('rutaRaiz', 'pesv')
+    formData.append('temporal', 'true')
     return this.http.post<ArchivoTemporal>(
         `${this.host}${endpoint}`, 
         formData, 
