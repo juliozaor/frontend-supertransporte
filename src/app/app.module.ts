@@ -10,11 +10,12 @@ import { InterceptorAutorizacion } from './administrador/interceptores/Intercept
 import { AlertasModule } from './alertas/alertas.module';
 import { InputsModule } from './inputs/inputs.module';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { FechaPipe } from './pipes/fecha.pipe';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

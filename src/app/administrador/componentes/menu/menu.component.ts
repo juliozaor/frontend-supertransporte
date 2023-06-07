@@ -43,4 +43,9 @@ export class MenuComponent implements OnInit {
   imprimirRuta(submodulo: Submodulo){
     console.log(`/administrar${submodulo.ruta}`)
   }
+
+  navegarAlSubmodulo(submodulo: Submodulo){
+    this.imprimirRuta(submodulo)
+    this.router.navigateByUrl(`/administrar${submodulo.ruta}`)
+  }
 }

@@ -9,7 +9,7 @@ import { ArchivoTemporal } from '../modelos/ArchivoTemporal';
 })
 export class ArchivosEncuestasService extends Autenticable {
 
-  private readonly host = environment.urlBackend 
+  private readonly host = environment.urlBackendArchivos;
 
   constructor(private http: HttpClient) { 
     super()

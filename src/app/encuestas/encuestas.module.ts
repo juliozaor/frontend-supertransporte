@@ -10,6 +10,7 @@ import { PreguntaEncuestaComponent } from './componentes/pregunta-encuesta/pregu
 import { ClasificacionEncuestaComponent } from './componentes/clasificacion-encuesta/clasificacion-encuesta.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertasModule } from '../alertas/alertas.module';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 
@@ -28,7 +29,8 @@ import { AlertasModule } from '../alertas/alertas.module';
     ReactiveFormsModule,
     NgbModule,
     InputsModule,
-    AlertasModule
+    AlertasModule,
+    PipesModule
   ]
 })
 export class EncuestasModule { }

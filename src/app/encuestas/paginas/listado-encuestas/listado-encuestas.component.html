@@ -6,39 +6,41 @@
         <button type="button" class="boton primario relleno">Resumen</button>
     </div>
     <div class="d-flex">
-        <table class="table">
-            <thead>
-                <tr class="fs-14px">
-                    <th class="encabezado-tabla"></th>
-                    <th class="encabezado-tabla">No. Reporte</th>
-                    <th class="encabezado-tabla">Encuesta</th>
-                    <th class="encabezado-tabla">Descripción</th>
-                    <th class="encabezado-tabla">Fecha inicio</th>
-                    <th class="encabezado-tabla">Fecha final</th>
-                    <th class="encabezado-tabla">Fecha de envío a ST</th>
-                    <th class="encabezado-tabla">Razón social - NIT</th>
-                    <th class="encabezado-tabla">Email</th>
-                    <th class="encabezado-tabla">Estado actual</th>
-                </tr>
-            </thead>
-            <tbody class="fs-14px">
-                <tr *ngFor="let reporte of reportes ; let i = index">
-                    <td><img 
-                        [routerLink]="['/administrar', 'encuesta', reporte.idEncuestaDiligenciada]"
-                        [queryParams]="{ vigilado: reporte.idVigilado , reporte: reporte.numeroReporte }"  
-                        class="cursor-pointer" src="assets/img/buscar-documento.png" alt="buscar-encuesta" draggable="false"></td>
-                    <td>{{ reporte.numeroReporte }}</td>
-                    <td>{{ reporte.encuesta }}</td>
-                    <td>{{ reporte.descripcion }}</td>
-                    <td>{{ reporte.fechaInicio }}</td>
-                    <td>{{ reporte.fechaFinal }}</td>
-                    <td>{{ reporte.fechaEnvioST }}</td>
-                    <td>{{ reporte.razonSocial }} - {{ reporte.nit }}</td>
-                    <td>{{ reporte.email }}</td>
-                    <td>{{ reporte.estado }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr class="fs-14px">
+                        <th class="encabezado-tabla"></th>
+                        <th class="encabezado-tabla">No. Reporte</th>
+                        <th class="encabezado-tabla">Encuesta</th>
+                        <th class="encabezado-tabla" width="300px">Descripción</th>
+                        <th class="encabezado-tabla" width="120px">Fecha inicio</th>
+                        <th class="encabezado-tabla" width="120px">Fecha final</th>
+                        <th class="encabezado-tabla" width="120px">Fecha de envío a ST</th>
+                        <th class="encabezado-tabla" width="240px">Razón social - NIT</th>
+                        <th class="encabezado-tabla">Email</th>
+                        <th class="encabezado-tabla">Estado actual</th>
+                    </tr>
+                </thead>
+                <tbody class="fs-14px">
+                    <tr *ngFor="let reporte of reportes ; let i = index">
+                        <td><img 
+                            [routerLink]="['/administrar', 'encuesta', reporte.idEncuestaDiligenciada]"
+                            [queryParams]="{ vigilado: reporte.idVigilado , reporte: reporte.numeroReporte }"  
+                            class="cursor-pointer" src="assets/img/buscar-documento.png" alt="buscar-encuesta" draggable="false"></td>
+                        <td>{{ reporte.numeroReporte }}</td>
+                        <td>{{ reporte.encuesta }}</td>
+                        <td>{{ reporte.descripcion }}</td>
+                        <td>{{ reporte.fechaInicio | fecha: 'dd/MM/yyyy' }}</td>
+                        <td>{{ reporte.fechaFinal | fecha: 'dd/MM/yyyy' }}</td>
+                        <td>{{ reporte.fechaEnvioST }}</td>
+                        <td>{{ reporte.razonSocial }} - {{ reporte.nit }}</td>
+                        <td>{{ reporte.email }}</td>
+                        <td>{{ reporte.estado }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="d-flex align-items-center justify-content-center">
         <ngb-pagination 
