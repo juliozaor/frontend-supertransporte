@@ -29,8 +29,6 @@ export class EncuestaComponent implements OnInit {
   }
 
   guardarRespuestas(){
-    console.log(this.obtenerRespuestas())
-    return;
     this.servicioEncuestas.guardarRespuesta(this.idReporte, { respuestas: this.obtenerRespuestas() }).subscribe({
       next: ( respuesta ) =>{
         this.popup.abrirPopupExitoso(respuesta.mensaje)
