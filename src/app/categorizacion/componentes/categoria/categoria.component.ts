@@ -80,7 +80,7 @@ export class CategoriaComponent implements OnInit, AfterViewInit, AfterViewCheck
       let nuevoTotal = 0
       this.categoria.filas.forEach( ( fila ) => {
         fila.datos.forEach( (dato, index) => {
-          if(index = 0){
+          if(index === 0){
             nuevoTotal+= dato.valor? +dato.valor : 0;
           }
         })
