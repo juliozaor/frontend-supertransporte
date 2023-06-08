@@ -5,6 +5,7 @@ import { ServicioLocalStorage } from '../../servicios/local-storage.service';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 import { FormControl, FormGroup } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-pagina-informacion-general-vigilado',
@@ -15,6 +16,8 @@ export class PaginaInformacionGeneralVigiladoComponent implements OnInit {
   informacion?: InfoSistemaVigia
   usuario: Usuario
   formulario: FormGroup
+  hayError: boolean = false
+  mensajeError = ""
 
   constructor(private servicioUsuarios: ServicioUsuarios, localStorage: ServicioLocalStorage){
     this.formulario = new FormGroup({
@@ -53,6 +56,10 @@ export class PaginaInformacionGeneralVigiladoComponent implements OnInit {
       next: (info) =>{
         this.informacion = info
         this.rellenarFormulario(info)
+      },
+      error: (error: HttpErrorResponse) => { 
+        this.mensajeError = error.error.mensaje
+        this.hayError = true
       }
     })
   }
