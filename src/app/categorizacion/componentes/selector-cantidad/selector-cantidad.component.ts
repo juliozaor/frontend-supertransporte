@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-selector-cantidad',
@@ -6,14 +6,15 @@ import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@
   styleUrls: ['./selector-cantidad.component.css']
 })
 export class SelectorCantidadComponent implements OnInit, AfterViewInit {
-  @Output('nuevoValor')                 nuevoValor: EventEmitter<number>
-  @Output('nuevoValorEspecial') nuevoValorEspecial: EventEmitter<{ valor: number, fila: number }>
-  @Input('estado') estado!                        : boolean
-  @Input('fila') fila!                            : number
-  @Input('columna') columna!                      : number
-  @Input('idFila') idFila!                        : number
-  @Input('idColumna') idColumna!                  : number
-  @Input('valor') valor                           : number | null =  SelectorCantidadComponent.VALOR_POR_DEFECTO
+  @Output('valor') nuevoValor: EventEmitter<number>
+  @Output('valorEspecial') nuevoValorEspecial: EventEmitter<{ valor: number, fila: number }>
+  @Input('totalizable') totalizable!: boolean
+  @Input('estado') estado!: boolean
+  @Input('fila') fila!: number
+  @Input('columna') columna!: number
+  @Input('idFila') idFila!: number
+  @Input('idColumna') idColumna!: number
+  @Input('valor') valor: number | null =  SelectorCantidadComponent.VALOR_POR_DEFECTO
   habilitado: boolean = true
 
   static readonly VALOR_POR_DEFECTO = 0
@@ -26,7 +27,10 @@ export class SelectorCantidadComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(()=>{
-      this.nuevoValorEspecial.emit({fila: this.fila, valor: this.valor!})
+      if(this.totalizable){
+        this.nuevoValorEspecial.emit({fila: this.idFila, valor: this.valor!})
+      }
+      
     }, 60)
   }
 
@@ -34,17 +38,18 @@ export class SelectorCantidadComponent implements OnInit, AfterViewInit {
     if(!this.valor){
       this.valor = SelectorCantidadComponent.VALOR_POR_DEFECTO
     }
+    if(!this.totalizable || !this.estado){
+      /* this.establecerHabilitado(false) */
+    }
   }
 
   manejarCambio(valor: number){
     if(this.valorValido(valor)){
-      this.valor = valor;
+      this.cambiarValor(valor)
     }
     else{
-      this.valor = SelectorCantidadComponent.VALOR_POR_DEFECTO;
+      this.cambiarValor(SelectorCantidadComponent.VALOR_POR_DEFECTO)
     }
-    this.nuevoValor.emit(this.valor);
-    this.nuevoValorEspecial.emit({fila: this.fila, valor: this.valor})
   }
 
   valorValido(valor: number): boolean{
@@ -52,5 +57,20 @@ export class SelectorCantidadComponent implements OnInit, AfterViewInit {
       return false;
     else
       return true;
+  }
+
+  cambiarValor(valor: number){
+    this.valor = valor;
+    this.nuevoValor.emit(this.valor);
+    if(this.totalizable){
+      this.nuevoValorEspecial.emit({fila: this.idFila, valor: this.valor})
+    }
+  }
+
+  establecerHabilitado(habilitado: boolean){
+    this.habilitado = habilitado
+    if(this.idColumna === 11 && this.idFila === 27){
+      console.log(this, habilitado)
+    }
   }
 }

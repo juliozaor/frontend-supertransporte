@@ -47,9 +47,9 @@ export class PaginaCategorizacion implements OnInit {
   totalesValidos(): boolean{
     let totalesValidos = true
     this.tiposCategoria.forEach( tipoCategoria => {
-      if(!tipoCategoria.validarTotales()){
+      /* if(!tipoCategoria.val()){
         totalesValidos = false
-      }
+      } */
     })
     return totalesValidos
   }

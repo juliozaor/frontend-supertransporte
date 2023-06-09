@@ -1,5 +1,10 @@
-<h3 class="fs-18px texto-primario text-center fw-semibold mb-4">{{ tipoCategoria.nombre }}</h3>
-<ng-container *ngFor="let categoria of tipoCategoria.categoriaClasificacion ; let i = index">
-    <app-categoria #categoria (cambioTotal)="validarTotales()" [categoria]="categoria" />
-    <hr *ngIf="i < (tipoCategoria.categoriaClasificacion.length - 1)">
-</ng-container>
+
+<h3>{{ tipoCategoria.nombre }}</h3>
+<div class="p-3">
+    <ng-container *ngFor="let categoria of tipoCategoria.categoriaClasificacion ; let i = index">
+        <app-categoria 
+        #categoria (cambioTotal)="totalesComponentesCategoriaValidos()" 
+        [categoria]="categoria" />
+    </ng-container>
+</div>
+

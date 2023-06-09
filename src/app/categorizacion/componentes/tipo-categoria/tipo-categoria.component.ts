@@ -1,41 +1,39 @@
-import { AfterViewInit, Component, Input, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, Input, QueryList, ViewChildren } from '@angular/core';
 import { Dato, TipoCategoria } from '../../modelos/Categorizacion';
 import { CategoriaComponent } from '../categoria/categoria.component';
+import { ServicioClasificaciones } from '../../servicios/clasificaciones.service';
 
 @Component({
   selector: 'app-tipo-categoria',
   templateUrl: './tipo-categoria.component.html',
   styleUrls: ['./tipo-categoria.component.css']
 })
-export class TipoCategoriaComponent implements AfterViewInit {
+export class TipoCategoriaComponent implements AfterViewInit{
   @Input('tipoCategoria') tipoCategoria!:TipoCategoria
   @ViewChildren('categoria') categorias!: QueryList<CategoriaComponent>
+  valido: boolean = true;
   inconsistencia: boolean = false;
   total: number = 0;
 
-  ngAfterViewInit(): void {
-    setTimeout(()=>{
-      this.validarTotales()
-    }, 10) 
+  constructor(private servicio: ServicioClasificaciones){
   }
 
-  validarTotales(): boolean{
-    let categoriaAnterior: CategoriaComponent | undefined
-    let categoriaActual: CategoriaComponent
-    for (const categoria of this.categorias) {
-      categoriaActual = categoria
-      if(categoriaAnterior){
-        if(categoriaAnterior.total !== categoriaActual.total){
-          this.existeInconsistencia(true)
-          return false;
-        } 
-      }
-      categoriaAnterior = categoriaActual
-      continue;
+  ngAfterViewInit(): void {
+    setTimeout(()=>{
+      this.establecerInconsistencia(this.servicio.totalesCategoriasValidos(this.tipoCategoria.categoriaClasificacion))
+    }, 60)
+  }
+
+  esValido():boolean{
+    if(this.inconsistencia){
+      return false;
     }
-    this.existeInconsistencia(false)
-    this.establecerTotal()
-    return true
+    return true;
+  }
+
+  totalesComponentesCategoriaValidos(){
+    const inconsistencia = !this.servicio.totalesComponentesCategoriasValidos(this.categorias)
+    this.establecerInconsistencia(inconsistencia)
   }
 
   validarTotalesMayoresACero():boolean{
@@ -47,10 +45,10 @@ export class TipoCategoriaComponent implements AfterViewInit {
     return true
   }
 
-  existeInconsistencia(inconsistencia: boolean){
-    this.inconsistencia = inconsistencia;
-    this.categorias.forEach( categoria => {
-      categoria.informarEstado(inconsistencia)
+  establecerInconsistencia(inconsistencia: boolean){
+    this.inconsistencia = inconsistencia
+    this.categorias.forEach( categoriaComponent => {
+      categoriaComponent.establecerInconsistencia(inconsistencia)
     })
   }
 
