@@ -38,5 +38,5 @@ export interface Dato {
     idFila:    number;
     idColumna: number;
     valor:     null | string;
-    estado?: boolean;
+    estado: boolean;
 }
