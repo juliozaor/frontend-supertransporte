@@ -8,21 +8,9 @@
         <h3 class="fs-20px fw-semibold texto-azul-004884 mb-3 text-center mt-3 w-100">Categorización</h3>
     </div>
 
-    <div ngbAccordion class="mb-3">
-        <div ngbAccordionItem>
-            <h2 ngbAccordionHeader>
-                <button ngbAccordionButton>Datos de modalidad y radio de acción</button>
-            </h2>
-            <div ngbAccordionCollapse>
-                <div ngbAccordionBody>
-                    <ng-template>
-                        <div class="p-3">
-                            <app-formulario-modalidad-radio-operacion #formularioModalidades [modalidadRadio]="filtros.modalidadRadio" />
-                        </div>
-                    </ng-template>
-                </div>
-            </div>
-        </div>
+    <h3>Datos de modalidad y radio de acción</h3>
+    <div class="p-3">
+        <app-formulario-modalidad-radio-operacion #formularioModalidades [modalidadRadio]="filtros.modalidadRadio" />
     </div>
 
     <app-tipo-categoria

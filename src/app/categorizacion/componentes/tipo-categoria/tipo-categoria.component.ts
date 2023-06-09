@@ -34,6 +34,7 @@ export class TipoCategoriaComponent implements AfterViewInit{
   totalesComponentesCategoriaValidos(){
     const inconsistencia = !this.servicio.totalesComponentesCategoriasValidos(this.categorias)
     this.establecerInconsistencia(inconsistencia)
+    return !inconsistencia
   }
 
   validarTotalesMayoresACero():boolean{
@@ -43,6 +44,16 @@ export class TipoCategoriaComponent implements AfterViewInit{
       }
     }
     return true
+  }
+
+  selectoresValidos(): boolean{
+    let validos = true;
+    this.categorias.forEach( categoria =>{
+      if(!categoria.selectoresValidos()){
+        validos = false;
+      }
+    })
+    return validos;
   }
 
   establecerInconsistencia(inconsistencia: boolean){

@@ -47,9 +47,9 @@ export class PaginaCategorizacion implements OnInit {
   totalesValidos(): boolean{
     let totalesValidos = true
     this.tiposCategoria.forEach( tipoCategoria => {
-      /* if(!tipoCategoria.val()){
+      if(!tipoCategoria.totalesComponentesCategoriaValidos()){
         totalesValidos = false
-      } */
+      }
     })
     return totalesValidos
   }
@@ -62,6 +62,16 @@ export class PaginaCategorizacion implements OnInit {
       }
     })
     return totalesValidos
+  }
+
+  selectoresValidos(): boolean{
+    let validos = true;
+    this.tiposCategoria.forEach( tipo =>{
+      if(!tipo.selectoresValidos()){
+        validos = false;
+      }
+    })
+    return validos;
   }
 
   estaAgregandoModuloRadio(): boolean{
@@ -102,6 +112,10 @@ export class PaginaCategorizacion implements OnInit {
     }
     if(!this.totalesValidos() || !this.totalesMayoresACero()){
       this.popup.abrirPopupFallido('Totales inválidos.', 'Porfavor rectifica que los totales coinciden y son mayores a cero.')
+      return;
+    }
+    if(!this.selectoresValidos()){
+      this.popup.abrirPopupFallido('Valores inválidos.', 'Porfavor rectifica que todas las celdas contengan un valor válido.')
       return;
     }
 

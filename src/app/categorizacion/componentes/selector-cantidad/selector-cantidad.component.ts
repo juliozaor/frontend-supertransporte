@@ -16,9 +16,13 @@ export class SelectorCantidadComponent implements OnInit, AfterViewInit {
   @Input('idColumna') idColumna!: number
   @Input('valor') valor: number | null =  SelectorCantidadComponent.VALOR_POR_DEFECTO
   habilitado: boolean = true
+  invalido: boolean = false 
+  clases = {}
+
 
   static readonly VALOR_POR_DEFECTO = 0
   static readonly VALOR_MINIMO = 0
+  static readonly VALOR_MINIMO_NO_TOTALIZABLE = 1
 
   constructor(){
     this.nuevoValor = new EventEmitter<number>();
@@ -30,7 +34,6 @@ export class SelectorCantidadComponent implements OnInit, AfterViewInit {
       if(this.totalizable){
         this.nuevoValorEspecial.emit({fila: this.idFila, valor: this.valor!})
       }
-      
     }, 60)
   }
 
@@ -38,9 +41,7 @@ export class SelectorCantidadComponent implements OnInit, AfterViewInit {
     if(!this.valor){
       this.valor = SelectorCantidadComponent.VALOR_POR_DEFECTO
     }
-    if(!this.totalizable || !this.estado){
-      /* this.establecerHabilitado(false) */
-    }
+    this.establecerInvalido(this.esInvalido())
   }
 
   manejarCambio(valor: number){
@@ -65,12 +66,32 @@ export class SelectorCantidadComponent implements OnInit, AfterViewInit {
     if(this.totalizable){
       this.nuevoValorEspecial.emit({fila: this.idFila, valor: this.valor})
     }
+    this.establecerInvalido(this.esInvalido())
+    this.actualizarClases()
   }
 
   establecerHabilitado(habilitado: boolean){
     this.habilitado = habilitado
-    if(this.idColumna === 11 && this.idFila === 27){
-      console.log(this, habilitado)
+    this.invalido = this.esInvalido()
+    this.actualizarClases()
+  }
+
+  esInvalido(){
+    return  (!this.totalizable) && 
+    ((this.valor!) < SelectorCantidadComponent.VALOR_MINIMO_NO_TOTALIZABLE) &&
+    (this.habilitado) &&
+    (this.estado)
+  }
+
+  establecerInvalido(invalido: boolean){
+    this.invalido = invalido
+    this.actualizarClases()
+  }
+
+  actualizarClases(){
+    this.clases = {
+      cero: this.valor === 0,
+      invalido: this.invalido
     }
   }
 }

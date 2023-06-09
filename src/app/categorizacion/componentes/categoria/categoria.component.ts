@@ -65,10 +65,19 @@ export class CategoriaComponent implements OnInit, AfterViewInit, OnChanges {
           selector.establecerHabilitado(false)
         }else{
           selector.establecerHabilitado(true)
-         
         }
       }
     })
+  }
+
+  selectoresValidos(): boolean{
+    let validos = true;
+    this.selectores.forEach( selector => {
+      if(selector.invalido){
+        validos = false;
+      }
+    })
+    return validos;
   }
 
   calcularTotalInicial(){

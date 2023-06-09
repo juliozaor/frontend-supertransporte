@@ -1,5 +1,6 @@
 <input #input
 [disabled]="!habilitado || !estado"
+[ngClass]="clases"
 class="input-cantidad" 
 type="number"
 [(ngModel)]="valor"
