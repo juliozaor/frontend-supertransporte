@@ -20,7 +20,10 @@ export class TipoCategoriaComponent implements AfterViewInit{
 
   ngAfterViewInit(): void {
     setTimeout(()=>{
-      this.establecerInconsistencia(this.servicio.totalesCategoriasValidos(this.tipoCategoria.categoriaClasificacion))
+      this.establecerInconsistencia(
+        this.servicio.totalesCategoriasValidos(this.tipoCategoria.categoriaClasificacion)
+      )
+      this.validarTotalesMayoresACero()
     }, 60)
   }
 
@@ -29,6 +32,11 @@ export class TipoCategoriaComponent implements AfterViewInit{
       return false;
     }
     return true;
+  }
+
+  manejarCambioTotalCategoria(){
+    this.totalesComponentesCategoriaValidos()
+    this.validarTotalesMayoresACero()
   }
 
   totalesComponentesCategoriaValidos(){
@@ -40,9 +48,11 @@ export class TipoCategoriaComponent implements AfterViewInit{
   validarTotalesMayoresACero():boolean{
     for (const categoria of this.categorias) {
       if(categoria.total <= 0){
+        this.valido = false;
         return false;
       }
     }
+    this.valido = true;
     return true
   }
 

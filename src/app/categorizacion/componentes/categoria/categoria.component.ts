@@ -123,6 +123,12 @@ export class CategoriaComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   cambiarTotal(total: number){
+    if(total === 0){
+      this.esIgualACero = true;
+    }else{
+      this.esIgualACero = false;
+    }
+    
     this.total = total
     this.cambioTotal.emit(this.total)
   }

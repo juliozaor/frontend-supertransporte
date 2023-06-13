@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ServicioUsuarios } from '../../servicios/usuarios.service';
 import { InfoSistemaVigia } from '../../modelos/usuarios/InfoSistemaVigia';
 import { ServicioLocalStorage } from '../../servicios/local-storage.service';
@@ -6,6 +6,7 @@ import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 
 @Component({
   selector: 'app-pagina-informacion-general-vigilado',
@@ -13,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./pagina-informacion-general-vigilado.component.css']
 })
 export class PaginaInformacionGeneralVigiladoComponent implements OnInit {
+  @ViewChild('popup') popup!: PopupComponent
   informacion?: InfoSistemaVigia
   usuario: Usuario
   formulario: FormGroup
@@ -60,6 +62,7 @@ export class PaginaInformacionGeneralVigiladoComponent implements OnInit {
       error: (error: HttpErrorResponse) => { 
         this.mensajeError = error.error.mensaje
         this.hayError = true
+        this.popup.abrirPopupFallido('¡Lo sentimos!', this.mensajeError)
       }
     })
   }

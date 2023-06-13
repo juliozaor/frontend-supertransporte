@@ -6,8 +6,7 @@
     <div class="d-block w-100">
         <h2 class="fs-20px fw-semibold texto-azul-004884 mb-3 text-center mt-3 w-100">INFORMACIÓN GENERAL DEL VIGILADO EN EL SISTEMA VIGÍA</h2>
         <div class="d-flex w-100">
-            <p class="error" *ngIf="hayError">{{ mensajeError }}</p>
-            <p class="w-100" *ngIf="!hayError">
+            <p class="w-100">
                 Estimado vigilado, si la información de su empresa NO se encuentra actualizada, por favor ingrese al Sistema Nacional de Supervisión VIGIA. <a href="http://vigia.supertransporte.gov.co/VigiaSSO/pages/index?execution=e1s1" target="_blank">http://vigia.supertransporte.gov.co/VigiaSSO/pages/index?execution=e1s1</a> y actualice su información.
             </p>
         </div>
@@ -103,3 +102,4 @@
         </div>
     </form>
 </div>
+<app-popup #popup></app-popup>
