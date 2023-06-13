@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { TabsComponent } from './componentes/tabs/tabs.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TabComponent } from './componentes/tab/tab.component';
+import { AcordeonComponent } from './componentes/acordeon/acordeon.component';
 
 
 
 @NgModule({
   declarations: [
     TabsComponent,
-    TabComponent
+    TabComponent,
+    AcordeonComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { TabComponent } from './componentes/tab/tab.component';
   ],
   exports:[
     TabsComponent,
-    TabComponent
+    TabComponent,
+    AcordeonComponent
   ]
 })
 export class NavegacionModule { }

@@ -11,6 +11,7 @@ import { ModalConfirmacionComponent } from './componentes/modal-confirmacion/mod
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PaginaAsignacionTamanoOrganizacionComponent } from './paginas/pagina-asignacion-tamano-organizacion/pagina-asignacion-tamano-organizacion.component';
 import { RouterModule } from '@angular/router';
+import { NavegacionModule } from '../navegacion/navegacion.module';
 
 
 
@@ -30,7 +31,8 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     FormsModule,
     NgbModule,
-    AlertasModule
+    AlertasModule,
+    NavegacionModule
   ]
 })
 export class CategorizacionModule { }

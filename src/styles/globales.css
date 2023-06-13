@@ -209,7 +209,7 @@ body{
 }
 
 .validacion{
-  width: 100%;
+  /* width: 100%; */
   color: #AC0404;
   font-size: 12px;
 }

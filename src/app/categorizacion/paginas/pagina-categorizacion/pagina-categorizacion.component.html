@@ -7,16 +7,29 @@
     <div class="d-block w-100">
         <h3 class="fs-20px fw-semibold texto-azul-004884 mb-3 text-center mt-3 w-100">Categorización</h3>
     </div>
-
-    <h3>Datos de modalidad y radio de acción</h3>
-    <div class="p-3">
-        <app-formulario-modalidad-radio-operacion #formularioModalidades [modalidadRadio]="filtros.modalidadRadio" />
+    <div class="mb-3">
+        <app-acordeon>
+            <div cabecera>
+                <h4 class="d-flex align-items-center mb-0 fs-16px texto-primario fw-semibold ms-2">
+                    Datos de modalidad y radio de acción
+                </h4>
+            </div>
+            <div contenido>
+                <div class="p-3">
+                    <app-formulario-modalidad-radio-operacion #formularioModalidades [modalidadRadio]="filtros.modalidadRadio" />
+                </div>
+            </div>
+        </app-acordeon>
     </div>
 
-    <app-tipo-categoria
-    #tipoCategoria 
-    *ngFor="let tipoCategoria of filtros.tipoCategoria"
-    [tipoCategoria]="tipoCategoria" />
+    <div class="mb-3" *ngFor="let tipoCategoria of filtros.tipoCategoria">
+        <app-tipo-categoria
+        #tipoCategoria 
+        [tipoCategoria]="tipoCategoria" />
+    </div>
+
+
+    
     
     <div class="d-flex align-items-center justify-content-end">
         <button type="button" class="boton primario relleno mb-5" (click)="guardarInformacion()">Guardar</button>
