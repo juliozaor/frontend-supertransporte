@@ -40,4 +40,13 @@ export class EncuestasService extends Autenticable {
       { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } 
     })
   }
+
+  enviarRespuesta(idEncuesta: number, idReporte: number, idVigilado: string){
+    const enpoint = `/api/v1/encuestas/enviar`
+    return this.http.post<{ mensaje: string }>(
+      `${this.host}${enpoint}`, 
+      {idEncuesta, idReporte, idVigilado}, 
+      { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } 
+    })
+  }
 }

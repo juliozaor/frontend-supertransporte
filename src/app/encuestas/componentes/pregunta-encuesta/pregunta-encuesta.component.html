@@ -7,6 +7,7 @@
     <!-- Pregunta -->
     <div class="col-3 columna">
         <div class="d-flex justify-content-start">
+            <span class="validacion fw-semibold" *ngIf="pregunta.obligatoria">*</span>
             <span class="fs-14px">{{ pregunta.pregunta }}</span>
         </div>
     </div>
