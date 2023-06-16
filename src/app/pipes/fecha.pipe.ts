@@ -6,7 +6,8 @@ import { DateTime } from 'luxon';
 })
 export class FechaPipe implements PipeTransform {
 
-  transform(fecha: string, formato: string): unknown {
+  transform(fecha: string | undefined, formato: string): unknown {
+    if(!fecha) return '';
     return DateTime.fromISO(fecha).toFormat(formato);
   }
 

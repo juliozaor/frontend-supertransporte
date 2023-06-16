@@ -10,7 +10,7 @@ import { InterceptorAutorizacion } from './administrador/interceptores/Intercept
 import { AlertasModule } from './alertas/alertas.module';
 import { InputsModule } from './inputs/inputs.module';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { FechaPipe } from './pipes/fecha.pipe';
+import { AsignacionesModule } from './asignaciones/asignaciones.module';
 
 
 @NgModule({
@@ -23,6 +23,7 @@ import { FechaPipe } from './pipes/fecha.pipe';
     NgbModule,
     AdministradorModule,
     AutenticacionModule,
+    AsignacionesModule,
     AlertasModule,
     InputsModule,
     SweetAlert2Module.forRoot(),

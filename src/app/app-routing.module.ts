@@ -55,6 +55,10 @@ const routes: Routes = [
         path: 'asignacion',
         component: PaginaAsignacionTamanoOrganizacionComponent
       },
+      { 
+        path: 'asignaciones', 
+        loadChildren: () => import('./asignaciones/asignaciones.module').then(m => m.AsignacionesModule) 
+      }    
     ]
   },
   {

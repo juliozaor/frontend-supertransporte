@@ -38,11 +38,12 @@ a,a:hover{
   padding-bottom: 40px;
 }
 
-.logo-aliados-flamingo {
-  width: 425px;
-  min-width: 240px;
-  margin-bottom: 20px;
+.logo-ministerio{
 }
+.logo-ministerio img{
+  height: 50px;
+}
+
 
 .input-error{
   border-color: red;

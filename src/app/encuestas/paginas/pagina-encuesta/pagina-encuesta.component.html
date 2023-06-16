@@ -13,7 +13,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <button type="button" class="boton primario relleno">Exportar</button>
         <button type="button" class="boton primario delineado" (click)="enviarEncuesta()">Enviar a ST</button>
-        <button type="button" class="boton primario delineado">Volver</button>
+        <button type="button" class="boton primario delineado" [routerLink]="['/administrar', 'encuestas', idEncuesta]">Volver</button>
     </div>
     <div class="d-flex w-100">
         <app-encuesta

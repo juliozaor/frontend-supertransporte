@@ -1,9 +1,8 @@
 <div class="container px-5 py-4">
-    <h2 class="fw-semibold texto-azul-004884 mb-3">Encuestas</h2>
+    <h2 class="fw-semibold texto-azul-004884 mb-3" *ngIf="idEncuesta != 1 && idEncuesta != 2">Encuestas</h2>
+    <h2 class="fw-semibold texto-azul-004884 mb-3" *ngIf="idEncuesta == 1 || idEncuesta == 2">Encuestas fase {{idEncuesta}}</h2>
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <app-input-busqueda></app-input-busqueda>
-        <button type="button" class="boton primario relleno">Exportar</button>
-        <button type="button" class="boton primario relleno">Resumen</button>
+        <app-input-busqueda *ngIf="this.rol && this.rol.id != '003'"></app-input-busqueda>
     </div>
     <div class="d-flex">
         <div class="table-responsive">
@@ -33,7 +32,7 @@
                         <td>{{ reporte.descripcion }}</td>
                         <td>{{ reporte.fechaInicio | fecha: 'dd/MM/yyyy' }}</td>
                         <td>{{ reporte.fechaFinal | fecha: 'dd/MM/yyyy' }}</td>
-                        <td>{{ reporte.fechaEnvioST }}</td>
+                        <td>{{ reporte.fechaEnvioST | fecha: 'dd/MM/yyyy'}}</td>
                         <td>{{ reporte.razonSocial }} - {{ reporte.nit }}</td>
                         <td>{{ reporte.email }}</td>
                         <td>{{ reporte.estado }}</td>
@@ -42,10 +41,12 @@
             </table>
         </div>
     </div>
-    <div class="d-flex align-items-center justify-content-center">
-        <ngb-pagination 
-        [collectionSize]="this.paginador.totalRegistros ?? 0" 
+    <div class="d-flex align-items-center justify-content-center mt-3">
+        <ngb-pagination
+        *ngIf="this.paginador.totalRegistros && this.paginador.totalRegistros > 5"
+        [collectionSize]="this.paginador.totalRegistros" 
         [page]="this.paginador.pagina"
+        [maxSize]="6"
         (pageChange)="this.paginador.cambiarPagina($event)"
         [pageSize]="this.paginador.limite"
         ></ngb-pagination>
