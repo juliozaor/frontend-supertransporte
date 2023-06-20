@@ -1,0 +1,11 @@
+.tabla-reportes{
+    table-layout: fixed;
+}
+.tabla-reportes th, .tabla-reportes td{
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.tabla-reportes td{
+    height: 80px;
+    max-height: 80px;
+}

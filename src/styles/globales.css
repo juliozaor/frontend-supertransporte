@@ -276,3 +276,7 @@ body{
   padding: 12px 15px;
   vertical-align: middle;
 }
+.celda-centrada{
+  vertical-align: middle;
+  text-align: center;
+}

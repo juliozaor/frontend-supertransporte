@@ -1,1 +1,170 @@
-<p>pagina-asignacion works!</p>
+<div class="p-4">
+    <h4 class="fs-24px fw-semibold texto-primario mb-4">Asignar verificadores</h4>
+    <div class="tabla-todos mb-4">
+        <h3 class="fs-20px fw-semibold texto-primario mb-3">Reportes</h3>
+        <div class="filtros d-flex mb-3 flex-gap-20">
+            <fieldset>
+                <label>Filtro</label>
+                <select class="form-select" name="">
+                    <option value="">Selecciona un filtro</option>
+                    <option value="">filtro</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <label>Filtro</label>
+                <select class="form-select" name="">
+                    <option value="">Selecciona un filtro</option>
+                    <option value="">filtro</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <label>Filtro</label>
+                <select class="form-select" name="">
+                    <option value="">Selecciona un filtro</option>
+                    <option value="">filtro</option>
+                </select>
+            </fieldset>
+            <fieldset class="d-flex align-items-end ms-auto">
+                <button class="boton primario relleno">Buscar</button>
+            </fieldset>
+        </div>
+        <div class="table-responsive">
+            <table class="table tabla-reportes">
+                <thead>
+                    <tr class="fs-14px">
+                        <th class="encabezado-tabla celda-centrada" width="100px">No. Reporte</th>
+                        <th class="encabezado-tabla celda-centrada" width="240px">Encuesta</th>
+                        <th class="encabezado-tabla celda-centrada" width="100px">Fecha de envío a ST</th>
+                        <th class="encabezado-tabla celda-centrada" width="120px">NIT</th>
+                        <th class="encabezado-tabla celda-centrada" width="300px">Razón social</th>
+                        <th class="encabezado-tabla celda-centrada" width="300px">Email</th>
+                        <th class="encabezado-tabla celda-centrada" width="120px">Seleccionar</th>
+                    </tr>
+                </thead>
+                <tbody class="fs-14px">
+                    <tr *ngFor="let reporte of reportes ; let i = index">
+                        <td class="celda-centrada">{{ reporte.numeroReporte }}</td>
+                        <td class="celda-centrada">{{ reporte.encuesta }}</td>
+                        <td class="celda-centrada">{{ reporte.fechaEnvioST | fecha: 'dd/MM/yyyy'}}</td>
+                        <td class="celda-centrada">{{ reporte.nit }}</td>
+                        <td class="celda-centrada">{{ reporte.razonSocial }}</td>
+                        <td class="celda-centrada">{{ reporte.email }}</td>
+                        <td class="celda-centrada">
+                            <span
+                            *ngIf="!reporteSeleccionado(reporte.numeroReporte)" 
+                            class="material-symbols-outlined text-success cursor-pointer" 
+                            (click)="seleccionarReporte(reporte)">
+                            add
+                            </span>
+                            <span
+                            *ngIf="reporteSeleccionado(reporte.numeroReporte)" 
+                            class="material-symbols-outlined text-danger cursor-pointer" 
+                            (click)="removerReporte(reporte.numeroReporte)">
+                            close
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    <div class="tabla-seleccionados mb-4">
+        <h3 class="fs-20px fw-semibold texto-primario mb-3">Reportes seleccionados</h3>
+        <div class="table-responsive">
+            <table class="table tabla-reportes">
+                <thead>
+                    <tr class="fs-14px">
+                        <th class="encabezado-tabla celda-centrada" width="100px">No. Reporte</th>
+                        <th class="encabezado-tabla celda-centrada" width="240px">Encuesta</th>
+                        <th class="encabezado-tabla celda-centrada" width="100px">Fecha de envío a ST</th>
+                        <th class="encabezado-tabla celda-centrada" width="120px">NIT</th>
+                        <th class="encabezado-tabla celda-centrada" width="300px">Razón social</th>
+                        <th class="encabezado-tabla celda-centrada" width="300px">Email</th>
+                        <th class="encabezado-tabla celda-centrada" width="100px">Remover</th>
+                    </tr>
+                </thead>
+                <tbody class="fs-14px">
+                    <tr *ngFor="let reporte of reportesSeleccionados ; let i = index">
+                        <td class="celda-centrada">{{ reporte.numeroReporte }}</td>
+                        <td class="celda-centrada">{{ reporte.encuesta }}</td>
+                        <td class="celda-centrada">{{ reporte.fechaEnvioST | fecha: 'dd/MM/yyyy'}}</td>
+                        <td class="celda-centrada">{{ reporte.nit }}</td>
+                        <td class="celda-centrada">{{ reporte.razonSocial }}</td>
+                        <td class="celda-centrada">{{ reporte.email }}</td>
+                        <td class="celda-centrada">
+                            <span 
+                            class="material-symbols-outlined text-danger cursor-pointer"
+                            (click)="removerReporte(reporte.numeroReporte)">
+                            close
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="celda-centrada fw-semibold" colspan="7" *ngIf="reportesSeleccionados.length === 0">No hay reportes seleccionados</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="filtros d-flex mb-3 flex-gap-20">
+            <fieldset>
+                <label>Verificador</label>
+                <select #selectorVerificador class="form-select" name="" (change)="seleccionarVerificador(selectorVerificador.value)" >
+                    <option value="">Selecciona un verificador</option>
+                    <option
+                    [value]="verificador.identificacion" 
+                    *ngFor="let verificador of verificadores">{{ verificador.nombre }} - {{ verificador.identificacion }}</option>
+                </select>
+            </fieldset>
+            <fieldset class="d-flex align-items-end">
+                <button class="boton primario relleno" (click)="asignar()">Asignar</button>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <div class="tabla-remover mb-4" *ngIf="verificadorSeleccionado">
+        <h3 class="fs-20px fw-semibold texto-primario mb-3">Reportes asignados</h3>
+        <div class="table-responsive">
+            <table class="table tabla-reportes">
+                <thead>
+                    <tr class="fs-14px">
+                        <th class="encabezado-tabla celda-centrada" width="100px">No. Reporte</th>
+                        <th class="encabezado-tabla celda-centrada" width="240px">Encuesta</th>
+                        <th class="encabezado-tabla celda-centrada" width="100px">Fecha de envío a ST</th>
+                        <th class="encabezado-tabla celda-centrada" width="120px">NIT</th>
+                        <th class="encabezado-tabla celda-centrada" width="300px">Razón social</th>
+                        <th class="encabezado-tabla celda-centrada" width="300px">Email</th>
+                        <th class="encabezado-tabla celda-centrada" width="200px">Asignado</th>
+                        <th class="encabezado-tabla celda-centrada" width="100px">Remover</th>
+                    </tr>
+                </thead>
+                <tbody class="fs-14px">
+                    <tr *ngFor="let reporte of reportesAsignados ; let i = index">
+                        <td class="celda-centrada">{{ reporte.numeroReporte }}</td>
+                        <td class="celda-centrada">{{ reporte.encuesta }}</td>
+                        <td class="celda-centrada">{{ reporte.fechaEnvioST | fecha: 'dd/MM/yyyy'}}</td>
+                        <td class="celda-centrada">{{ reporte.nit }}</td>
+                        <td class="celda-centrada">{{ reporte.razonSocial }}</td>
+                        <td class="celda-centrada">{{ reporte.email }}</td>
+                        <td class="celda-centrada">Verificador</td>
+                        <td class="celda-centrada">
+                            <span
+                            (click)="eliminarAsignacion(reporte.numeroReporte)" 
+                            class="material-symbols-outlined text-danger cursor-pointer">
+                            close
+                            </span>
+                        </td>                    
+                    </tr>
+                    <tr>
+                        <td class="celda-centrada fw-semibold" colspan="8" *ngIf="reportesAsignados.length === 0">No hay reportes asignados</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<app-popup #popup />
