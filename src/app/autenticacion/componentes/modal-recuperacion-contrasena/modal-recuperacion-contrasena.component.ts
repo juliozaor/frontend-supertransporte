@@ -48,7 +48,7 @@ export class ModalRecuperacionContrasenaComponent implements OnInit {
         this.formulario.controls['correo'].value
       )).subscribe({
         next: (respuesta) => {
-          this.popup.abrirPopupExitoso('Hemos enviado a su correo electronico las instrucciones para recuperar su contraseña')
+          this.popup.abrirPopupExitoso('Hemos enviado a su correo electrónico las instrucciones para recuperar su contraseña')
           this.limpiarFormulario();
           this.servicioModal.dismissAll();
         },

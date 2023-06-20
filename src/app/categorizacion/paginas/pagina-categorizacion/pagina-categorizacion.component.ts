@@ -78,6 +78,10 @@ export class PaginaCategorizacion implements OnInit {
     return this.formularioModalidadesRadios.estaAgregandoModuloRadio()
   }
 
+  alMenosUnModuloRadio(): boolean{
+    return this.formularioModalidadesRadios.valido
+  }
+
   obtenerDatos(): Dato[]{
     let datos: Dato[] = []
     this.tiposCategoria.forEach( categoria => {
@@ -103,6 +107,13 @@ export class PaginaCategorizacion implements OnInit {
   }
 
   guardarInformacion(){
+    if(!this.alMenosUnModuloRadio()){
+      this.popup.abrirPopupFallido(
+        'Datos de modalidad y radio incorrectos.', 
+        'Debe haber por lo menos un dato de radio y modalidad.'
+      )
+      return;
+    }
     if(this.estaAgregandoModuloRadio()){
       this.popup.abrirPopupFallido(
         'Hay cambios en curso.', 

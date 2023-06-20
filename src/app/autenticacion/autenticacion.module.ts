@@ -12,6 +12,7 @@ import { SoporteAccesoComponent } from './componentes/soporte-acceso/soporte-acc
 import { AlertasModule } from '../alertas/alertas.module';
 import { InputsModule } from '../inputs/inputs.module';
 import { RouterModule } from '@angular/router';
+import { TemplatesModule } from '../templates/templates.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { RouterModule } from '@angular/router';
     InputsModule,
     SweetAlert2Module.forRoot(),
     AlertasModule,
+    TemplatesModule,
     RouterModule
   ]
 })

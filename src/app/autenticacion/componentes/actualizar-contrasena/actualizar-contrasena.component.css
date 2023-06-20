@@ -1,10 +1,10 @@
 .fondo {
+  margin-top: var(--alto-barra-navegacion);
   box-sizing: border-box;
-  width: 100vw;
-  height: 110vh;
+  width: 100%;
+  height: 870px;
   background-size: cover;
-  background: transparent linear-gradient(241deg, var(--azul) 0%, var(--azul-oscuro) 100%) 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
+  background-color: #E6EFFD;
   opacity: 1;
 }
 
@@ -16,9 +16,9 @@
   height: fit-content;
   margin-top: 50px;
   background: #FFFFFF 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 30px #0000004D;
   border: 1px solid #EDEFF0;
   border-radius: 10px;
+  box-shadow: none !important;
   opacity: 1;
 }
 
@@ -29,7 +29,7 @@
   align-items: center;
   justify-content: start;
   gap: 5px;
-  padding: 0 60px;
+  padding: 0 48px;
   padding-top: 40px;
   padding-bottom: 40px;
 }
@@ -47,10 +47,12 @@
   padding-bottom: 0px;
 }
 
-.logo-aliados-flamingo {
+.logo-supertransporte {
   width: 425px;
   min-width: 240px;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .input-error{

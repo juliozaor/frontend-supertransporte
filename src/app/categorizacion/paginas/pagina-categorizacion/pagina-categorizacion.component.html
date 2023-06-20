@@ -6,20 +6,11 @@
     </div>
     <div class="d-block w-100">
         <h3 class="fs-20px fw-semibold texto-azul-004884 mb-3 text-center mt-3 w-100">Categorización</h3>
+        <p>Estimado vigilado, tenga en cuenta que la información suministrada deberá ser veraz, completa, exacta, actualizada y comprobable, de conformidad con lo dispuesto en la Ley 366 de 1996 y decretos reglamentarios.</p>
+        <p>De acuerdo con lo anterior, la información debe estar acorde a lo estipulado en la resolución 20223040040595 de 2022 y así mismo determinar si su empresa se encuentra en Nivel Básico,  Nivel Estándar, Nivel Avanzado.</p>
     </div>
     <div class="mb-3">
-        <app-acordeon>
-            <div cabecera>
-                <h4 class="d-flex align-items-center mb-0 fs-16px texto-primario fw-semibold ms-2">
-                    Datos de modalidad y radio de acción
-                </h4>
-            </div>
-            <div contenido>
-                <div class="p-3">
-                    <app-formulario-modalidad-radio-operacion #formularioModalidades [modalidadRadio]="filtros.modalidadRadio" />
-                </div>
-            </div>
-        </app-acordeon>
+        <app-formulario-modalidad-radio-operacion #formularioModalidades [modalidadRadio]="filtros.modalidadRadio" />
     </div>
 
     <div class="mb-3" *ngFor="let tipoCategoria of filtros.tipoCategoria">

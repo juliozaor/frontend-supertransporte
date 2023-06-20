@@ -1,8 +1,9 @@
+<app-cabecera/>
 <div class="fondo d-flex justify-content-center">
   <div class="card contenedor-actualizar-contrasena">
     <div class="card-header">
-      <div class="logo-aliados-flamingo">
-        <img class="img-fluid" src="assets/img/logo-novafianza.svg" alt="logo-flamingo-aliados">
+      <div class="logo-supertransporte">
+        <img class="img-fluid" src="assets/img/cabecera/supertransporte.png" alt="logo-flamingo-aliados">
       </div>
     </div>
     <div class="card-body">
@@ -15,33 +16,43 @@
       </div>
       <div class="container grid text-center">
         <div class="row">
-          <div class="col">
-            <img class="img-fluid" src="assets/img/check.svg" alt="">
-            <label class="etiquetas"> 8 caracteres</label>
+          <div class="col-4 d-flex flex-column">
+            <div class="d-flex justify-content-center">
+              <img width="18px" src="assets/img/check.svg" alt="">
+            </div>
+            <label class="etiquetas fs-14px"> 8 caracteres</label>
           </div>
-          <div class="col">
-            <img class="img-fluid" src="assets/img/check.svg" alt="">
-            <label class="etiquetas">1 Minúscula</label>
+          <div class="col-4 d-flex flex-column">
+            <div class="d-flex justify-content-center">
+              <img width="18px" src="assets/img/check.svg" alt="">
+            </div>
+            <label class="etiquetas fs-14px">1 Minúscula</label>
           </div>
-            <div class="col">
-            <img class="img-fluid" src="assets/img/check.svg" alt="">
-            <label class="etiquetas">1 Mayúscula</label>
+            <div class="col-4 d-flex flex-column">
+              <div class="d-flex justify-content-center">
+                <img width="18px" src="assets/img/check.svg" alt="">
+              </div>
+              <label class="etiquetas fs-14px">1 Mayúscula</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-4">
-            <img class="img-fluid" src="assets/img/check.svg" alt="">
-            <label class="etiquetas">1 Número</label>
+          <div class="col-4 d-flex flex-column">
+            <div class="d-flex justify-content-center">
+              <img width="18px" src="assets/img/check.svg" alt="">
+            </div>
+            <label class="etiquetas fs-14px">1 Número</label>
           </div>
-            <div class="col-5">
-            <img class="img-fluid" src="assets/img/check.svg" alt="">
-            <label class="etiquetas">1 Carácter especial</label>
+            <div class="col-4 d-flex flex-column">
+              <div class="d-flex justify-content-center">
+                <img width="18px" src="assets/img/check.svg" alt="">
+              </div>
+              <label class="etiquetas fs-14px">1 Carácter especial</label>
           </div>
         </div>
       </div>
       <form class="w-100" [formGroup]="this.formulario">
         <fieldset class="mb-4 mt-2">
-          <label class="fs-12px fw-bold mb-2" for="antigua_contrasena">Antigua contraseña</label>
+          <label class="fs-12px fw-bold mb-2" for="antigua_contrasena">Contraseña actual</label>
           <input class="form-control" type="password" name="antigua_contrasena" formControlName="antigua_contrasena" required>
           <span class="validacion" *ngIf="this.formulario.controls['antigua_contrasena'].errors &&
           this.formulario.controls['antigua_contrasena'].dirty && this.formulario.controls['antigua_contrasena'].errors['required']">

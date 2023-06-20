@@ -23,6 +23,7 @@ export class FormularioModalidadRadioOperacionComponent implements OnInit {
   registrosACrear   : ModalidadRadioACrear[] = []
   registrosAEliminar: number[] = []
   formularioVisible : boolean = false
+  valido            : boolean = true
 
   constructor(private servicioCategorizacion: CategorizacionService){
     this.aCrear = new EventEmitter<ModalidadRadioACrear[]>();
@@ -32,6 +33,12 @@ export class FormularioModalidadRadioOperacionComponent implements OnInit {
       idModalidad: new FormControl<number | string>("", [Validators.required]), 
       idRadio: new FormControl<number | string>("", [Validators.required]) 
     })
+  }
+
+  ngOnInit(): void {
+    this.obtenerModalidades()
+    this.obtenerRadios()
+    this.valido = this.esValido()
   }
 
   mostrarFormulario(){
@@ -56,26 +63,25 @@ export class FormularioModalidadRadioOperacionComponent implements OnInit {
     this.registrosACrear.push(modalidadRadio)
     this.ocultarFormulario()
     this.mostrarMensajeDeGuardado()
+    this.valido = this.esValido()
   }
 
   retirarDeRam(indice: number){
     this.registrosACrear.splice(indice, 1)
     this.mostrarMensajeDeGuardado()
+    this.valido = this.esValido()
   }
 
   eliminarRegistro(id: number){
     this.registrosAEliminar.push(id)
     this.mostrarMensajeDeGuardado()
+    this.valido = this.esValido()
   }
 
   cancelarEliminacionRegistro(id: number){
     const indice = this.registrosAEliminar.findIndex( idEnArreglo => idEnArreglo === id)
     this.registrosAEliminar.splice(indice, 1)
-  }
-
-  ngOnInit(): void {
-    this.obtenerModalidades()
-    this.obtenerRadios()
+    this.valido = this.esValido()
   }
 
   obtenerModalidades(){
@@ -120,5 +126,15 @@ export class FormularioModalidadRadioOperacionComponent implements OnInit {
 
   estaAgregandoModuloRadio(): boolean{
     return this.formularioVisible
+  }
+
+  esValido(){
+    if(this.registrosACrear.length > 0){
+      return true 
+    }
+    if(this.registrosAEliminar.length < this.modalidadRadio.filas.length){
+      return true
+    }
+    return false
   }
 }
