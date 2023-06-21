@@ -13,6 +13,8 @@ export class PreguntaEncuestaComponent implements OnInit {
   @Input('idVigilado') idVigilado!: string
   @Input('pregunta') pregunta!: Pregunta
   @Input('soloLectura') soloLectura: boolean = true
+  @Input('justificable') justificable: boolean = false
+  observacion: string = ""
   valor: string = ""
   documento: File | null = null
 
@@ -36,8 +38,6 @@ export class PreguntaEncuestaComponent implements OnInit {
   }
 
   alCambiarArchivo(){
-    console.log('disparando funcion al cambiar archivo')
-    console.log(this.documento)
     if(this.documento){
       this.guardarArchivoTemporal()
     }else{
@@ -49,6 +49,10 @@ export class PreguntaEncuestaComponent implements OnInit {
   }
 
   alCambiarRespuesta(){
+    this.emitirValorModificado()
+  }
+
+  alCambiarObservacion(){
     this.emitirValorModificado()
   }
 
@@ -72,7 +76,8 @@ export class PreguntaEncuestaComponent implements OnInit {
       valor: this.valor,
       documento: this.nombreDocumento,
       nombreArchivo: this.nombreOriginalDocumento,
-      ruta: this.rutaDocumento
+      ruta: this.rutaDocumento,
+      observacion: this.observacion
     })
   }
 

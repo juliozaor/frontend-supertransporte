@@ -12,6 +12,7 @@ export class ClasificacionEncuestaComponent implements OnInit {
   @Input('idVigilado') idVigilado!: string
   @Input('clasificacion') clasificacion!: Clasificacion
   @Input('soloLectura') soloLectura: boolean = true
+  @Input('observacion') observacion: boolean  = false
   desplegado: boolean = true
   preguntasRespondidas: Respuesta[] = [] 
 

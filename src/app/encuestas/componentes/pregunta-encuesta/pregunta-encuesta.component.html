@@ -1,11 +1,11 @@
-<div class="row w-100 mx-0 border-top">
-    <div class="col-2 columna">
+<div class="d-flex mx-0">
+    <div class="col-2 columna border-top">
         <div class="d-flex justify-content-center">
             <span class="fs-14px">{{ pregunta.numeroPregunta }}</span>
         </div>
     </div>
     <!-- Pregunta -->
-    <div class="col-3 columna">
+    <div class="col-3 columna border-top">
         <div class="d-flex justify-content-start">
             <span class="validacion fw-semibold" *ngIf="pregunta.obligatoria">*</span>
             <span class="fs-14px">{{ pregunta.pregunta }}</span>
@@ -13,7 +13,7 @@
     </div>
     <!-- Valor | Respuesta -->
     <div 
-    class="col-2 columna" 
+    class="col-2 columna border-top" 
     [ngClass]="clasesRespuestas">
         <div class="d-flex justify-content-start">
             <div class="d-block w-100">
@@ -26,13 +26,13 @@
             </div>
         </div>
     </div>
-    <div class="col-2 columna">
+    <div class="col-2 columna border-top">
         <div class="d-flex justify-content-start">
             <span class="fs-14px">{{ pregunta.tipoDeEvidencia }}</span>
         </div>
     </div>
     <!-- Seleccionar | ver archivo -->
-    <div class="col-3 columna">
+    <div class="col-3 columna border-top">
         <div class="d-flex w-100 flex-column flex-gap-10">
             <div class="w-100">
                 <app-input-archivo
@@ -46,6 +46,16 @@
                 <img src="assets/img/iconos/icono_pdf.gif">
                 <span>{{ pregunta.documento }}</span>
             </div>
+        </div>
+    </div>
+    <div class="col-3 columna border-top" *ngIf="justificable">
+        <div class="d-flex justify-content-start">
+            <textarea
+            (change)="alCambiarObservacion()"
+            class="form-control" 
+            cols="30"
+             rows="5" 
+             [(ngModel)]="observacion"></textarea>
         </div>
     </div>
 </div>

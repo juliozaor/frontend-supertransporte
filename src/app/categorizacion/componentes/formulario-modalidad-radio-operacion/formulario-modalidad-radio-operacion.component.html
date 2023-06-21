@@ -19,7 +19,19 @@
                     <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
                         <th class="fw-semibold"></th>
                         <th class="fw-semibold"></th>
-                        <th class="fw-semibold" *ngFor="let cabecera of modalidadRadio.cabeceras">{{ cabecera }}</th>
+                        <th class="fw-semibold" *ngFor="let cabecera of modalidadRadio.cabeceras">
+                            <div class="d-flex">
+                                <span class="me-2">
+                                    {{ cabecera }}
+                                </span>
+                                <span
+                                ngbPopover="Texto de leyenda"
+                                triggers="mouseenter:mouseleave" 
+                                class="material-symbols-outlined fs-16px d-flex align-items-center cursor-pointer">
+                                    help
+                                </span>
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
