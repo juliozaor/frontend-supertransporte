@@ -4,8 +4,13 @@ export interface Categorizacion {
 }
 
 export interface ModalidadRadio {
-    cabeceras: string[];
+    cabeceras: Cabecera[];
     filas:     ModalidadRadioFila[];
+}
+
+export interface Cabecera{
+    nombre: string
+    leyenda: string
 }
 
 export interface ModalidadRadioFila {

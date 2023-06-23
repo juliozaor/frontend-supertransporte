@@ -2,6 +2,7 @@ export interface Encuesta {
     tipoAccion:      number;
     observacion:     boolean;
     clasificaion:   string;
+    nombreEncuesta: string
     clasificaciones: Clasificacion[];
 }
 

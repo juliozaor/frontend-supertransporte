@@ -64,6 +64,13 @@ export class FormularioModalidadRadioOperacionComponent implements OnInit {
     this.ocultarFormulario()
     this.mostrarMensajeDeGuardado()
     this.valido = this.esValido()
+    this.limpiarFormulario()
+  }
+
+  limpiarFormulario(){
+    this.formulario.reset()
+    this.formulario.get('idRadio')!.setValue('')
+    this.formulario.get('idModalidad')!.setValue('')
   }
 
   retirarDeRam(indice: number){
