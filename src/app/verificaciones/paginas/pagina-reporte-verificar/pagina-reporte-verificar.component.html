@@ -3,26 +3,23 @@
         Resumen - Ficha cuestionario - {{encuesta.nombreEncuesta}}
     </h3>
     <h4 class="texto-primario fw-semibold">Reporte número {{idReporte}}</h4>
-    <div class="d-flex justify-content-end">
-        <button class="boton primario delineado" [routerLink]="['/administrar', 'verificar-reportes']">Volver</button>
-    </div>
-    <form class="col-sm-100 col-md-7">
+    <form class="col-sm-100 col-md-7 mb-4" *ngIf="encuesta">
         <div class="row mb-2">
             <div class="col">NIT</div>
             <div class="col">
-                <input type="text" class="form-control" disabled [value]="nit">
+                <input type="text" class="form-control" disabled [value]="encuesta.idVigilado">
             </div>
         </div>
         <div class="row mb-2">
             <div class="col">Razón social</div>
             <div class="col">
-                <input type="text" class="form-control" disabled [value]="razonSocial">
+                <input type="text" class="form-control" disabled [value]="encuesta.razonSocila">
             </div>
         </div>
         <div class="row mb-2">
             <div class="col">Estado actual</div>
             <div class="col">
-                <input type="text" class="form-control" disabled [value]="estadoActual">
+                <input type="text" class="form-control" disabled [value]="encuesta.estadoActual">
             </div>
         </div>
         <div class="row mb-2">
@@ -32,6 +29,10 @@
             </div>
         </div>
     </form>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <button type="button" class="boton primario relleno">Enviar a ST</button>
+        <button class="boton primario delineado" [routerLink]="['/administrar', 'verificar-reportes']">Volver</button>
+    </div>
     <app-encuesta
         *ngIf="encuesta && idReporte && idEncuesta && idVigilado" 
         #componenteEncuesta 
