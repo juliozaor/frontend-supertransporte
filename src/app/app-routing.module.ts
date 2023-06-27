@@ -58,7 +58,15 @@ const routes: Routes = [
       { 
         path: 'asignaciones', 
         loadChildren: () => import('./asignaciones/asignaciones.module').then(m => m.AsignacionesModule) 
-      }    
+      },
+      {
+        path: 'verificar-reportes',
+        loadChildren: () => import('./verificaciones/verificaciones.module').then(m => m.VerificacionesModule)
+      },
+      {
+        path: 'usuarios',
+        loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule)
+      }
     ]
   },
   {

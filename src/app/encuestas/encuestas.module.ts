@@ -31,6 +31,13 @@ import { PipesModule } from '../pipes/pipes.module';
     InputsModule,
     AlertasModule,
     PipesModule
+  ],
+  exports: [
+    ListadoEncuestasComponent,
+    PaginaEncuestaComponent,
+    EncuestaComponent,
+    PreguntaEncuestaComponent,
+    ClasificacionEncuestaComponent
   ]
 })
 export class EncuestasModule { }

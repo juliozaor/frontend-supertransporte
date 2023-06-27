@@ -10,3 +10,26 @@
 .clasificaciones>li{
     border-bottom: 1px solid #E6EFFD;
 }
+
+
+@media print{
+    ::ng-deep .navbar{
+      display: none;
+    }
+    ::ng-deep .menu{
+      display: none !important;
+    }
+    ::ng-deep button{
+        display: none;
+    }
+    ::ng-deep *{
+        overflow: hidden;
+    }
+    ::ng-deep .clasificaciones>li{
+        break-inside: avoid;
+    }
+    ::ng-deep .pregunta-encuesta{
+        break-inside: avoid;
+    }
+  }
+  

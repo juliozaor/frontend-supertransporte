@@ -35,11 +35,32 @@
                     <span class="fs-14px">Documento</span>
                 </div>
             </div>
-            <div class="col-3 encabezado">
+            <div class="col-3 encabezado" *ngIf="!camposDeVerificacion">
                 <div class="d-flex justify-content-start">
                     <span class="fs-14px">Observación</span>
                 </div>
             </div>
+            <div class="col-3 encabezado" *ngIf="camposDeVerificacion">
+                <div class="d-flex justify-content-start">
+                    <span class="fs-14px">¿La evidencia corresponde a lo solicitado?</span>
+                </div>
+            </div>
+            <div class="col-3 encabezado" *ngIf="camposDeVerificacion">
+                <div class="d-flex justify-content-start">
+                    <span class="fs-14px">Observación</span>
+                </div>
+            </div>
+            <div class="col-3 encabezado" *ngIf="camposDeVerificacion">
+                <div class="d-flex justify-content-start">
+                    <span class="fs-14px">¿El documento cumple con la información o estructura solicitada?</span>
+                </div>
+            </div>
+            <div class="col-3 encabezado" *ngIf="camposDeVerificacion">
+                <div class="d-flex justify-content-start">
+                    <span class="fs-14px">Observación</span>
+                </div>
+            </div>
+
         </div>
         <app-pregunta-encuesta
         [soloLectura]="soloLectura"
@@ -47,6 +68,7 @@
         [pregunta]="pregunta"
         [idVigilado]="idVigilado"
         [justificable]="observacion"
+        [camposDeVerificacion]="camposDeVerificacion"
         (valorModificado)="agregarPreguntaRespondida($event)"/>
     </div>
 </div>

@@ -36,7 +36,7 @@ import { CategorizacionModule } from '../categorizacion/categorizacion.module';
     AlertasModule,
     FormsModule,
     NgbModule,
-    SweetAlert2Module.forRoot(),
+    SweetAlert2Module,
   ],
   exports:[]
 })

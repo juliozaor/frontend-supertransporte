@@ -1,4 +1,4 @@
-<div class="d-flex mx-0">
+<div class="pregunta-encuesta d-flex mx-0">
     <div class="col-2 columna border-top">
         <div class="d-flex justify-content-center">
             <span class="fs-14px">{{ pregunta.numeroPregunta }}</span>
@@ -34,21 +34,21 @@
     <!-- Seleccionar | ver archivo -->
     <div class="col-3 columna border-top">
         <div class="d-flex w-100 flex-column flex-gap-10">
-            <div class="w-100">
+            <div class="w-100" [ngClass]="{'d-none': soloLectura}">
                 <app-input-archivo
-                *ngIf="!soloLectura"
                 (change)="alCambiarArchivo()"
                 [nombre]="pregunta.idPregunta.toString()" 
                 [acepta]="['application/pdf']"
                 [(ngModel)]="documento"/>
             </div>
-            <div class="w-100">
+            <div class="w-100 fs-12px">
                 <img src="assets/img/iconos/icono_pdf.gif">
-                <span>{{ pregunta.documento }}</span>
+                <span class="ms-2">{{ pregunta.documento }}</span>
+                <span class="ms-2" *ngIf="!pregunta.documento || pregunta.documento == ''">Sin documento cargado.</span>
             </div>
         </div>
     </div>
-    <div class="col-3 columna border-top" *ngIf="justificable">
+    <div class="col-3 columna border-top" *ngIf="justificable && !camposDeVerificacion">
         <div class="d-flex justify-content-start">
             <textarea
             (change)="alCambiarObservacion()"
@@ -56,6 +56,39 @@
             cols="30"
              rows="5" 
              [(ngModel)]="observacion"></textarea>
+        </div>
+    </div>
+    <!-- Campos verificador -->
+    <div class="col-3 columna border-top" *ngIf="camposDeVerificacion">
+        <div class="d-flex justify-content-start">
+            <select name="" id="" class="form-select">
+                <option value="">Selecciona una opción</option>
+                <option value="">Aplica</option>
+                <option value="">No aplica</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-3 columna border-top" *ngIf="camposDeVerificacion">
+        <div class="d-flex justify-content-start">
+            <textarea
+            class="form-control" 
+            cols="30"
+             rows="5"></textarea>
+        </div>
+    </div>
+    <div class="col-3 columna border-top" *ngIf="camposDeVerificacion">
+        <select name="" id="" class="form-select">
+            <option value="">Selecciona una opción</option>
+            <option value="">Aplica</option>
+            <option value="">No aplica</option>
+        </select>
+    </div>
+    <div class="col-3 columna border-top" *ngIf="camposDeVerificacion">
+        <div class="d-flex justify-content-start">
+            <textarea
+            class="form-control" 
+            cols="30"
+            rows="5"></textarea>
         </div>
     </div>
 </div>

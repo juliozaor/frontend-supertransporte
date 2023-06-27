@@ -1,4 +1,4 @@
-<div class="d-flex flex-column w-100">
+<div class="contenedor-encuesta d-flex flex-column w-100" #contenedorEncuesta>
     <ul class="clasificaciones">
         <li *ngFor="let clasificacion of encuesta.clasificaciones">
             <app-clasificacion-encuesta 
@@ -6,7 +6,8 @@
             [clasificacion]="clasificacion"
             [soloLectura]="soloLectura"
             [idVigilado]="idVigilado"
-            [observacion]="encuesta.observacion" />
+            [observacion]="encuesta.observacion" 
+            [camposDeVerificacion]="camposDeVerificacion"/>
         </li>
     </ul>
     <div class="d-flex mt-4" *ngIf="!soloLectura">

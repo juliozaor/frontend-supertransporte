@@ -13,6 +13,7 @@ export class PreguntaEncuestaComponent implements OnInit {
   @Input('idVigilado') idVigilado!: string
   @Input('pregunta') pregunta!: Pregunta
   @Input('soloLectura') soloLectura: boolean = true
+  @Input('camposDeVerificacion') camposDeVerificacion: boolean = false
   @Input('justificable') justificable: boolean = false
   observacion: string = ""
   valor: string = ""
