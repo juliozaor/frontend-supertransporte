@@ -19,6 +19,7 @@ export class PreguntaEncuestaComponent implements OnInit {
   @Input('justificable') justificable: boolean = false
   observacion: string = ""
   valor: string = ""
+  invalida: boolean = false
   documento: File | null = null
 
   nombreOriginalDocumento?: string
@@ -86,6 +87,14 @@ export class PreguntaEncuestaComponent implements OnInit {
       ruta: this.rutaDocumento,
       observacion: this.observacion
     })
+  }
+
+  marcarInvalida(){
+    this.invalida = true
+  }
+
+  marcarValida(){
+    this.invalida = false
   }
 
 }

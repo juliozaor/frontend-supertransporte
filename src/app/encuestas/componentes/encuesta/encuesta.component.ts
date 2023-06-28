@@ -8,6 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { RespuestaInvalida } from '../../modelos/RespuestaInvalida';
 
 @Component({
   selector: 'app-encuesta',
@@ -60,7 +61,9 @@ export class EncuestaComponent implements OnInit {
     this.popup.abrirPopupFallido('Error al cargar el archivo', 'Intentalo más tarde.')
   }
 
-  resaltarRespuestasInvalidas(){
-
+  resaltarRespuestasInvalidas(invalidas: RespuestaInvalida[]){ //reemplazar esto por un observable
+    this.clasificaciones.forEach( clasificacion =>{
+      clasificacion.resaltarRespuestasInvalidas(invalidas)
+    })
   }
 }

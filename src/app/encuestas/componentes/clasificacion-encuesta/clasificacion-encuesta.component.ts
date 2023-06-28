@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { Clasificacion } from '../../modelos/Encuesta';
 import { Respuesta } from '../../modelos/Respuesta';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RespuestaInvalida } from '../../modelos/RespuestaInvalida';
+import { PreguntaEncuestaComponent } from '../pregunta-encuesta/pregunta-encuesta.component';
 
 @Component({
   selector: 'app-clasificacion-encuesta',
@@ -9,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./clasificacion-encuesta.component.css']
 })
 export class ClasificacionEncuestaComponent implements OnInit {
+  @ViewChildren('pregunta') preguntas!: QueryList<PreguntaEncuestaComponent>
   @Output('preguntasRespondidas') seHanRespondidoPreguntas: EventEmitter<Respuesta[]>
   @Output('haHabidoErrorArchivo') haHabidoErrorArchivo: EventEmitter<HttpErrorResponse> 
   @Input('idVigilado') idVigilado!: string
@@ -61,6 +64,15 @@ export class ClasificacionEncuestaComponent implements OnInit {
 
   manejarErrorCargaArchivo(error: HttpErrorResponse){
     this.haHabidoErrorArchivo.emit(error)
+  }
+
+  resaltarRespuestasInvalidas(invalidas: RespuestaInvalida[]){ //reemplazar esto por un observable
+    const idInvalidas = invalidas.map( invalida => invalida.preguntaId ) 
+    this.preguntas.forEach( pregunta =>{
+      if( idInvalidas.includes(pregunta.pregunta.idPregunta) ){
+        pregunta.marcarInvalida()
+      }
+    })
   }
 
 }

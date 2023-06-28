@@ -280,4 +280,6 @@ body{
   vertical-align: middle;
   text-align: center;
 }
-
+.invalido{
+  border: 1px solid #e00909;
+}

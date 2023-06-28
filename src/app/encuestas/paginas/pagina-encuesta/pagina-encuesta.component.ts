@@ -71,6 +71,7 @@ export class PaginaEncuestaComponent implements OnInit {
         this.popup.abrirPopupExitoso('Formulario enviado', 'El formulario se ha enviado correctamente.')
       },
       error: (error: HttpErrorResponse)=>{
+        this.componenteEncuesta.resaltarRespuestasInvalidas(error.error.faltantes)
         this.popup.abrirPopupFallido('Formulario inválido', error.error.mensaje)
       }
     })
