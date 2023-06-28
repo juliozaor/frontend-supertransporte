@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Clasificacion } from '../../modelos/Encuesta';
 import { Respuesta } from '../../modelos/Respuesta';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-clasificacion-encuesta',
@@ -9,6 +10,7 @@ import { Respuesta } from '../../modelos/Respuesta';
 })
 export class ClasificacionEncuestaComponent implements OnInit {
   @Output('preguntasRespondidas') seHanRespondidoPreguntas: EventEmitter<Respuesta[]>
+  @Output('haHabidoErrorArchivo') haHabidoErrorArchivo: EventEmitter<HttpErrorResponse> 
   @Input('idVigilado') idVigilado!: string
   @Input('clasificacion') clasificacion!: Clasificacion
   @Input('soloLectura') soloLectura: boolean = true
@@ -19,6 +21,7 @@ export class ClasificacionEncuestaComponent implements OnInit {
 
   constructor() { 
     this.seHanRespondidoPreguntas = new EventEmitter<Respuesta[]>();
+    this.haHabidoErrorArchivo = new EventEmitter<HttpErrorResponse>() 
   }
 
   ngOnInit(): void {
@@ -54,6 +57,10 @@ export class ClasificacionEncuestaComponent implements OnInit {
     this.preguntasRespondidas = this.preguntasRespondidas.filter( preguntaRespondida => { 
       return preguntaRespondida.preguntaId !== respuesta.preguntaId ? true : false
     })
+  }
+
+  manejarErrorCargaArchivo(error: HttpErrorResponse){
+    this.haHabidoErrorArchivo.emit(error)
   }
 
 }

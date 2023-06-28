@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Pregunta } from '../../modelos/Encuesta';
 import { Respuesta } from '../../modelos/Respuesta';
 import { ArchivosEncuestasService } from '../../servicios/archivos-encuestas.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-pregunta-encuesta',
@@ -10,6 +11,7 @@ import { ArchivosEncuestasService } from '../../servicios/archivos-encuestas.ser
 })
 export class PreguntaEncuestaComponent implements OnInit {
   @Output('valorModificado') valorModificado: EventEmitter<Respuesta>
+  @Output('haHabidoErrorArchivo') haHabidoErrorArchivo: EventEmitter<HttpErrorResponse> 
   @Input('idVigilado') idVigilado!: string
   @Input('pregunta') pregunta!: Pregunta
   @Input('soloLectura') soloLectura: boolean = true
@@ -26,6 +28,7 @@ export class PreguntaEncuestaComponent implements OnInit {
   
   constructor(private servicioArchivos: ArchivosEncuestasService) { 
     this.valorModificado = new EventEmitter<Respuesta>();
+    this.haHabidoErrorArchivo = new EventEmitter<HttpErrorResponse>() 
   }
 
   ngOnInit(): void {
@@ -67,6 +70,9 @@ export class PreguntaEncuestaComponent implements OnInit {
         this.nombreOriginalDocumento = archivo.nombreOriginalArchivo
         this.rutaDocumento = archivo.ruta
         this.emitirValorModificado()
+      },
+      error: (e: HttpErrorResponse)=>{
+        this.haHabidoErrorArchivo.emit(e)
       }
     })
   }

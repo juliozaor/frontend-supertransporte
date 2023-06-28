@@ -69,6 +69,7 @@
         [idVigilado]="idVigilado"
         [justificable]="observacion"
         [camposDeVerificacion]="camposDeVerificacion"
-        (valorModificado)="agregarPreguntaRespondida($event)"/>
+        (valorModificado)="agregarPreguntaRespondida($event)"
+        (haHabidoErrorArchivo)="manejarErrorCargaArchivo($event)"/>
     </div>
 </div>

@@ -26,7 +26,7 @@ export class ArchivosEncuestasService extends Autenticable {
     return this.http.post<ArchivoTemporal>(
         `${this.host}${endpoint}`, 
         formData, 
-        { headers: this.obtenerCabeceraAutorizacion() }
+        { headers: { Authorization: `Bearer d4a32a3b-def6-4cc2-8f77-904a67360b53` } }
     )
   }
 }

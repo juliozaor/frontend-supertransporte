@@ -52,23 +52,15 @@ export class EncuestaComponent implements OnInit {
     return this.respuestas
   }
 
-/*   exportarPDF(){
-    const pdf = new jsPDF('p', 'pt', 'a4')
-    pdf.html(this.contenedorEncuesta.nativeElement, {
-      callback: function (pdf) {
-        pdf.save();
-      },
-      x: 10,
-      y: 10,
-      html2canvas: {
-        scale: 0.5
-      }
-   });
-  } */
-
   exportarPDF(){
     window.print()
   }
 
+  manejarErrorCargaArchivo(error: HttpErrorResponse){
+    this.popup.abrirPopupFallido('Error al cargar el archivo', 'Intentalo más tarde.')
+  }
 
+  resaltarRespuestasInvalidas(){
+
+  }
 }
