@@ -5,3 +5,9 @@
     width: auto;
     height: 100%;
 }
+.tabla-clasificacion td{
+    padding: 7px 7px;
+}
+.tabla-clasificacion th{
+    padding: 7px 7px;
+}

@@ -1,11 +1,11 @@
 <div class="pregunta-encuesta d-flex mx-0" [ngClass]="{'invalido': invalida}">
-    <div class="col-2 columna border-top">
+    <div class="col-1 columna border-top">
         <div class="d-flex justify-content-center">
             <span class="fs-14px">{{ pregunta.numeroPregunta }}</span>
         </div>
     </div>
     <!-- Pregunta -->
-    <div class="col-3 columna border-top">
+    <div class="col-4 columna border-top">
         <div class="d-flex justify-content-start">
             <span class="validacion fw-semibold" *ngIf="pregunta.obligatoria">*</span>
             <span class="fs-14px">{{ pregunta.pregunta }}</span>
@@ -17,7 +17,7 @@
     [ngClass]="clasesRespuestas">
         <div class="d-flex justify-content-start">
             <div class="d-block w-100">
-                <select [disabled]="soloLectura" [(ngModel)]="valor" class="form-select" (change)="alCambiarRespuesta()">
+                <select [disabled]="soloLectura" [(ngModel)]="valor" class="form-select" (change)="alCambiarRespuesta(this.valor)">
                     <option value="">Escoge una opción.</option>
                     <option *ngFor="let opcion of pregunta.valoresPregunta" [value]="opcion.valor">
                         {{ opcion.clave }}
@@ -36,6 +36,7 @@
         <div class="d-flex w-100 flex-column flex-gap-10">
             <div class="w-100" [ngClass]="{'d-none': soloLectura}">
                 <app-input-archivo
+                [disabled]="archivoDeshabilitado"
                 (change)="alCambiarArchivo()"
                 [nombre]="pregunta.idPregunta.toString()" 
                 [acepta]="['application/pdf']"
@@ -50,12 +51,14 @@
     </div>
     <div class="col-3 columna border-top" *ngIf="justificable && !camposDeVerificacion">
         <div class="d-flex justify-content-start">
-            <textarea
+            <select
+            [disabled]="motivoDeshabilitado"
             (change)="alCambiarObservacion()"
-            class="form-control" 
-            cols="30"
-             rows="5" 
-             [(ngModel)]="observacion"></textarea>
+            class="form-select" 
+             [(ngModel)]="observacion">
+                <option value="">Selecciona una opción</option>
+                <option [value]="motivo.id" *ngFor="let motivo of motivos">{{ motivo.descripcion }}</option>
+            </select>
         </div>
     </div>
     <!-- Campos verificador -->

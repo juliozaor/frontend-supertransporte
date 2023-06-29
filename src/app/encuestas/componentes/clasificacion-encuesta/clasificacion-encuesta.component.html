@@ -10,12 +10,12 @@
     </div>
     <div class="w-100 overflow-auto" [ngClass]="{'d-none': !desplegado, 'd-block': desplegado}">
         <div class="d-flex mx-0">
-            <div class="col-2 encabezado">
+            <div class="col-1 encabezado">
                 <div class="d-flex justify-content-center">
                     <span class="fs-14px">No.</span>
                 </div>
             </div>
-            <div class="col-3 encabezado">
+            <div class="col-4 encabezado">
                 <div class="d-flex justify-content-start">
                     <span class="fs-14px">Pregunta</span>
                 </div>
@@ -35,9 +35,9 @@
                     <span class="fs-14px">Documento</span>
                 </div>
             </div>
-            <div class="col-3 encabezado" *ngIf="!camposDeVerificacion">
+            <div class="col-3 encabezado" *ngIf="justificable && !camposDeVerificacion">
                 <div class="d-flex justify-content-start">
-                    <span class="fs-14px">Observación</span>
+                    <span class="fs-14px">Motivo</span>
                 </div>
             </div>
             <div class="col-3 encabezado" *ngIf="camposDeVerificacion">
@@ -68,7 +68,7 @@
         *ngFor="let pregunta of clasificacion.preguntas" 
         [pregunta]="pregunta"
         [idVigilado]="idVigilado"
-        [justificable]="observacion"
+        [justificable]="justificable"
         [camposDeVerificacion]="camposDeVerificacion"
         (valorModificado)="agregarPreguntaRespondida($event)"
         (haHabidoErrorArchivo)="manejarErrorCargaArchivo($event)"/>

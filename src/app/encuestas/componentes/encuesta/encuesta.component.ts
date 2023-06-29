@@ -21,16 +21,17 @@ export class EncuestaComponent implements OnInit {
   @Input('idEncuesta') idEncuesta!: number
   @Input('idVigilado') idVigilado!: string
   @Input('soloLectura') soloLectura: boolean = true
+  @Input('justificable') justificable: boolean = false
   @Input('camposDeVerificacion') camposDeVerificacion: boolean = false
   @ViewChildren('clasificacion') clasificaciones!: QueryList<ClasificacionEncuestaComponent>
   @ViewChild('popup') popup!: PopupComponent
   @ViewChild('contenedorEncuesta') contenedorEncuesta!: ElementRef
   respuestas: Respuesta[] = []
   
-  constructor(private servicioEncuestas: EncuestasService, private router: Router) { }
-
-  ngOnInit(): void {
+  constructor(private servicioEncuestas: EncuestasService, private router: Router) { 
   }
+
+  ngOnInit(): void {}
 
   guardarRespuestas(){
     this.servicioEncuestas.guardarRespuesta(this.idReporte, { respuestas: this.obtenerRespuestas() }).subscribe({

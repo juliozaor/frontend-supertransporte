@@ -19,6 +19,7 @@ export class ClasificacionEncuestaComponent implements OnInit {
   @Input('soloLectura') soloLectura: boolean = true
   @Input('camposDeVerificacion') camposDeVerificacion: boolean = false
   @Input('observacion') observacion: boolean  = false
+  @Input('justificable') justificable: boolean = false
   desplegado: boolean = true
   preguntasRespondidas: Respuesta[] = [] 
 

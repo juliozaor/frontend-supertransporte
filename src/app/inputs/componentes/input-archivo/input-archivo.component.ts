@@ -23,7 +23,6 @@ export class InputArchivoComponent implements OnInit, ControlValueAccessor {
   }
 
   onChangeFiles = (evento: Event) => {
-    console.log("Ha cambiado")
     if (!evento.target) {
       throw Error('El target del evento no es un input')
     }
@@ -48,7 +47,12 @@ export class InputArchivoComponent implements OnInit, ControlValueAccessor {
   registerOnTouched(fn: any): void {
     this.onTouched = fn
   }
+
   setDisabledState?(isDisabled: boolean): void {
+    this.archivo = null;
+    if(this.input){
+      this.input.nativeElement.value = ""
+    }
     this.disabled = isDisabled
   }
 
@@ -59,12 +63,15 @@ export class InputArchivoComponent implements OnInit, ControlValueAccessor {
     return this.acepta.join(',')
   }
 
-  removeFile(event: Event){
-    console.log("Ha cambiado")
-    event.preventDefault();
+  removeFile(){
     this.archivo = null;
     this.input.nativeElement.value = ""
     this.onChange(this.archivo)
+  }
+
+  manejarRemoverArchivo(event: Event){
+    event.preventDefault();
+    this.removeFile()
   }
 
 }
