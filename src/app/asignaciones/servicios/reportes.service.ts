@@ -6,6 +6,7 @@ import { Verificador } from '../modelos/Verificador';
 import { ResumenReporte } from 'src/app/encuestas/modelos/ResumenReporte';
 import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 import { Asignacion } from '../modelos/Asignacion';
+import { FiltrosReportesAsignados } from '../modelos/FiltrosReportesAsignados';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,11 @@ export class ServicioReportes extends Autenticable {
     )
   }
 
-  obtenerRepostesAsignados(identificacionVerificador: string){
-    const endpoint = `/api/v1/reportes/asignados/${identificacionVerificador}`
+  obtenerReportesAsignados(pagina: number, limite: number, filtros?: FiltrosReportesAsignados){
+    let endpoint = `/api/v1/reportes/asignados?pagina=${pagina}&limite=${limite}`
+    if(filtros){
+      endpoint+=`&idVerificador=${filtros.identificacionVerificador}`
+    }
     return this.http.get<{ reportadas: ResumenReporte[], paginacion: Paginacion}>(
       `${this.host}${endpoint}`,
       { headers: this.obtenerCabeceraAutorizacion() }

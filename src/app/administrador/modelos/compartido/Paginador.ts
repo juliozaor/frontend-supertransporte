@@ -54,6 +54,15 @@ export class Paginador<T>{
         })
     }
 
+    filtrar(filtros?: T){
+        this._filtros = filtros
+        this._funcionObtenerRecursos(this._pagina, this._limite, this._filtros).subscribe({
+            next: (paginacion) => {
+                this.cambiarTotales(paginacion)
+            }
+        })
+    }
+
     private cambiarTotales(paginacion: Paginacion){
         this._totalRegistros = paginacion.totalRegistros
         this._totalPaginas = paginacion.totalPaginas

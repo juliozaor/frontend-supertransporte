@@ -12,6 +12,7 @@ import { Verificador } from '../../modelos/Verificador';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Asignacion } from '../../modelos/Asignacion';
+import { FiltrosReportesAsignados } from '../../modelos/FiltrosReportesAsignados';
 
 @Component({
   selector: 'app-pagina-asignacion',
@@ -29,6 +30,7 @@ export class PaginaAsignacionComponent implements OnInit{
   reportes: ResumenReporte[] = []
   reportesSeleccionados: ResumenReporte[] = []
   reportesAsignados: ResumenReporte[] = []
+  paginadorReportesAsignados: Paginador<FiltrosReportesAsignados>
 
 
   constructor(
@@ -40,6 +42,7 @@ export class PaginaAsignacionComponent implements OnInit{
     if(!usuario){
       throw new ErrorAutorizacion()
     }
+    this.paginadorReportesAsignados = new Paginador<FiltrosReportesAsignados>(this.obtenerReportesAsignados)
     this.usuario = usuario
     this.paginadorReportes = new Paginador<{ idEncuesta: number }>(this.obtenerEncuestas)
   }
@@ -60,12 +63,17 @@ export class PaginaAsignacionComponent implements OnInit{
     })
   }
 
-  obtenerReportesAsignados(identificacionVerificador: string){
-    this.servicioReportes.obtenerRepostesAsignados(identificacionVerificador).subscribe({
-      next: ( respuesta )=>{
-        this.reportesAsignados = respuesta.reportadas
-      }
+  obtenerReportesAsignados = (pagina: number, limite: number, filtros?: FiltrosReportesAsignados)=>{
+    return new Observable<Paginacion>( subscribcion =>{
+      this.servicioReportes.obtenerReportesAsignados(pagina, limite, filtros).subscribe({
+        next: ( respuesta )=>{
+          this.reportesAsignados = respuesta.reportadas
+          subscribcion.next(respuesta.paginacion)
+          subscribcion.complete()
+        }
+      })
     })
+    
   }
 
   obtenerVerificadores(){
@@ -78,7 +86,8 @@ export class PaginaAsignacionComponent implements OnInit{
 
   seleccionarVerificador(identificacionVerificador: string){
     this.verificadorSeleccionado = identificacionVerificador
-    this.obtenerReportesAsignados(identificacionVerificador)
+    this.paginadorReportesAsignados.inicializar()
+    this.paginadorReportesAsignados.filtrar({identificacionVerificador: identificacionVerificador})
   }
 
   seleccionarReporte(reporte: ResumenReporte){
@@ -100,7 +109,8 @@ export class PaginaAsignacionComponent implements OnInit{
     this.servicioReportes.eliminarAsignacion(numeroReporte).subscribe({
       next:  ()=>{
         this.popup.abrirPopupExitoso('Asignación removida.')
-        this.obtenerReportesAsignados(this.verificadorSeleccionado!)
+        this.paginadorReportesAsignados.inicializar()
+        this.paginadorReportesAsignados.filtrar({identificacionVerificador: this.verificadorSeleccionado})
       },
       error: (error: HttpErrorResponse)=>{
         this.popup.abrirPopupFallido('Error al remover la asignación.', error.error.mensaje)
@@ -122,7 +132,8 @@ export class PaginaAsignacionComponent implements OnInit{
     this.servicioReportes.asignarReportes(asignaciones).subscribe({
       next: (respuesta)=>{
         console.log(respuesta)
-        this.obtenerReportesAsignados(this.verificadorSeleccionado!)
+        this.paginadorReportesAsignados.inicializar()
+        this.paginadorReportesAsignados.filtrar({identificacionVerificador: this.verificadorSeleccionado})
         this.popup.abrirPopupExitoso('Reportes asignados correctamente.')
       },
       error: (error: HttpErrorResponse)=>{
