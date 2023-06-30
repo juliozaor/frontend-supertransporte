@@ -80,6 +80,11 @@ export class PreguntaEncuestaComponent implements OnInit {
   }
 
   //Acciones
+
+  descargarArchivo(nombreArchivo: string, ruta: string, nombreOriginal: string){
+    this.servicioArchivos.descargarArchivo(nombreArchivo, ruta, nombreOriginal)
+  }
+
   guardarArchivoTemporal(){
     if(!this.documento){
       return;

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Autenticable } from 'src/app/administrador/servicios/compartido/Autenticable';
 import { ArchivoTemporal } from '../modelos/ArchivoTemporal';
+import { catchError, throwError } from 'rxjs';
+import { saveAs } from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,7 @@ import { ArchivoTemporal } from '../modelos/ArchivoTemporal';
 export class ArchivosEncuestasService extends Autenticable {
 
   private readonly host = environment.urlBackendArchivos;
+  private readonly token = environment.tokenBackendArchivos;
 
   constructor(private http: HttpClient) { 
     super()
@@ -28,5 +31,43 @@ export class ArchivosEncuestasService extends Autenticable {
         formData, 
         { headers: { Authorization: `Bearer d4a32a3b-def6-4cc2-8f77-904a67360b53` } }
     )
+  }
+
+  descargarArchivo(nombreArchivo: string, ruta: string, nombreOriginal: string){
+    this.http.get<{archivo: string}>(
+      `${this.host}/api/v1/archivos?nombre=${nombreArchivo}&ruta=${ruta}`,
+      { headers: {Authorization: `Bearer ${this.token}`} }
+    )
+    .pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error al descargar el archivo:', error);
+        return throwError('Error al descargar el archivo.');
+      })
+    )
+    .subscribe((respuesta) => {
+      const blob = this.b64toBlob(respuesta.archivo)
+      saveAs(blob, nombreOriginal);
+    });
+  }
+
+  //stack overflow :D
+  private b64toBlob(b64Data: string, contentType='', sliceSize = 512): Blob{
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+  
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+  
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+  
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+  
+    const blob = new Blob(byteArrays, {type: contentType});
+    return blob;
   }
 }

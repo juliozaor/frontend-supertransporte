@@ -42,9 +42,14 @@
                 [acepta]="['application/pdf']"
                 [(ngModel)]="documento"/>
             </div>
-            <div class="w-100 fs-12px">
+            <div class="w-100 fs-12px cursor-pointer" (click)="descargarArchivo(pregunta.documento, pregunta.ruta, pregunta.nombreOriginal)">
                 <img src="assets/img/iconos/icono_pdf.gif">
-                <span class="ms-2">{{ pregunta.documento }}</span>
+                <span 
+                ngbPopover="Descargar {{pregunta.nombreOriginal}}"
+                triggers="mouseenter:mouseleave" 
+                class="nombre-original-archivo ms-2">
+                {{ pregunta.nombreOriginal }}
+                </span>
                 <span class="ms-2" *ngIf="!pregunta.documento || pregunta.documento == ''">Sin documento cargado.</span>
             </div>
         </div>

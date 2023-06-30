@@ -12,3 +12,6 @@
 .respuesta-negativa{
     background-color: #FCECEB;
 }
+.nombre-original-archivo:hover{
+    color: var(--azul);
+}

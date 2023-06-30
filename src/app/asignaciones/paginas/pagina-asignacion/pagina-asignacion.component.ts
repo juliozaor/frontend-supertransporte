@@ -13,6 +13,7 @@ import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.componen
 import { HttpErrorResponse } from '@angular/common/http';
 import { Asignacion } from '../../modelos/Asignacion';
 import { FiltrosReportesAsignados } from '../../modelos/FiltrosReportesAsignados';
+import { ResumenReporteAsignado } from '../../modelos/ResumenReporteAsignado';
 
 @Component({
   selector: 'app-pagina-asignacion',
@@ -29,7 +30,7 @@ export class PaginaAsignacionComponent implements OnInit{
   verificadorSeleccionado?: string
   reportes: ResumenReporte[] = []
   reportesSeleccionados: ResumenReporte[] = []
-  reportesAsignados: ResumenReporte[] = []
+  reportesAsignados: ResumenReporteAsignado[] = []
   paginadorReportesAsignados: Paginador<FiltrosReportesAsignados>
 
 
@@ -67,7 +68,7 @@ export class PaginaAsignacionComponent implements OnInit{
     return new Observable<Paginacion>( subscribcion =>{
       this.servicioReportes.obtenerReportesAsignados(pagina, limite, filtros).subscribe({
         next: ( respuesta )=>{
-          this.reportesAsignados = respuesta.reportadas
+          this.reportesAsignados = respuesta.asignadas
           subscribcion.next(respuesta.paginacion)
           subscribcion.complete()
         }

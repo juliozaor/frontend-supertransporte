@@ -25,6 +25,8 @@ export interface Pregunta {
     respuesta:             string | undefined | null;
     tipoDeEvidencia:       string;
     documento:             string;
+    nombreOriginal:        string;
+    ruta:                  string;
     adjuntable:            boolean;
     adjuntableObligatorio: boolean;
     validaciones:          Validacion[];

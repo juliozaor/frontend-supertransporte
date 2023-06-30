@@ -144,16 +144,16 @@
                 </thead>
                 <tbody class="fs-14px">
                     <tr *ngFor="let reporte of reportesAsignados ; let i = index">
-                        <td class="celda-centrada">{{ reporte.numeroReporte }}</td>
-                        <td class="celda-centrada">{{ reporte.encuesta }}</td>
-                        <td class="celda-centrada">{{ reporte.fechaEnvioST | fecha: 'dd/MM/yyyy'}}</td>
+                        <td class="celda-centrada">{{ reporte.idReporte }}</td>
+                        <td class="celda-centrada">{{ reporte.idEncuesta }}</td>
+                        <td class="celda-centrada"> ? </td>
                         <td class="celda-centrada">{{ reporte.nit }}</td>
                         <td class="celda-centrada">{{ reporte.razonSocial }}</td>
-                        <td class="celda-centrada">{{ reporte.email }}</td>
-                        <td class="celda-centrada">Verificador</td>
+                        <td class="celda-centrada"> ? </td>
+                        <td class="celda-centrada">{{ verificadorSeleccionado }}</td>
                         <td class="celda-centrada">
                             <span
-                            (click)="eliminarAsignacion(reporte.numeroReporte)" 
+                            (click)="eliminarAsignacion(reporte.idReporte)" 
                             class="material-symbols-outlined text-danger cursor-pointer">
                             close
                             </span>

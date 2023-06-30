@@ -7,6 +7,7 @@ import { ResumenReporte } from 'src/app/encuestas/modelos/ResumenReporte';
 import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 import { Asignacion } from '../modelos/Asignacion';
 import { FiltrosReportesAsignados } from '../modelos/FiltrosReportesAsignados';
+import { ResumenReporteAsignado } from '../modelos/ResumenReporteAsignado';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class ServicioReportes extends Autenticable {
     if(filtros){
       endpoint+=`&idVerificador=${filtros.identificacionVerificador}`
     }
-    return this.http.get<{ reportadas: ResumenReporte[], paginacion: Paginacion}>(
+    return this.http.get<{ asignadas: ResumenReporteAsignado[], paginacion: Paginacion}>(
       `${this.host}${endpoint}`,
       { headers: this.obtenerCabeceraAutorizacion() }
     )
