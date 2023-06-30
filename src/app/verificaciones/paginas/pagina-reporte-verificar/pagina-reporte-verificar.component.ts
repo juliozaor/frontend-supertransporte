@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ServicioVerificaciones } from '../../servicios/verificaciones.service';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, forkJoin } from 'rxjs';
 import { Encuesta } from 'src/app/encuestas/modelos/Encuesta';
+import { EncuestaComponent } from 'src/app/encuestas/componentes/encuesta/encuesta.component';
 
 @Component({
   selector: 'app-pagina-reporte-verificar',
@@ -10,6 +11,7 @@ import { Encuesta } from 'src/app/encuestas/modelos/Encuesta';
   styleUrls: ['./pagina-reporte-verificar.component.css']
 })
 export class PaginaReporteVerificarComponent implements OnInit {
+  @ViewChild('componenteEncuesta') componenteEncuesta!: EncuestaComponent
   encuesta?: Encuesta
   idVigilado?: string
   idEncuesta?: number
@@ -44,5 +46,9 @@ export class PaginaReporteVerificarComponent implements OnInit {
         })
       }
     })
+  }
+
+  guardarVerificaciones(){
+    this.componenteEncuesta.guardarVerificaciones()
   }
 }

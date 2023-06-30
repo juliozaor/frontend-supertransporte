@@ -8,7 +8,8 @@
             [idVigilado]="idVigilado"
             [observacion]="encuesta.observacion" 
             [camposDeVerificacion]="camposDeVerificacion"
-            [justificable]="justificable"/>
+            [justificable]="justificable"
+            (preguntasRespondidas)="alResponderPreguntas($event)"/>
         </li>
     </ul>
     <div class="d-flex mt-4" *ngIf="!soloLectura">

@@ -44,8 +44,10 @@
             </div>
             <div class="w-100 fs-12px cursor-pointer" (click)="descargarArchivo(pregunta.documento, pregunta.ruta, pregunta.nombreOriginal)">
                 <img src="assets/img/iconos/icono_pdf.gif">
-                <span 
-                ngbPopover="Descargar {{pregunta.nombreOriginal}}"
+                <span
+                ngbPopover="{{pregunta.nombreOriginal}}"
+                popoverTitle="Descargar"
+                popoverClass="fs-12px"
                 triggers="mouseenter:mouseleave" 
                 class="nombre-original-archivo ms-2">
                 {{ pregunta.nombreOriginal }}
@@ -69,32 +71,44 @@
     <!-- Campos verificador -->
     <div class="col-3 columna border-top" *ngIf="camposDeVerificacion">
         <div class="d-flex justify-content-start">
-            <select name="" id="" class="form-select">
-                <option value="">Selecciona una opción</option>
-                <option value="">Aplica</option>
-                <option value="">No aplica</option>
+            <select 
+            [ngModel]="evidenciaCorresponde" 
+            (ngModelChange)="alCambiarEvidenciaCorresponde($event)" 
+            class="form-select">
+                <option [value]="0">Selecciona una opción</option>
+                <option [value]="opcion.id" *ngFor="let opcion of opcionesCorrespondencia">{{ opcion.nombre }}</option>
             </select>
         </div>
     </div>
-    <div class="col-3 columna border-top" *ngIf="camposDeVerificacion">
+    <div class="col-3 columna border-top" *ngIf="camposDeVerificacion"> <!-- observacion evidencia corresponde -->
         <div class="d-flex justify-content-start">
             <textarea
-            class="form-control" 
+            [disabled]="observacionEvidenciaCorrespondeDeshabilitado"
+            [ngModel]="observacionNoCorresponde"
+            (ngModelChange)="alCambiarObservacionEvidenciaNoCorresponde($event)"
+            placeholder="Escribe aquí tus observaciones"
+            class="form-control fs-12px" 
             cols="30"
              rows="5"></textarea>
         </div>
     </div>
     <div class="col-3 columna border-top" *ngIf="camposDeVerificacion">
-        <select name="" id="" class="form-select">
-            <option value="">Selecciona una opción</option>
-            <option value="">Aplica</option>
-            <option value="">No aplica</option>
+        <select
+        [ngModel]="documentoCumple" 
+        (ngModelChange)="alCambiarDocumentoCumple($event)"  
+        class="form-select">
+            <option [value]="0">Selecciona una opción</option>
+            <option [value]="opcion.id" *ngFor="let opcion of opcionesCumplimiento">{{ opcion.nombre }}</option>
         </select>
     </div>
-    <div class="col-3 columna border-top" *ngIf="camposDeVerificacion">
+    <div class="col-3 columna border-top" *ngIf="camposDeVerificacion"> <!-- observacion documento cumple -->
         <div class="d-flex justify-content-start">
             <textarea
-            class="form-control" 
+            [disabled]="observacionDocumentoCumpleDeshabilitado"
+            [ngModel]="observacionNoCumple"
+            (ngModelChange)="alCambiarObservacionDocumentoNoCumple($event)"
+            placeholder="Escribe aquí tus observaciones"
+            class="form-control fs-12px" 
             cols="30"
             rows="5"></textarea>
         </div>

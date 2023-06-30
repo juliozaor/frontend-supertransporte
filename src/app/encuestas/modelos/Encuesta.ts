@@ -16,20 +16,24 @@ export interface Clasificacion {
 }
 
 export interface Pregunta {
-    idPregunta:            number;
-    numeroPregunta:        number;
-    tipoPregunta:          string;
-    valoresPregunta:       ValoresPregunta[];
-    pregunta:              string;
-    obligatoria:           boolean;
-    respuesta:             string | undefined | null;
-    tipoDeEvidencia:       string;
-    documento:             string;
-    nombreOriginal:        string;
-    ruta:                  string;
-    adjuntable:            boolean;
-    adjuntableObligatorio: boolean;
-    validaciones:          Validacion[];
+    idPregunta:             number;
+    numeroPregunta:         number;
+    tipoPregunta:           string;
+    valoresPregunta:        ValoresPregunta[];
+    pregunta:               string;
+    obligatoria:            boolean;
+    respuesta:              string | undefined | null;
+    tipoDeEvidencia:        string;
+    documento:              string;
+    nombreOriginal:         string;
+    ruta:                   string;
+    cumple:                 string | number | null;
+    observacionCumple:      string;
+    corresponde:            string | number | null;
+    observacionCorresponde: string
+    adjuntable:             boolean;
+    adjuntableObligatorio:  boolean;
+    validaciones:           Validacion[];
 }
 
 export interface Validacion {

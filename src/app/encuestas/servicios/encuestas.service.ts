@@ -17,10 +17,8 @@ export class EncuestasService extends Autenticable {
   private motivos: Motivo[] = []
 
   constructor(private http: HttpClient) {
-    console.log('construyendo servicio encuesta')
     super()
     this.establecerMotivos()
-    console.log(this.motivos)
   }
 
   obtenerEncuestas(pagina: number, limite: number, idUsuario: string, idEncuesta: number) {

@@ -1,10 +1,13 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Pregunta } from '../../modelos/Encuesta';
 import { Respuesta } from '../../modelos/Respuesta';
 import { ArchivosEncuestasService } from '../../servicios/archivos-encuestas.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EncuestasService } from '../../servicios/encuestas.service';
 import { Motivo } from '../../modelos/Motivo';
+import { RespuestaVerificacion } from '../../modelos/RespuestaVerificacion';
+import { ServicioVerificaciones } from 'src/app/verificaciones/servicios/verificaciones.service';
+import { Maestra } from 'src/app/verificaciones/modelos/Maestra';
 
 @Component({
   selector: 'app-pregunta-encuesta',
@@ -13,40 +16,69 @@ import { Motivo } from '../../modelos/Motivo';
 })
 export class PreguntaEncuestaComponent implements OnInit {
   @Output('valorModificado') valorModificado: EventEmitter<Respuesta>
+  @Output('nuevaVerificacion') nuevaVerificacion: EventEmitter<RespuestaVerificacion>
   @Output('haHabidoErrorArchivo') haHabidoErrorArchivo: EventEmitter<HttpErrorResponse> 
-  @Input('idVigilado') idVigilado!: string
+
   @Input('pregunta') pregunta!: Pregunta
+  @Input('idVigilado') idVigilado!: string
   @Input('soloLectura') soloLectura: boolean = true
   @Input('camposDeVerificacion') camposDeVerificacion: boolean = false
   @Input('justificable') justificable: boolean = false
 
-  motivoDeshabilitado:  boolean = false
-  archivoDeshabilitado: boolean = false
-  invalida:             boolean = false
+  observacionEvidenciaCorrespondeDeshabilitado: boolean = false
+  observacionDocumentoCumpleDeshabilitado:      boolean = false
+  motivoDeshabilitado:               boolean = false
+  archivoDeshabilitado:              boolean = false
+  invalida:                          boolean = false
 
   motivos         : Motivo[] = []
-  valoresNegativos: string[] = ["N", "NO"]
+  opcionesCorrespondencia: Maestra[] = []
+  opcionesCumplimiento: Maestra[] = []
+  valoresNegativos: string[] = ["N", "NO", "NO APLICA"]
 
-  observacion: string = ""
-  valor: string = ""
+  observacion:              string = ""
+  observacionNoCorresponde: string = ""
+  observacionNoCumple:      string = ""
+  valor:                    string = ""
   nombreOriginalDocumento?: string
-  nombreDocumento?: string
-  rutaDocumento?: string
+  nombreDocumento?:         string
+  rutaDocumento?:           string
+  documentoCumple:          number = 1
+  evidenciaCorresponde:     number = 1
 
   documento: File | null = null
   clasesRespuestas = {}
   
   constructor(
     private servicioArchivos: ArchivosEncuestasService,
-    private servicioEncuesta: EncuestasService
+    private servicioEncuesta: EncuestasService,
+    private servicioVerificaciones: ServicioVerificaciones
   ) { 
     this.valorModificado = new EventEmitter<Respuesta>();
+    this.nuevaVerificacion = new EventEmitter<RespuestaVerificacion>();
     this.haHabidoErrorArchivo = new EventEmitter<HttpErrorResponse>() 
   }
 
   ngOnInit(): void {
     this.obtenerMotivos()
-    this.pregunta.respuesta ? this.establecerValor(this.pregunta.respuesta) : ""
+    this.obtenerOpcionesCorrespondencia()
+    this.obtenerOpcionesCumplimiento()
+
+    if(this.pregunta.corresponde && this.pregunta.corresponde != ""){
+      this.setEvidenciaCorresponde(Number(this.pregunta.corresponde), false)
+    }else{
+      this.setEvidenciaCorresponde(undefined, false)
+    }
+    
+    if(this.pregunta.cumple && this.pregunta.cumple != ""){
+      this.setDocumentoCumple(Number(this.pregunta.cumple), false)
+    }else{
+      this.setDocumentoCumple(undefined, false)
+    }
+    this.setObservacionNoCorresponde(this.pregunta.observacionCorresponde, false)
+    this.setObservacionNoCumple(this.pregunta.observacionCumple, false)
+     
+    this.pregunta.respuesta ? this.setValor(this.pregunta.respuesta, false) : ""
     this.clasesRespuestas = {
       'respuesta-positiva': this.pregunta.respuesta === 'SI' && this.soloLectura,
       'respuesta-negativa': this.pregunta.respuesta === 'NO' && this.soloLectura,
@@ -56,6 +88,14 @@ export class PreguntaEncuestaComponent implements OnInit {
   //Obtener recursos
   obtenerMotivos(){
     this.motivos = this.servicioEncuesta.obtenerMotivos()
+  }
+
+  obtenerOpcionesCorrespondencia(){
+    this.opcionesCorrespondencia = this.servicioVerificaciones.obtenerOpcionesCorrespondencia()
+  }
+
+  obtenerOpcionesCumplimiento(){
+    this.opcionesCumplimiento = this.servicioVerificaciones.obtenerOpcionesCumplimiento()
   }
 
   //Manejadores de eventos
@@ -71,14 +111,29 @@ export class PreguntaEncuestaComponent implements OnInit {
   }
 
   alCambiarRespuesta(respuesta: string){
-    this.establecerValor(respuesta)
+    this.setValor(respuesta)
     this.emitirValorModificado()
   }
 
-  alCambiarObservacion(){
+  alCambiarObservacion(){ //Motivo
     this.emitirValorModificado()
   }
 
+  alCambiarEvidenciaCorresponde(corresponde: number){
+    this.setEvidenciaCorresponde(corresponde)
+  }
+
+  alCambiarObservacionEvidenciaNoCorresponde(observacion: string){
+    this.setObservacionNoCorresponde(observacion)
+  }
+
+  alCambiarDocumentoCumple(cumple: number){
+    this.setDocumentoCumple(cumple)
+  }
+
+  alCambiarObservacionDocumentoNoCumple(observacion: string){
+    this.setObservacionNoCumple(observacion)
+  }
   //Acciones
 
   descargarArchivo(nombreArchivo: string, ruta: string, nombreOriginal: string){
@@ -113,6 +168,16 @@ export class PreguntaEncuestaComponent implements OnInit {
     })
   }
 
+  private emitirVerificacion(){
+    this.nuevaVerificacion.emit({
+      corresponde: this.evidenciaCorresponde,
+      cumple: this.documentoCumple,
+      observacionCorresponde: this.observacionNoCorresponde,
+      observacionCumple: this.observacionNoCumple,
+      preguntaId: this.pregunta.idPregunta
+    })
+  }
+
   marcarInvalida(){
     this.invalida = true
   }
@@ -123,30 +188,73 @@ export class PreguntaEncuestaComponent implements OnInit {
 
   //Setters
 
-  establecerValor(valor: string){
+  setValor(valor: string, dispararEvento: boolean = true){
     this.valor = valor
     if( this.valoresNegativos.includes(valor) ){
-      this.establecerMotivoDeshabilitado(false)
-      this.establecerArchivoDeshabilitado(true)
+      this.setMotivoDeshabilitado(false)
+      this.setArchivoDeshabilitado(true)
     }else{
-      this.establecerMotivoDeshabilitado(true)
-      this.establecerArchivoDeshabilitado(false)
+      this.setMotivoDeshabilitado(true)
+      this.setArchivoDeshabilitado(false)
     }
-    this.emitirValorModificado()
+    if(dispararEvento) this.emitirVerificacion();
   }
 
-  establecerMotivoDeshabilitado(motivoDeshabilitado: boolean){
+  setMotivoDeshabilitado(motivoDeshabilitado: boolean){
     this.motivoDeshabilitado = motivoDeshabilitado
     if(motivoDeshabilitado && this.observacion != ""){
       this.observacion = ""
     }
   }
 
-  establecerArchivoDeshabilitado(archivoDeshabilitado: boolean){
+  setArchivoDeshabilitado(archivoDeshabilitado: boolean){
     this.archivoDeshabilitado = archivoDeshabilitado
     if(archivoDeshabilitado && this.documento != null){
       this.documento = null
     }
   }
 
+  setDocumentoCumple(cumple: number = 0, dispararEvento: boolean = true){
+    this.documentoCumple = cumple
+    if(cumple == 2){
+      this.setObservacionDocumentoCumpleDeshabilitado(false)
+    }else{
+      this.setObservacionDocumentoCumpleDeshabilitado(true)
+    }
+    if(dispararEvento) this.emitirVerificacion();
+  }
+
+  setObservacionNoCumple(observacion: string, dispararEvento: boolean = true){
+    this.observacionNoCumple = observacion
+    if(dispararEvento) this.emitirVerificacion();
+  }
+
+  setEvidenciaCorresponde(corresponde: number = 0, dispararEvento: boolean = true){
+    this.evidenciaCorresponde = corresponde
+    if(corresponde == 2){
+      this.setObservacionEvidenciaCorrespondeDeshabilitado(false)
+    }else{
+      this.setObservacionEvidenciaCorrespondeDeshabilitado(true)
+    }
+    if(dispararEvento) this.emitirVerificacion();
+  }
+
+  setObservacionNoCorresponde(observacion: string, dispararEvento: boolean = true){
+    this.observacionNoCorresponde = observacion
+    if(dispararEvento) this.emitirVerificacion();
+  }
+
+  setObservacionDocumentoCumpleDeshabilitado(deshabilitado: boolean){
+    this.observacionDocumentoCumpleDeshabilitado = deshabilitado
+    if(deshabilitado){
+      this.observacionNoCumple = ""
+    }
+  }
+
+  setObservacionEvidenciaCorrespondeDeshabilitado(deshabilitado: boolean){
+    this.observacionEvidenciaCorrespondeDeshabilitado = deshabilitado
+    if(deshabilitado){
+      this.observacionNoCorresponde = ""
+    }
+  }
 }
