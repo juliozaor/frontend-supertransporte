@@ -28,10 +28,10 @@
                 <button class="boton primario relleno">Buscar</button>
             </fieldset>
         </div>
-        <div class="table-responsive">
-            <table class="table tabla-reportes">
+        <div class="table-responsive custom-scroll">
+            <table class="table-bordered tabla-reportes">
                 <thead>
-                    <tr class="fs-14px">
+                    <tr class="fs-12px">
                         <th class="encabezado-tabla celda-centrada" width="100px">No. Reporte</th>
                         <th class="encabezado-tabla celda-centrada" width="240px">Encuesta</th>
                         <th class="encabezado-tabla celda-centrada" width="100px">Fecha de envío a ST</th>
@@ -41,7 +41,7 @@
                         <th class="encabezado-tabla celda-centrada" width="120px">Seleccionar</th>
                     </tr>
                 </thead>
-                <tbody class="fs-14px">
+                <tbody class="fs-12px">
                     <tr *ngFor="let reporte of reportes ; let i = index">
                         <td class="celda-centrada">{{ reporte.numeroReporte }}</td>
                         <td class="celda-centrada">{{ reporte.encuesta }}</td>
@@ -69,15 +69,12 @@
         </div>
     </div>
 
-
-
-
     <div class="tabla-seleccionados mb-4">
         <h3 class="fs-20px fw-semibold texto-primario mb-3">Reportes seleccionados</h3>
-        <div class="table-responsive">
-            <table class="table tabla-reportes">
+        <div class="table-responsive custom-scroll mb-4">
+            <table class="table-bordered tabla-reportes">
                 <thead>
-                    <tr class="fs-14px">
+                    <tr class="fs-12px">
                         <th class="encabezado-tabla celda-centrada" width="100px">No. Reporte</th>
                         <th class="encabezado-tabla celda-centrada" width="240px">Encuesta</th>
                         <th class="encabezado-tabla celda-centrada" width="100px">Fecha de envío a ST</th>
@@ -87,7 +84,7 @@
                         <th class="encabezado-tabla celda-centrada" width="100px">Remover</th>
                     </tr>
                 </thead>
-                <tbody class="fs-14px">
+                <tbody class="fs-12px">
                     <tr *ngFor="let reporte of reportesSeleccionados ; let i = index">
                         <td class="celda-centrada">{{ reporte.numeroReporte }}</td>
                         <td class="celda-centrada">{{ reporte.encuesta }}</td>
@@ -128,10 +125,10 @@
 
     <div class="tabla-remover mb-4" *ngIf="verificadorSeleccionado">
         <h3 class="fs-20px fw-semibold texto-primario mb-3">Reportes asignados</h3>
-        <div class="table-responsive">
-            <table class="table tabla-reportes">
+        <div class="table-responsive custom-scroll">
+            <table class="table-bordered tabla-reportes">
                 <thead>
-                    <tr class="fs-14px">
+                    <tr class="fs-12px">
                         <th class="encabezado-tabla celda-centrada" width="100px">No. Reporte</th>
                         <th class="encabezado-tabla celda-centrada" width="240px">Encuesta</th>
                         <th class="encabezado-tabla celda-centrada" width="100px">Fecha de envío a ST</th>
@@ -142,7 +139,7 @@
                         <th class="encabezado-tabla celda-centrada" width="100px">Remover</th>
                     </tr>
                 </thead>
-                <tbody class="fs-14px">
+                <tbody class="fs-12px">
                     <tr *ngFor="let reporte of reportesAsignados ; let i = index">
                         <td class="celda-centrada">{{ reporte.idReporte }}</td>
                         <td class="celda-centrada">{{ reporte.idEncuesta }}</td>

@@ -283,3 +283,29 @@ body{
 .invalido{
   border: 1px solid #e00909;
 }
+
+
+.custom-scroll::-webkit-scrollbar {
+  width: 12px; /* Ancho del scroll */
+  height: 12px;
+  cursor: pointer !important;
+}
+
+/* Estilo del track del scroll */
+.custom-scroll::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Color de fondo del track */
+  cursor: pointer !important;
+}
+
+/* Estilo del thumb (barra de desplazamiento) del scroll */
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--color-scroll); /* Color del thumb */
+  border-radius: 7px; /* Radio de borde del thumb */
+  cursor: pointer !important;
+}
+
+/* Estilo del thumb (barra de desplazamiento) del scroll cuando se está interactuando con él */
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-scroll-hover); /* Color del thumb al pasar el cursor sobre él */
+  cursor: pointer !important;
+}

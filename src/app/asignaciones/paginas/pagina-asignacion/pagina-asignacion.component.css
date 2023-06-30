@@ -6,6 +6,7 @@
     overflow: hidden;
 }
 .tabla-reportes td{
-    height: 80px;
-    max-height: 80px;
+    height: 40px;
+    max-height: 40px;
+    padding: 5px;
 }
