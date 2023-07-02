@@ -1,6 +1,7 @@
 .columna{
     box-sizing: border-box;
     padding: 12px 15px;
+    background-color: inherit;
 }
 .bg-e3fceb{
     background-color: #e3fceb;
@@ -14,4 +15,10 @@
 }
 .nombre-original-archivo:hover{
     color: var(--azul);
+}
+.pregunta-invalida{
+    background-color: var(--bg-color-peligro);
+}
+.pregunta-valida{
+    background-color: var(--bg-color-exitoso);
 }

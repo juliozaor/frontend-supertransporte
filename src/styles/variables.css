@@ -11,6 +11,9 @@
 
     --color-scroll: #e0e0e0;
     --color-scroll-hover: #c5c5c5;
+
+    --bg-color-peligro: #ffe6e6;
+    --bg-color-exitoso: #eff6ef;
 }
 
 /* .card{

@@ -1,6 +1,7 @@
 <div class="px-sm-2 px-md-3 px-lg-4 my-4" *ngIf="encuesta">
     <h2 class="fw-semibold texto-primario mb-3">Resumen - Ficha cuestionario - {{encuesta.nombreEncuesta}}</h2>
     <h3 class="fw-semibold texto-primario">Clasificación: {{encuesta.clasificaion}}</h3>
+    <p>{{encuesta.descripcionClasificacion}}</p>
     <div class="d-block w-100 mb-3">
         <div class="d-block" *ngIf="usuario">
             <span class="fs-14px fw-semibold texto-azul-004884">Quien realiza la encuesta: </span>
@@ -14,6 +15,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <button type="button" class="boton primario relleno" (click)="exportarEncuestaPDF()">Exportar</button>
         <button type="button" class="boton primario delineado" (click)="enviarEncuesta()">Enviar a ST</button>
+        <button type="button" class="boton primario relleno" (click)="guardarEncuesta()">Guardar</button>
         <button type="button" class="boton primario delineado" [routerLink]="['/administrar', 'encuestas', idEncuesta]">Volver</button>
     </div>
     <div class="d-flex w-100">

@@ -1,4 +1,7 @@
-<div class="pregunta-encuesta d-flex mx-0" [ngClass]="{'invalido': invalida}">
+<div class="pregunta-encuesta d-flex mx-0" [ngClass]="{
+    'pregunta-invalida': invalida
+  }
+">
     <div class="col-1 columna border-top">
         <div class="d-flex justify-content-center">
             <span class="fs-14px">{{ pregunta.numeroPregunta }}</span>

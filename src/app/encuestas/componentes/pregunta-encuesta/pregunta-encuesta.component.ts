@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Pregunta } from '../../modelos/Encuesta';
 import { Respuesta } from '../../modelos/Respuesta';
 import { ArchivosEncuestasService } from '../../servicios/archivos-encuestas.service';
@@ -52,7 +52,7 @@ export class PreguntaEncuestaComponent implements OnInit {
   constructor(
     private servicioArchivos: ArchivosEncuestasService,
     private servicioEncuesta: EncuestasService,
-    private servicioVerificaciones: ServicioVerificaciones
+    private servicioVerificaciones: ServicioVerificaciones,
   ) { 
     this.valorModificado = new EventEmitter<Respuesta>();
     this.nuevaVerificacion = new EventEmitter<RespuestaVerificacion>();
@@ -216,11 +216,13 @@ export class PreguntaEncuestaComponent implements OnInit {
 
   setDocumentoCumple(cumple: number = 0, dispararEvento: boolean = true){
     this.documentoCumple = cumple
-    if(cumple == 2){
+    if(cumple == 2){ // 2 = no cumple
       this.setObservacionDocumentoCumpleDeshabilitado(false)
     }else{
       this.setObservacionDocumentoCumpleDeshabilitado(true)
     }
+    const invalida = this.documentoCumple == 2 && this.evidenciaCorresponde == 2 ? true : false
+    this.setInvalida(invalida)
     if(dispararEvento) this.emitirVerificacion();
   }
 
@@ -231,11 +233,13 @@ export class PreguntaEncuestaComponent implements OnInit {
 
   setEvidenciaCorresponde(corresponde: number = 0, dispararEvento: boolean = true){
     this.evidenciaCorresponde = corresponde
-    if(corresponde == 2){
+    if(corresponde == 2){ // 2 = no corresponde
       this.setObservacionEvidenciaCorrespondeDeshabilitado(false)
     }else{
       this.setObservacionEvidenciaCorrespondeDeshabilitado(true)
     }
+    const invalida = this.documentoCumple == 2 && this.evidenciaCorresponde == 2 ? true : false
+    this.setInvalida(invalida)
     if(dispararEvento) this.emitirVerificacion();
   }
 
@@ -256,5 +260,9 @@ export class PreguntaEncuestaComponent implements OnInit {
     if(deshabilitado){
       this.observacionNoCorresponde = ""
     }
+  }
+
+  setInvalida(invalida: boolean){
+    this.invalida = invalida
   }
 }

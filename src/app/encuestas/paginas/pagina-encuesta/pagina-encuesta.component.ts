@@ -61,6 +61,10 @@ export class PaginaEncuestaComponent implements OnInit {
     this.componenteEncuesta.exportarPDF()
   }
 
+  guardarEncuesta(){
+    this.componenteEncuesta.guardarRespuestas()
+  }
+
   enviarEncuesta(){
     if(!this.idEncuesta || !this.idReporte || !this.idVigilado){
       this.popup.abrirPopupFallido('Error', 'Faltan datos de la encuesta, el reporte o el vigilado')

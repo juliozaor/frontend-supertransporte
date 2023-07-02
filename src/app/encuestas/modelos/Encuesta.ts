@@ -2,6 +2,7 @@ export interface Encuesta {
     tipoAccion:      number;
     observacion:     boolean;
     clasificaion:   string;
+    descripcionClasificacion: string;
     nombreEncuesta: string;
     idVigilado: string;
     idEncuesta: string;
