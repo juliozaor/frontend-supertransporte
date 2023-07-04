@@ -39,8 +39,8 @@ export class CategorizacionService extends Autenticable{
     return this.http.get<{modalidades: Modalidad[]}>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
   
-  obtenerRadios(){
-    const endpoint = `/api/v1/radio`
+  obtenerRadios(modalidadId: number){
+    const endpoint = `/api/v1/radio?modalidad=${modalidadId}`
     return this.http.get<{radios: Radio[]}>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
 }

@@ -284,6 +284,13 @@ body{
   border: 1px solid #e00909;
 }
 
+.bg-invalido,.bg-peligro{
+  background-color: var(--bg-color-peligro);
+}
+.bg-exitoso{
+  background-color: var(--bg-color-exitoso);
+}
+
 
 .custom-scroll::-webkit-scrollbar {
   width: 12px; /* Ancho del scroll */

@@ -5,7 +5,10 @@
         <p>De acuerdo con lo anterior, la información debe estar acorde a lo estipulado en la resolución 20223040040595 de 2022 y así mismo determinar si su empresa se encuentra en Nivel Básico,  Nivel Estándar, Nivel Avanzado.</p>
     </div>
     <div class="mb-3">
-        <app-formulario-modalidad-radio-operacion #formularioModalidades [modalidadRadio]="filtros.modalidadRadio" />
+        <app-formulario-modalidad-radio-operacion 
+        #formularioModalidades 
+        [modalidadRadio]="filtros.modalidadRadio" 
+        (haCambiadoDebePresentarPesv)="setDebePresentarPesv($event)"/>
     </div>
 
     <div class="mb-3" *ngFor="let tipoCategoria of filtros.tipoCategoria">

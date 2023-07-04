@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ModalidadRadio } from '../../modelos/Categorizacion';
+import { ModalidadRadio, ModalidadRadioFila } from '../../modelos/Categorizacion';
 import { Modalidad } from '../../modelos/Modalidad';
 import { Radio } from '../../modelos/Radio';
 import { CategorizacionService } from '../../servicios/categorizacion.service';
@@ -15,17 +15,23 @@ import { marcarFormularioComoSucio } from 'src/app/administrador/utilidades/Util
 export class FormularioModalidadRadioOperacionComponent implements OnInit {
   @Output('aCrear') aCrear                : EventEmitter<ModalidadRadioACrear[]>
   @Output('aEliminar') aEliminar          : EventEmitter<number[]>
+  @Output('haCambiadoDebePresentarPesv') haCambiadoDebePresentarPesv: EventEmitter<boolean>
+
   @Input('modalidadRadio') modalidadRadio!: ModalidadRadio
 
   formulario        : FormGroup
   modalidades       : Modalidad[] = []
   radios            : Radio[] = []
+  idRadiosNoObligadosAPresentarPesv: number[] = [ 1, 2, 3 ]
+  nombresRadiosNoObligadosAPresentarPesv: string[] = [ 'MUNICIPAL', 'DISTRITAL', 'METROPOLITANO' ]
   registrosACrear   : ModalidadRadioACrear[] = []
   registrosAEliminar: number[] = []
   formularioVisible : boolean = false
   valido            : boolean = true
+  debePresentarPesv : boolean = true
 
   constructor(private servicioCategorizacion: CategorizacionService){
+    this.haCambiadoDebePresentarPesv = new EventEmitter<boolean>();
     this.aCrear = new EventEmitter<ModalidadRadioACrear[]>();
     this.aEliminar = new EventEmitter<number[]>();
 
@@ -37,8 +43,15 @@ export class FormularioModalidadRadioOperacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerModalidades()
-    this.obtenerRadios()
     this.valido = this.esValido()
+    this.evaluarDebePresentarPesv()
+    this.formulario.get('idModalidad')!.valueChanges.subscribe({
+      next: (valor) =>{
+        this.formulario.get('idRadio')!.setValue("")
+        this.obtenerRadios(valor)
+        this.formulario.markAsPristine()
+      }
+    })
   }
 
   mostrarFormulario(){
@@ -64,31 +77,36 @@ export class FormularioModalidadRadioOperacionComponent implements OnInit {
     this.ocultarFormulario()
     this.mostrarMensajeDeGuardado()
     this.valido = this.esValido()
+    this.evaluarDebePresentarPesv()
     this.limpiarFormulario()
-  }
-
-  limpiarFormulario(){
-    this.formulario.reset()
-    this.formulario.get('idRadio')!.setValue('')
-    this.formulario.get('idModalidad')!.setValue('')
   }
 
   retirarDeRam(indice: number){
     this.registrosACrear.splice(indice, 1)
     this.mostrarMensajeDeGuardado()
     this.valido = this.esValido()
+    this.evaluarDebePresentarPesv()
   }
 
+  
   eliminarRegistro(id: number){
     this.registrosAEliminar.push(id)
     this.mostrarMensajeDeGuardado()
     this.valido = this.esValido()
+    this.evaluarDebePresentarPesv()
   }
 
   cancelarEliminacionRegistro(id: number){
     const indice = this.registrosAEliminar.findIndex( idEnArreglo => idEnArreglo === id)
     this.registrosAEliminar.splice(indice, 1)
     this.valido = this.esValido()
+    this.evaluarDebePresentarPesv()
+  }
+
+  limpiarFormulario(){
+    this.formulario.reset()
+    this.formulario.get('idRadio')!.setValue('')
+    this.formulario.get('idModalidad')!.setValue('')
   }
 
   obtenerModalidades(){
@@ -99,8 +117,8 @@ export class FormularioModalidadRadioOperacionComponent implements OnInit {
     })
   }
 
-  obtenerRadios(){
-    this.servicioCategorizacion.obtenerRadios().subscribe({
+  obtenerRadios(idModalidad: number){
+    this.servicioCategorizacion.obtenerRadios(idModalidad).subscribe({
       next: (respuesta) => {
         this.radios = respuesta.radios
       }
@@ -143,5 +161,48 @@ export class FormularioModalidadRadioOperacionComponent implements OnInit {
       return true
     }
     return false
+  }
+
+  evaluarDebePresentarPesv(): void{
+    const idRegistrosQueObliganAPresentarPesv = this.obtenerIdRegistrosQueObliganAPresentarPesv()
+    for (const idRegistroQueObligaAPresentarPesv of idRegistrosQueObliganAPresentarPesv) {
+      if(!this.registrosAEliminar.includes(idRegistroQueObligaAPresentarPesv)){
+        this.setDebePresentarPesv(true)
+        return;
+      }
+    }
+    for(const registroACrear of this.registrosACrear){
+      if(!this.idRadiosNoObligadosAPresentarPesv.includes(registroACrear.idRadio!)){
+        this.setDebePresentarPesv(true)
+        return;
+      }
+    }
+    this.setDebePresentarPesv(false)
+  }
+
+  private obtenerIdRegistrosQueObliganAPresentarPesv(): number[]{ // evalua solo los registros en base de datos
+    const idRegistrosQueObliganAPresentarPesv: number[] = [] 
+    this.modalidadRadio.filas.forEach( fila => { 
+      if(!this.nombresRadiosNoObligadosAPresentarPesv.includes(fila.radio)){
+        idRegistrosQueObliganAPresentarPesv.push(fila.id)
+      }
+    })
+    return idRegistrosQueObliganAPresentarPesv
+  }
+
+  evaluarModalidadRadioPresentarPesv(modalidadRadio: ModalidadRadioACrear){
+    if(!this.idRadiosNoObligadosAPresentarPesv.includes(modalidadRadio.idRadio!)){
+      return true
+    }
+    return false
+  }
+
+  emitirDebePresentarPesv(debePresentarPesv: boolean){
+    this.haCambiadoDebePresentarPesv.emit(debePresentarPesv)
+  }
+
+  setDebePresentarPesv(debePresentarPesv: boolean){
+    this.debePresentarPesv = debePresentarPesv
+    this.emitirDebePresentarPesv(debePresentarPesv)
   }
 }

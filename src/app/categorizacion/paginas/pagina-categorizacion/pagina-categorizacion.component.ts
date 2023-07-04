@@ -23,6 +23,7 @@ export class PaginaCategorizacion implements OnInit {
   @ViewChild('formularioModalidades') formularioModalidadesRadios!: FormularioModalidadRadioOperacionComponent
   usuario: Usuario
   filtros?: Categorizacion
+  debePresentarPesv: boolean = true
 
   constructor(
     private localStorage: ServicioLocalStorage, 
@@ -121,11 +122,11 @@ export class PaginaCategorizacion implements OnInit {
       )
       return;
     }
-    if(!this.totalesValidos() || !this.totalesMayoresACero()){
+    if(this.debePresentarPesv && (!this.totalesValidos() || !this.totalesMayoresACero())){
       this.popup.abrirPopupFallido('Totales inválidos.', 'Porfavor rectifica que los totales coinciden y son mayores a cero.')
       return;
     }
-    if(!this.selectoresValidos()){
+    if(this.debePresentarPesv && !this.selectoresValidos()){
       this.popup.abrirPopupFallido('Valores inválidos.', 'Porfavor rectifica que todas las celdas contengan un valor válido.')
       return;
     }
@@ -147,5 +148,9 @@ export class PaginaCategorizacion implements OnInit {
       },
       alCancelar: ()=>{}
     })
+  }
+
+  setDebePresentarPesv(debePresentarPesv: boolean): void{
+    this.debePresentarPesv = debePresentarPesv
   }
 }
