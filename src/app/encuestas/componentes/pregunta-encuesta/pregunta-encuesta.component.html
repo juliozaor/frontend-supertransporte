@@ -8,7 +8,7 @@
         </div>
     </div>
     <!-- Pregunta -->
-    <div class="col-4 columna border-top">
+    <div class="col-2 columna border-top">
         <div class="d-flex justify-content-start">
             <span class="validacion fw-semibold" *ngIf="pregunta.obligatoria">*</span>
             <span class="fs-14px">{{ pregunta.pregunta }}</span>
@@ -16,7 +16,7 @@
     </div>
     <!-- Valor | Respuesta -->
     <div 
-    class="col-2 columna border-top" 
+    class="col-2 columna d-flex flex-column border-top" 
     [ngClass]="clasesRespuestas">
         <div class="d-flex justify-content-start">
             <div class="d-block w-100">
@@ -28,14 +28,25 @@
                 </select>
             </div>
         </div>
+        <div>
+            <label class="fs-12px fw-semibold">Motivo</label>
+            <select
+            [disabled]="motivoDeshabilitado"
+            (change)="alCambiarObservacion()"
+            class="form-select" 
+             [(ngModel)]="observacion">
+                <option value="">Selecciona una opción</option>
+                <option [value]="motivo.id" *ngFor="let motivo of motivos">{{ motivo.descripcion }}</option>
+            </select>
+        </div>
     </div>
-    <div class="col-2 columna border-top">
+    <div class="col-1 columna border-top">
         <div class="d-flex justify-content-start">
-            <span class="fs-14px">{{ pregunta.tipoDeEvidencia }}</span>
+            <span class="fs-12px">{{ pregunta.tipoDeEvidencia }}</span>
         </div>
     </div>
     <!-- Seleccionar | ver archivo -->
-    <div class="col-3 columna border-top">
+    <div class="col-2 columna border-top">
         <div class="d-flex w-100 flex-column flex-gap-10">
             <div class="w-100" [ngClass]="{'d-none': soloLectura}">
                 <app-input-archivo
@@ -59,61 +70,56 @@
             </div>
         </div>
     </div>
-    <div class="col-3 columna border-top" *ngIf="justificable && !camposDeVerificacion">
-        <div class="d-flex justify-content-start">
-            <select
-            [disabled]="motivoDeshabilitado"
-            (change)="alCambiarObservacion()"
-            class="form-select" 
-             [(ngModel)]="observacion">
-                <option value="">Selecciona una opción</option>
-                <option [value]="motivo.id" *ngFor="let motivo of motivos">{{ motivo.descripcion }}</option>
-            </select>
-        </div>
-    </div>
     <!-- Campos verificador -->
-    <div class="col-3 columna border-top" *ngIf="camposDeVerificacion">
+    <div class="col-2 columna d-flex flex-column border-top">
         <div class="d-flex justify-content-start">
             <select 
             [ngModel]="evidenciaCorresponde" 
             (ngModelChange)="alCambiarEvidenciaCorresponde($event)" 
-            class="form-select">
+            class="form-select"
+            [disabled]="!camposDeVerificacion">
                 <option [value]="0">Selecciona una opción</option>
                 <option [value]="opcion.id" *ngFor="let opcion of opcionesCorrespondencia">{{ opcion.nombre }}</option>
             </select>
         </div>
-    </div>
-    <div class="col-3 columna border-top" *ngIf="camposDeVerificacion"> <!-- observacion evidencia corresponde -->
-        <div class="d-flex justify-content-start">
-            <textarea
-            [disabled]="observacionEvidenciaCorrespondeDeshabilitado"
-            [ngModel]="observacionNoCorresponde"
-            (ngModelChange)="alCambiarObservacionEvidenciaNoCorresponde($event)"
-            placeholder="Escribe aquí tus observaciones"
-            class="form-control fs-12px" 
-            cols="30"
-             rows="5"></textarea>
+        <div> 
+            <label class="fs-12px fw-semibold">Observación</label>
+            <div class="d-flex justify-content-start">
+                <textarea
+                [disabled]="observacionEvidenciaCorrespondeDeshabilitado"
+                [ngModel]="observacionNoCorresponde"
+                (ngModelChange)="alCambiarObservacionEvidenciaNoCorresponde($event)"
+                placeholder="Escribe aquí tus observaciones"
+                class="form-control fs-12px" 
+                cols="30"
+                 rows="5"></textarea>
+            </div>
         </div>
     </div>
-    <div class="col-3 columna border-top" *ngIf="camposDeVerificacion">
-        <select
-        [ngModel]="documentoCumple" 
-        (ngModelChange)="alCambiarDocumentoCumple($event)"  
-        class="form-select">
-            <option [value]="0">Selecciona una opción</option>
-            <option [value]="opcion.id" *ngFor="let opcion of opcionesCumplimiento">{{ opcion.nombre }}</option>
-        </select>
-    </div>
-    <div class="col-3 columna border-top" *ngIf="camposDeVerificacion"> <!-- observacion documento cumple -->
+    <div class="col-2 columna d-flex flex-column border-top">
         <div class="d-flex justify-content-start">
-            <textarea
-            [disabled]="observacionDocumentoCumpleDeshabilitado"
-            [ngModel]="observacionNoCumple"
-            (ngModelChange)="alCambiarObservacionDocumentoNoCumple($event)"
-            placeholder="Escribe aquí tus observaciones"
-            class="form-control fs-12px" 
-            cols="30"
-            rows="5"></textarea>
+            <select
+            [ngModel]="documentoCumple" 
+            (ngModelChange)="alCambiarDocumentoCumple($event)"  
+            class="form-select"
+            [disabled]="!camposDeVerificacion">
+                <option [value]="0">Selecciona una opción</option>
+                <option [value]="opcion.id" *ngFor="let opcion of opcionesCumplimiento">{{ opcion.nombre }}</option>
+            </select>
+        </div>
+        <div> <!-- observacion documento cumple -->
+            <label class="fs-12px fw-semibold">Observación</label>
+            <div class="d-flex justify-content-start">
+                <textarea
+                [disabled]="observacionDocumentoCumpleDeshabilitado"
+                [ngModel]="observacionNoCumple"
+                (ngModelChange)="alCambiarObservacionDocumentoNoCumple($event)"
+                placeholder="Escribe aquí tus observaciones"
+                class="form-control fs-12px" 
+                cols="30"
+                rows="5"></textarea>
+            </div>
         </div>
     </div>
+    
 </div>

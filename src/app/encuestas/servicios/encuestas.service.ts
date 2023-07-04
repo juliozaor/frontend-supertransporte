@@ -75,4 +75,12 @@ export class EncuestasService extends Autenticable {
   obtenerMotivos(): Motivo[] {
     return this.motivos
   }
+
+  exportarExcel(idReporte: number){
+    const endpoint = `/api/v1/exportar/encuesta?idReporte=${idReporte}`
+    return this.http.get(`${this.host}${endpoint}`, { 
+      headers: this.obtenerCabeceraAutorizacion(),
+      responseType: 'blob',
+    })
+  }
 }

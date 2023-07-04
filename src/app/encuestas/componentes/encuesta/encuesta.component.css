@@ -31,5 +31,8 @@
     ::ng-deep .pregunta-encuesta{
         break-inside: avoid;
     }
+    ::ng-deep .contenedor-encuesta{
+        margin: 0;
+    }
   }
   

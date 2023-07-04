@@ -60,4 +60,12 @@ export class PaginaResponderSoporteComponent implements OnInit{
       }
     })
   }
+
+  descargarArchivo(){
+    if(!this.soporte || !this.soporte.documento){
+      this.popup.abrirPopupFallido('Error al descargar el archivo.', 'Este soporte no tiene archivo adjunto.')
+      return;
+    }
+    this.servicioSoporte.descargarArchivo(this.soporte.documento, this.soporte.id.toString())
+  }
 }

@@ -6,7 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { EncuestaComponent } from '../../componentes/encuesta/encuesta.component';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-pagina-encuesta',
@@ -57,8 +58,33 @@ export class PaginaEncuestaComponent implements OnInit {
     /* this.encuesta = this.servicioEncuesta.obtenerEncuesta() */
   }
 
-  exportarEncuestaPDF(){
+  exportarPDF(){
     this.componenteEncuesta.exportarPDF()
+  }
+
+  exportarExcel(){
+    if(!this.idReporte){
+      this.popup.abrirPopupFallido('No se pudo exportar el reporte.', 'No se ha asignado un reporte para exportar.')
+      return;
+    }
+    this.servicioEncuesta.exportarExcel(this.idReporte).subscribe({
+      next: (response)=>{
+        console.log(response)
+        saveAs(response, 'datos.xlsx')
+      },
+      error: ()=>{
+        this.popup.abrirPopupFallido('Ocurrio un error inesperado.', 'Intentalo más tarde.')
+      }
+    })
+  }
+
+  private extractFilenameFromContentDisposition(contentDisposition: string): string {
+    const regex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+    const matches = regex.exec(contentDisposition);
+    if (matches != null && matches[1]) {
+      return matches[1].replace(/['"]/g, '');
+    }
+    return '';
   }
 
   guardarEncuesta(){

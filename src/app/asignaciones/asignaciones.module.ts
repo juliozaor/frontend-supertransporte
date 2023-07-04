@@ -5,6 +5,7 @@ import { AsignacionesRoutingModule } from './asignaciones-routing.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { AlertasModule } from '../alertas/alertas.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -18,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PipesModule,
     AlertasModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   exports: [
     PaginaAsignacionComponent

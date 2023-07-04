@@ -78,22 +78,22 @@
 }
 
 .fs-12px{
-    font-size: 12px;
+    font-size: 12px !important;
 }
 .fs-14px{
-    font-size: 14px;
+    font-size: 14px !important;
 }
 .fs-16px{
-    font-size: 16px;
+    font-size: 16px !important;
 }
 .fs-18px{
-    font-size: 18px;
+    font-size: 18px !important;
 }
 .fs-20px{
-    font-size: 20px;
+    font-size: 20px !important;
 }
 .fs-25px{
-  font-size: 25px;
+  font-size: 25px !important;
 }
 
 .texto-primario{

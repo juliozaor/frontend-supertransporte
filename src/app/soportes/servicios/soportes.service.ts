@@ -52,4 +52,12 @@ export class SoportesService extends Autenticable {
     const soporte = localStorage.getItem(this.llaveLocalStorage)
     return soporte ? JSON.parse(soporte) as Soporte : null 
   }
+
+  descargarArchivo(nombreArchivo: string, idSoporte: string){
+    const extension = nombreArchivo.split('.')[1]
+    const endpoint = `/api/v1/soportes/archivo/${idSoporte}.${extension}`
+    const a = document.createElement('a')
+    a.href = `${this.host}${endpoint}`
+    a.click()
+  }
 }

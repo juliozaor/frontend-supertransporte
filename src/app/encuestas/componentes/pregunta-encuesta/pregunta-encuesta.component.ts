@@ -64,6 +64,12 @@ export class PreguntaEncuestaComponent implements OnInit {
     this.obtenerOpcionesCorrespondencia()
     this.obtenerOpcionesCumplimiento()
 
+    if(this.pregunta.respuesta && this.valoresNegativos.includes(this.pregunta.respuesta)){
+      this.setMotivoDeshabilitado(false)
+    }else{
+      this.setMotivoDeshabilitado(true)
+    }
+
     if(this.pregunta.corresponde && this.pregunta.corresponde != ""){
       this.setEvidenciaCorresponde(Number(this.pregunta.corresponde), false)
     }else{

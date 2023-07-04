@@ -73,7 +73,8 @@
                 <label class="fs-14px fw-semibold">Documento</label>
             </div>
             <div class="col-10 p-2">
-                <span class="fs-14px">{{ soporte.documento }}</span>
+                <span class="fs-14px cursor-pointer texto-primario" 
+                (click)="descargarArchivo()" *ngIf="soporte.documento">{{ soporte.documento }}</span>
             </div>
         </div>
 
