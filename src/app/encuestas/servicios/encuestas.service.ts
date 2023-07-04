@@ -56,20 +56,12 @@ export class EncuestasService extends Autenticable {
   }
 
   establecerMotivos(): void {
-    this.motivos = [
-      {
-        descripcion: 'Motivo 1',
-        id: 1
-      },
-      {
-        descripcion: 'Motivo 2',
-        id: 2
-      },
-      {
-        descripcion: 'Motivo 3',
-        id: 3
+    const endpoint = '/api/v1/encuestas/listar-motivo'
+    this.http.get<Motivo[]>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() }).subscribe({
+      next: (motivos)=>{
+        this.motivos = motivos
       }
-    ]
+    })
   }
 
   obtenerMotivos(): Motivo[] {

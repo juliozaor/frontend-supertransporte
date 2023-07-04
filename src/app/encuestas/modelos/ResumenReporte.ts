@@ -8,6 +8,7 @@ export interface ResumenReporte {
     fechaFinal:             string;
     fechaEnvioST?:           string;
     razonSocial:            string;
+    clasificacion:          string;
     nit:                    string;
     email:                  string;
     estado:                 string;

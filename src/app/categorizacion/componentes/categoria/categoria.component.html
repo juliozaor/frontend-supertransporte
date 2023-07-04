@@ -14,6 +14,12 @@
                     <div class="table-responsive">
                         <table class="table fs-14px">
                             <thead>
+                                <tr *ngIf="categoria.titulo && categoria.titulo != ''">
+                                    <th class="border-bottom-0"></th>
+                                    <th class="text-center" [attr.colspan]="categoria.cabeceras.length">
+                                        {{ categoria.titulo }}
+                                    </th>
+                                </tr>
                                 <tr>
                                     <th width="300px"></th> <!-- titulo categoria -->
                                     <!-- ----------------------------------- -->
@@ -52,7 +58,7 @@
                     <table  class="table border fs-14px" [ngClass]="clases">
                         <thead>
                             <tr>
-                                <th class="fondo-secundario texto-primario">Total</th>
+                                <th class="fondo-secundario texto-primario">Total - {{categoria.nombre}}</th>
                             </tr>
                         </thead>
                         <tbody>

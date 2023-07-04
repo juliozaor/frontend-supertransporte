@@ -12,11 +12,12 @@
                         <th class="encabezado-tabla"></th>
                         <th class="encabezado-tabla">No. Reporte</th>
                         <th class="encabezado-tabla">Encuesta</th>
-                        <th class="encabezado-tabla" width="300px">Descripción</th>
-                        <th class="encabezado-tabla" width="120px">Fecha inicio</th>
-                        <th class="encabezado-tabla" width="120px">Fecha final</th>
-                        <th class="encabezado-tabla" width="120px">Fecha de envío a ST</th>
-                        <th class="encabezado-tabla" width="240px">Razón social - NIT</th>
+                        <th class="encabezado-tabla">Descripción</th>
+                        <th class="encabezado-tabla">Clasificación</th>
+                        <th class="encabezado-tabla">Fecha inicio</th>
+                        <th class="encabezado-tabla">Fecha final</th>
+                        <th class="encabezado-tabla">Fecha de envío a ST</th>
+                        <th class="encabezado-tabla">Razón social - NIT</th>
                         <th class="encabezado-tabla">Email</th>
                         <th class="encabezado-tabla">Estado actual</th>
                     </tr>
@@ -30,6 +31,7 @@
                         <td>{{ reporte.numeroReporte }}</td>
                         <td>{{ reporte.encuesta }}</td>
                         <td>{{ reporte.descripcion }}</td>
+                        <td>{{ reporte.clasificacion }}</td>
                         <td>{{ reporte.fechaInicio | fecha: 'dd/MM/yyyy' }}</td>
                         <td>{{ reporte.fechaFinal | fecha: 'dd/MM/yyyy' }}</td>
                         <td>{{ reporte.fechaEnvioST | fecha: 'dd/MM/yyyy'}}</td>

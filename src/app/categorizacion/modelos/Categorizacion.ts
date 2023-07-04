@@ -32,6 +32,7 @@ export interface CategoriaClasificacion {
     orden:     number;
     cabeceras: string[];
     filas:     CategoriaClasificacionFila[];
+    titulo: string;
 }
 
 export interface CategoriaClasificacionFila {
