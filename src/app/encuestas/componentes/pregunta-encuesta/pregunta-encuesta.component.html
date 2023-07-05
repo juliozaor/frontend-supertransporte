@@ -32,9 +32,9 @@
             <label class="fs-12px fw-semibold">Motivo</label>
             <select
             [disabled]="motivoDeshabilitado"
-            (change)="alCambiarObservacion()"
+            (ngModelChange)="alCambiarObservacion()"
             class="form-select" 
-             [(ngModel)]="observacion">
+            [ngModel]="observacion">
                 <option value="">Selecciona una opción</option>
                 <option [value]="motivo.id" *ngFor="let motivo of motivos">{{ motivo.descripcion }}</option>
             </select>

@@ -62,16 +62,25 @@ body{
   background-color: var(--azul-oscuro);
   color: white;
 }
+.boton.primario.relleno:disabled{
+  background-color: #ededed;
+  color: #8b8b8b;
+  border-color: #c7c7c7;  
+}
 
 .boton.primario.delineado{
   background-color: #fff;
   border: 2px solid var(--azul-oscuro);
   color: var(--azul-oscuro);
 }
-
 .boton.primario.delineado:hover{
   background-color: var(--azul-oscuro);
   color: white;
+}
+.boton.primario.delineado:disabled{
+  background-color: #ededed;
+  color: #8b8b8b;
+  border-color: #c7c7c7;
 }
 
 .switch {

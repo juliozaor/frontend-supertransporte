@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { EncuestasService } from '../../servicios/encuestas.service';
 import { Encuesta } from '../../modelos/Encuesta';
 import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { EncuestaComponent } from '../../componentes/encuesta/encuesta.component';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
@@ -24,10 +24,12 @@ export class PaginaEncuestaComponent implements OnInit {
   idUsuario: string
   idEncuesta?: number
   soloLectura: boolean = true
+  hayCambios: boolean = false
 
   constructor(
     private servicioEncuesta: EncuestasService, 
-    private servicioLocalStorage: ServicioLocalStorage, 
+    private servicioLocalStorage: ServicioLocalStorage,
+    private router: Router,
     private activeRoute: ActivatedRoute
   ) {
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
@@ -44,7 +46,6 @@ export class PaginaEncuestaComponent implements OnInit {
         this.idEncuesta = parametros['idEncuestaDiligenciada']
         this.servicioEncuesta.obtenerEncuesta(this.idVigilado!, this.idEncuesta!, this.idReporte!).subscribe({
           next: ( encuesta )=>{
-            console.log(encuesta)
             this.encuesta = encuesta
             this.soloLectura = encuesta.tipoAccion === 1 ? true : false
           }
@@ -99,12 +100,17 @@ export class PaginaEncuestaComponent implements OnInit {
     this.servicioEncuesta.enviarRespuesta(this.idEncuesta, this.idReporte,  this.idVigilado).subscribe({
       next: ()=>{
         this.popup.abrirPopupExitoso('Formulario enviado', 'El formulario se ha enviado correctamente.')
+        this.router.navigate(['/administrar', 'encuestas', this.idEncuesta!])
       },
       error: (error: HttpErrorResponse)=>{
         this.componenteEncuesta.resaltarRespuestasInvalidas(error.error.faltantes)
-        this.popup.abrirPopupFallido('Formulario inválido', error.error.mensaje)
+        this.popup.abrirPopupFallido('No se han respondido todas las preguntas.', 'Hay preguntas obligatorias sin responder.')
       }
     })
+  }
+
+  setHayCambios(hayCambios: boolean){
+    this.hayCambios = hayCambios
   }
 
 }

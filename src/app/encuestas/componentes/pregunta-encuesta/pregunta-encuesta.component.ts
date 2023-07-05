@@ -66,6 +66,7 @@ export class PreguntaEncuestaComponent implements OnInit {
 
     if(this.pregunta.respuesta && this.valoresNegativos.includes(this.pregunta.respuesta)){
       this.setMotivoDeshabilitado(false)
+      this.setMotivo(this.pregunta.observacion, false)
     }else{
       this.setMotivoDeshabilitado(true)
     }
@@ -85,6 +86,7 @@ export class PreguntaEncuestaComponent implements OnInit {
     this.setObservacionNoCumple(this.pregunta.observacionCumple, false)
      
     this.pregunta.respuesta ? this.setValor(this.pregunta.respuesta, false) : ""
+
     this.clasesRespuestas = {
       'respuesta-positiva': this.pregunta.respuesta === 'SI' && this.soloLectura,
       'respuesta-negativa': this.pregunta.respuesta === 'NO' && this.soloLectura,
@@ -270,5 +272,10 @@ export class PreguntaEncuestaComponent implements OnInit {
 
   setInvalida(invalida: boolean){
     this.invalida = invalida
+  }
+
+  setMotivo(motivo: string, emitir: boolean = true){
+    this.observacion = motivo
+    if(emitir) this.emitirValorModificado();
   }
 }

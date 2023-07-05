@@ -66,6 +66,7 @@ export class ClasificacionEncuestaComponent implements OnInit {
       this.preguntasRespondidas.push(respuesta)
     }
     this.preguntasRespondidas.push(respuesta)
+    this.seHanRespondidoPreguntas.emit(this.preguntasRespondidas)
   }
 
   agregarVerificacionRespondida(verificacion: RespuestaVerificacion){

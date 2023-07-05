@@ -30,6 +30,7 @@ export interface Pregunta {
     ruta:                   string;
     cumple:                 string | number | null;
     observacionCumple:      string;
+    observacion:            string;
     corresponde:            string | number | null;
     observacionCorresponde: string
     adjuntable:             boolean;

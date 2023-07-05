@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Encuesta } from '../../modelos/Encuesta';
 import { ClasificacionEncuestaComponent } from '../clasificacion-encuesta/clasificacion-encuesta.component';
 import { Respuesta } from '../../modelos/Respuesta';
@@ -23,17 +23,20 @@ export class EncuestaComponent implements OnInit {
   @Input('soloLectura') soloLectura: boolean = true
   @Input('justificable') justificable: boolean = false
   @Input('camposDeVerificacion') camposDeVerificacion: boolean = false
+  @Output('hanHabidoCambios') hanHabidoCambios: EventEmitter<boolean>
   @ViewChildren('clasificacion') clasificaciones!: QueryList<ClasificacionEncuestaComponent>
   @ViewChild('popup') popup!: PopupComponent
   @ViewChild('contenedorEncuesta') contenedorEncuesta!: ElementRef
   respuestas: Respuesta[] = []
   verificaciones: RespuestaVerificacion[] = []
+  hayCambios: boolean = false
   
   constructor(
     private servicioEncuestas: EncuestasService,
     private servicioVerificacion: ServicioVerificaciones,
     private router: Router
-  ) { 
+  ) {
+    this.hanHabidoCambios = new EventEmitter<boolean>();
   }
 
   ngOnInit(): void {}
@@ -57,7 +60,7 @@ export class EncuestaComponent implements OnInit {
   
   //Manejadores de eventos
   alResponderPreguntas(respuestas: any){
-    console.log(respuestas)
+    this.setHayCambios(true)
   }
 
   manejarErrorCargaArchivo(error: HttpErrorResponse){
@@ -97,5 +100,10 @@ export class EncuestaComponent implements OnInit {
 
   exportarPDF(){
     window.print()
+  }
+
+  setHayCambios(hayCambios: boolean){
+    this.hayCambios = hayCambios
+    this.hanHabidoCambios.emit(hayCambios)
   }
 }

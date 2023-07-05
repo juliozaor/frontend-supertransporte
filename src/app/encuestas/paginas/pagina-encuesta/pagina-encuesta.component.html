@@ -24,21 +24,30 @@
                 <button ngbDropdownItem (click)="this.exportarPDF()">PDF</button>
             </div>
         </div>
-        <button type="button" class="boton primario delineado" (click)="enviarEncuesta()">Enviar a ST</button>
-        <button type="button" class="boton primario relleno" (click)="guardarEncuesta()">Guardar</button>
+        <button 
+        type="button" 
+        class="boton primario delineado" 
+        (click)="enviarEncuesta()"
+        [disabled]="hayCambios">Enviar a ST</button>
+        <button 
+        type="button" 
+        class="boton primario relleno" 
+        (click)="guardarEncuesta()"
+        [disabled]="!hayCambios">Guardar</button>
         <button type="button" class="boton primario delineado" [routerLink]="['/administrar', 'encuestas', idEncuesta]">Volver</button>
     </div>
     <div class="d-flex w-100">
         <app-encuesta
-        #componenteEncuesta 
-        [soloLectura]="soloLectura" 
+        #componenteEncuesta
+        class="w-100"
         *ngIf="encuesta && idReporte && idEncuesta && idVigilado" 
-        class="w-100" 
+        [soloLectura]="soloLectura" 
         [idVigilado]="idVigilado"
         [idReporte]="idReporte"
         [encuesta]="encuesta"
         [idEncuesta]="idEncuesta"
-        [justificable]="encuesta.observacion"/>
+        [justificable]="encuesta.observacion"
+        (hanHabidoCambios)="setHayCambios($event)"/>
     </div>
 </div>
 <app-popup #popup/>
