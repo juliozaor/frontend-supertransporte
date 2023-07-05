@@ -8,6 +8,7 @@ import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 import { Asignacion } from '../modelos/Asignacion';
 import { FiltrosReportesAsignados } from '../modelos/FiltrosReportesAsignados';
 import { ResumenReporteAsignado } from '../modelos/ResumenReporteAsignado';
+import { FiltrosReportesEnviados } from '../modelos/FiltrosReportesEnviados';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,14 @@ export class ServicioReportes extends Autenticable {
       `${this.host}${endpoint}`,
       { headers: this.obtenerCabeceraAutorizacion() }
     )
+  }
+
+  obtenerReportesEnviados(pagina: number, limite: number, filtros?: FiltrosReportesEnviados){
+    let endpoint = `/api/v1/reportes/enviadas?pagina=${pagina}&limite=${limite}`
+    if(filtros){
+      if(filtros.termino) endpoint+=`&filtro=${filtros.termino}`;
+    }
+    return this.http.get<{ reportadas: ResumenReporte[], paginacion: Paginacion }>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
 
   obtenerReportesAsignados(pagina: number, limite: number, filtros?: FiltrosReportesAsignados){

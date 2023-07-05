@@ -6,4 +6,6 @@ export interface ResumenReporteAsignado{
     asignador: string | number | null
     fechaAsignacion: null | string,
     asignado: boolean
+    fechaEnvioST: string
+    email: string
 }

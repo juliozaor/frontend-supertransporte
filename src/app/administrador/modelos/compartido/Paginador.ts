@@ -63,6 +63,12 @@ export class Paginador<T>{
         })
     }
 
+    refrescar(){
+        this._funcionObtenerRecursos(this._pagina, this._limite, this._filtros).subscribe({
+            next: ()=>{}
+        })
+    }
+
     private cambiarTotales(paginacion: Paginacion){
         this._totalRegistros = paginacion.totalRegistros
         this._totalPaginas = paginacion.totalPaginas

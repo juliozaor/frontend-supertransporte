@@ -6,6 +6,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { AlertasModule } from '../alertas/alertas.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { InputsModule } from '../inputs/inputs.module';
 
 
 
@@ -20,6 +21,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AlertasModule,
     FormsModule,
     ReactiveFormsModule,
+    InputsModule,
     NgbModule
   ],
   exports: [

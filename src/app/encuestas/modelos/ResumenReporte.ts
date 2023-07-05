@@ -12,4 +12,6 @@ export interface ResumenReporte {
     nit:                    string;
     email:                  string;
     estado:                 string;
+    asignado:               boolean;
+    ultimoUsuarioAsignado:     string;
 }

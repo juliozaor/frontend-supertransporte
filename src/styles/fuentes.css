@@ -96,6 +96,12 @@
   font-size: 25px !important;
 }
 
+.texto-gris{
+    color: var(--gris);
+}
+.texto-gris-1{
+    color: var(--gris-1)
+}
 .texto-primario{
     color: #004884;
 }

@@ -14,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Asignacion } from '../../modelos/Asignacion';
 import { FiltrosReportesAsignados } from '../../modelos/FiltrosReportesAsignados';
 import { ResumenReporteAsignado } from '../../modelos/ResumenReporteAsignado';
+import { FiltrosReportesEnviados } from '../../modelos/FiltrosReportesEnviados';
 
 @Component({
   selector: 'app-pagina-asignacion',
@@ -24,7 +25,7 @@ export class PaginaAsignacionComponent implements OnInit{
   @ViewChild('popup') popup!: PopupComponent
   private readonly paginaInicial = 1;
   private readonly limiteInicial = 5
-  paginadorReportes: Paginador<{ idEncuesta: number }>
+  paginadorReportes: Paginador<FiltrosReportesEnviados>
   usuario: Usuario
   verificadores: Verificador[] = []
   verificadorSeleccionado?: string
@@ -33,9 +34,10 @@ export class PaginaAsignacionComponent implements OnInit{
   reportesAsignados: ResumenReporteAsignado[] = []
   paginadorReportesAsignados: Paginador<FiltrosReportesAsignados>
 
+  termino: string = ""
+
 
   constructor(
-    private servicioEncuestas: EncuestasService,
     private servicioReportes: ServicioReportes,
     private servicioLocalStorage: ServicioLocalStorage
   ){
@@ -45,17 +47,17 @@ export class PaginaAsignacionComponent implements OnInit{
     }
     this.paginadorReportesAsignados = new Paginador<FiltrosReportesAsignados>(this.obtenerReportesAsignados)
     this.usuario = usuario
-    this.paginadorReportes = new Paginador<{ idEncuesta: number }>(this.obtenerEncuestas)
+    this.paginadorReportes = new Paginador<FiltrosReportesEnviados>(this.obtenerEncuestas)
   }
 
   ngOnInit(): void {
     this.obtenerVerificadores()
-    this.paginadorReportes.inicializar(this.paginaInicial, this.limiteInicial, {idEncuesta: 1})
+    this.paginadorReportes.inicializar(this.paginaInicial, this.limiteInicial, {})
   }
 
-  obtenerEncuestas = (pagina: number, limite: number, filtros?:{ idEncuesta: number })=>{
+  obtenerEncuestas = (pagina: number, limite: number, filtros?:FiltrosReportesEnviados)=>{
     return new Observable<Paginacion>( sub => {
-      this.servicioEncuestas.obtenerEncuestas(pagina, limite, this.usuario.usuario, filtros!.idEncuesta).subscribe({
+      this.servicioReportes.obtenerReportesEnviados(pagina, limite, filtros).subscribe({
         next: ( respuesta )=>{
           this.reportes = respuesta.reportadas
           sub.next(respuesta.paginacion)
@@ -131,8 +133,9 @@ export class PaginaAsignacionComponent implements OnInit{
       }
     })
     this.servicioReportes.asignarReportes(asignaciones).subscribe({
-      next: (respuesta)=>{
-        console.log(respuesta)
+      next: ()=>{
+        this.paginadorReportes.refrescar()
+        this.limpiarSeleccionados()
         this.paginadorReportesAsignados.inicializar()
         this.paginadorReportesAsignados.filtrar({identificacionVerificador: this.verificadorSeleccionado})
         this.popup.abrirPopupExitoso('Reportes asignados correctamente.')
@@ -141,5 +144,22 @@ export class PaginaAsignacionComponent implements OnInit{
         this.popup.abrirPopupFallido('Error al asignar los reportes', error.error.mensaje)
       }
     })
+  }
+
+  actualizarFiltros(){
+    this.paginadorReportes.filtrar({ termino: this.termino })
+  }
+
+  limpiarFiltros(){
+    this.termino = ""
+    this.paginadorReportes.filtrar({ termino: this.termino })
+  }
+
+  setTermino(termino: string){
+    this.termino = termino
+  }
+
+  limpiarSeleccionados(){
+    this.reportesSeleccionados = []
   }
 }

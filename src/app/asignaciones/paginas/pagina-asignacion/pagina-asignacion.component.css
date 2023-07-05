@@ -3,10 +3,9 @@
 }
 .tabla-reportes th, .tabla-reportes td{
     text-overflow: ellipsis;
+    white-space: nowrap;
     overflow: hidden;
 }
 .tabla-reportes td{
-    height: 40px;
-    max-height: 40px;
     padding: 5px;
 }
