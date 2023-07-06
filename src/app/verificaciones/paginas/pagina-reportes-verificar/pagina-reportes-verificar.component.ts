@@ -4,6 +4,7 @@ import { Paginador } from 'src/app/administrador/modelos/compartido/Paginador';
 import { Observable } from 'rxjs';
 import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 import { ResumenReporteAsignados } from '../../modelos/ResumenReporteAsignado';
+import { FiltrosUsuarios } from 'src/app/usuarios/modelos/FiltrosUsuarios';
 
 @Component({
   selector: 'app-pagina-reportes-verificar',
@@ -11,8 +12,9 @@ import { ResumenReporteAsignados } from '../../modelos/ResumenReporteAsignado';
   styleUrls: ['./pagina-reportes-verificar.component.css']
 })
 export class PaginaReportesVerificarComponent implements OnInit{
-  paginador: Paginador<any>
+  paginador: Paginador<FiltrosUsuarios>
   reportes: ResumenReporteAsignados[] = []
+
   constructor(private servicioVerifiaciones: ServicioVerificaciones){
     this.paginador = new Paginador<any>(this.obtenerReportes)
   }

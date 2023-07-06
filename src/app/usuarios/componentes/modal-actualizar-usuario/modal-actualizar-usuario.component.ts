@@ -1,33 +1,26 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Paginador } from 'src/app/administrador/modelos/compartido/Paginador';
-import { FiltrosUsuarios } from '../../modelos/FiltrosUsuarios';
-import { ServicioUsuarios } from '../../servicios/usuarios.service';
-import { Observable } from 'rxjs';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Usuario } from '../../modelos/Usuario';
-import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
-import { ModalActualizarUsuarioComponent } from '../../componentes/modal-actualizar-usuario/modal-actualizar-usuario.component';
-import { Rol } from '../../modelos/Rol';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ServicioUsuarios } from '../../servicios/usuarios.service';
 import { marcarFormularioComoSucio } from 'src/app/administrador/utilidades/Utilidades';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
+import { Rol } from '../../modelos/Rol';
+import { DateTime } from 'luxon';
 
 @Component({
-  selector: 'app-pagina-crear-usuario',
-  templateUrl: './pagina-crear-usuario.component.html',
-  styleUrls: ['./pagina-crear-usuario.component.css']
+  selector: 'app-modal-actualizar-usuario',
+  templateUrl: './modal-actualizar-usuario.component.html',
+  styleUrls: ['./modal-actualizar-usuario.component.css']
 })
-export class PaginaCrearUsuarioComponent implements OnInit{
-  @ViewChild('modalActualizarUsuario') modalActualizarUsuario!: ModalActualizarUsuarioComponent
+export class ModalActualizarUsuarioComponent implements OnInit{
+  @ViewChild('modal') modal!: ElementRef
   @ViewChild('popup') popup!: PopupComponent
-  paginador: Paginador<FiltrosUsuarios>
-  usuarios: Usuario[] = []
-  termino: string = ""
-  rol: string = ""
-  roles: Rol[] = []
+  usuario?: Usuario
   formulario: FormGroup
+  roles: Rol[] = []
 
-  constructor(private servicio: ServicioUsuarios){
-    this.paginador = new Paginador<FiltrosUsuarios>(this.obtenerUsuarios)
+  constructor(private servicioModal: NgbModal, private servicio: ServicioUsuarios){
     this.formulario = new FormGroup({
       nombre: new FormControl(undefined, [ Validators.required ]),
       apellido: new FormControl(undefined),
@@ -40,22 +33,19 @@ export class PaginaCrearUsuarioComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.paginador.inicializar()
     this.obtenerRoles()
   }
 
-  obtenerUsuarios = (pagina: number, limite: number, filtros?: FiltrosUsuarios)=>{
-    return new Observable<Paginacion>( subscripcion => {
-      this.servicio.listar(pagina, limite, filtros).subscribe({
-        next: (respuesta)=>{
-          this.usuarios = respuesta.usuarios
-          subscripcion.next(respuesta.paginacion) 
-        }
-      })
+  abrir(usuario: Usuario){
+    this.usuario = usuario
+    this.rellenarFormulario(usuario)
+    this.servicioModal.open(this.modal, {
+      size: 'xl'
     })
   }
 
-  crear(){
+  actualizar(){
+    console.log(this.formulario.controls)
     if(this.formulario.invalid){
       marcarFormularioComoSucio(this.formulario)
       return;
@@ -72,7 +62,6 @@ export class PaginaCrearUsuarioComponent implements OnInit{
     }).subscribe({
       next: ()=>{
         this.popup.abrirPopupExitoso("Usuario creado con éxito.")
-        this.paginador.refrescar()
         this.limpiarFormulario()
       },
       error: ()=>{
@@ -81,26 +70,22 @@ export class PaginaCrearUsuarioComponent implements OnInit{
     })
   }
 
-  actualizarFiltros(){
-    this.paginador.filtrar({
-      termino: this.termino,
-      rol: this.rol
-    })
-  }
-
-  limpiarFiltros(){
-    this.termino = ""
-    this.rol = ""
-    this.paginador.filtrar({})
+  rellenarFormulario(usuario: Usuario){
+    const controls = this.formulario.controls
+    controls['apellido'].setValue(usuario.apellido)
+    controls['nombre'].setValue(usuario.nombre)
+    controls['correo'].setValue(usuario.correo)
+    controls['fechaNacimiento'].setValue(
+      DateTime.fromISO(usuario.fechaNacimiento).toFormat('yyyy-MM-dd') 
+    )
+    controls['identificacion'].setValue(usuario.identificacion)
+    controls['rol'].setValue(usuario.idRol)
+    controls['telefono'].setValue(usuario.telefono)
   }
 
   limpiarFormulario(){
     this.formulario.reset()
     this.formulario.get('rol')!.setValue("")
-  }
-
-  abrirModalActualizarUsuario(usuario: Usuario){
-    this.modalActualizarUsuario.abrir(usuario)
   }
 
   obtenerRoles(){
