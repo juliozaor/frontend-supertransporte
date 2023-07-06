@@ -51,7 +51,7 @@ export class ModalActualizarUsuarioComponent implements OnInit{
       return;
     }
     const controls = this.formulario.controls
-    this.servicio.guardar({
+    this.servicio.actualizar(this.usuario!.identificacion, {
       apellido: controls['apellido'].value,
       nombre: controls['nombre'].value,
       correo: controls['correo'].value,

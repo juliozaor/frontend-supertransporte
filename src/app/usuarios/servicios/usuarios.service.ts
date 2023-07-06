@@ -6,8 +6,8 @@ import { Usuario } from '../modelos/Usuario';
 import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 import { FiltrosUsuarios } from '../modelos/FiltrosUsuarios';
 import { PeticionCrearUsuario } from '../modelos/PeticionCrearUsuario';
-import { PeticionActualizarUsuario } from 'src/app/administrador/modelos/ConfiguracionPerfil/PeticionActualizarUsuario';
 import { Rol } from '../modelos/Rol';
+import { PeticionActualizarUsuario } from '../modelos/PeticionActualizarUsuario';
 
 @Injectable({
   providedIn: 'root'

@@ -1,4 +1,4 @@
-export interface PeticionCrearUsuario{
+export interface PeticionActualizarUsuario{
     nombre?: string
     apellido?: string
     identificacion?: string
