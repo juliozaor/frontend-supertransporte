@@ -7,6 +7,8 @@ import { Autenticable } from 'src/app/administrador/servicios/compartido/Autenti
 import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 import { RespuestaEnviar } from '../modelos/RespuestaEnviar';
 import { Motivo } from '../modelos/Motivo';
+import { Formulario } from '../modelos/Formulario';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +37,11 @@ export class EncuestasService extends Autenticable {
     )
   }
 
+  obtenerEncuestaCuantitativa(): Observable<{formularios: Formulario[]}>{
+    const endpoint = '/api/v1/inidicador/formularios'
+    return this.http.get<{formularios: Formulario[]}>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
   guardarRespuesta(idReporte: number, peticion: { respuestas: RespuestaEnviar[] }) {
     const enpoint = `/api/v1/respuestas/${idReporte}`
     return this.http.post<{ mensaje: string }>(
@@ -45,6 +52,13 @@ export class EncuestasService extends Autenticable {
       })
   }
 
+  guardarRespuestasIndicadores(idReporte: number, respuestas: RespuestaEnviar[]){
+    const endpoint = `/api/v1/inidicador/respuestas`
+    return this.http.post(`${this.host}${endpoint}`, { reporteId: idReporte, respuestas }, {
+      headers: this.obtenerCabeceraAutorizacion()
+    })
+  }
+
   enviarRespuesta(idEncuesta: number, idReporte: number, idVigilado: string) {
     const enpoint = `/api/v1/encuestas/enviar`
     return this.http.post<{ mensaje: string }>(
@@ -53,6 +67,10 @@ export class EncuestasService extends Autenticable {
       {
         headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` }
       })
+  }
+
+  enviarRespuestaIndicadores(idEncuesta: number, idReporte: number, idVigilado: string){
+    
   }
 
   establecerMotivos(): void {
@@ -75,4 +93,5 @@ export class EncuestasService extends Autenticable {
       responseType: 'blob',
     })
   }
+
 }

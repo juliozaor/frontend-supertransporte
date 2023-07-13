@@ -1,0 +1,15 @@
+<ul class="subindicadores">
+    <li class="cabeceras-subindicador">
+        <div class="row">
+            <div class="col-1">Variable del indicador</div>
+            <div class="col-2">Datos solicitados</div>
+            <div class="col-9">Valores</div>
+        </div>
+    </li>
+    <li class="subindicador" *ngFor="let subindicador of subindicadores">
+        <app-subindicador-encuesta-cuantitativa 
+            [subindicador]="subindicador" 
+            [estadoRespuestas]="estadoRespuestas"
+            (nuevaRespuesta)="manejarNuevaRespuesta($event)"/>
+    </li>
+</ul>

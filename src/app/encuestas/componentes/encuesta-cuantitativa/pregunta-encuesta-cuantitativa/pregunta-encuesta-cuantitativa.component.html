@@ -1,0 +1,8 @@
+<fieldset class="">
+    <label class="fs-12px fw-semibold">{{ pregunta.pregunta }}</label>
+    <input 
+    type="number" 
+    class="form-control" 
+    [ngModel]="valor" 
+    (ngModelChange)="manejarCambio($event)">
+</fieldset>

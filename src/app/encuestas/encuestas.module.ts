@@ -11,6 +11,10 @@ import { ClasificacionEncuestaComponent } from './componentes/clasificacion-encu
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertasModule } from '../alertas/alertas.module';
 import { PipesModule } from '../pipes/pipes.module';
+import { EncuestaCuantitativaComponent } from './componentes/encuesta-cuantitativa/encuesta-cuantitativa/encuesta-cuantitativa.component';
+import { TabEncuestaCuantitativaComponent } from './componentes/encuesta-cuantitativa/tab-encuesta-cuantitativa/tab-encuesta-cuantitativa.component';
+import { PreguntaEncuestaCuantitativaComponent } from './componentes/encuesta-cuantitativa/pregunta-encuesta-cuantitativa/pregunta-encuesta-cuantitativa.component';
+import { SubindicadorEncuestaCuantitativaComponent } from './componentes/encuesta-cuantitativa/subindicador-encuesta-cuantitativa/subindicador-encuesta-cuantitativa.component';
 
 
 
@@ -20,7 +24,11 @@ import { PipesModule } from '../pipes/pipes.module';
     PaginaEncuestaComponent,
     EncuestaComponent,
     PreguntaEncuestaComponent,
-    ClasificacionEncuestaComponent
+    ClasificacionEncuestaComponent,
+    EncuestaCuantitativaComponent,
+    TabEncuestaCuantitativaComponent,
+    PreguntaEncuestaCuantitativaComponent,
+    SubindicadorEncuestaCuantitativaComponent
   ],
   imports: [
     CommonModule,

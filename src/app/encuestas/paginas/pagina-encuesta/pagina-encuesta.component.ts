@@ -8,6 +8,8 @@ import { EncuestaComponent } from '../../componentes/encuesta/encuesta.component
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { saveAs } from 'file-saver';
+import { Formulario } from '../../modelos/Formulario';
+import { EncuestaCuantitativaComponent } from '../../componentes/encuesta-cuantitativa/encuesta-cuantitativa/encuesta-cuantitativa.component';
 
 @Component({
   selector: 'app-pagina-encuesta',
@@ -17,8 +19,10 @@ import { saveAs } from 'file-saver';
 export class PaginaEncuestaComponent implements OnInit {
   @ViewChild('popup') popup!: PopupComponent
   @ViewChild('componenteEncuesta') componenteEncuesta!: EncuestaComponent
+  @ViewChild('componenteEncuestaCuantitativa') componenteEncuestaCuantitativa!: EncuestaCuantitativaComponent
   usuario?: Usuario | null
   encuesta?: Encuesta
+  encuestaCuantitativa?: Formulario[] 
   idVigilado?: string
   idReporte?: number
   idUsuario: string
@@ -33,7 +37,6 @@ export class PaginaEncuestaComponent implements OnInit {
     private activeRoute: ActivatedRoute
   ) {
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
-    const rol = this.servicioLocalStorage.obtenerRol()
     this.idUsuario = this.usuario!.usuario
     this.activeRoute.queryParams.subscribe({
       next: (qs) => {
@@ -44,12 +47,21 @@ export class PaginaEncuestaComponent implements OnInit {
     this.activeRoute.params.subscribe({
       next: (parametros)=>{
         this.idEncuesta = parametros['idEncuestaDiligenciada']
-        this.servicioEncuesta.obtenerEncuesta(this.idVigilado!, this.idEncuesta!, this.idReporte!).subscribe({
-          next: ( encuesta )=>{
-            this.encuesta = encuesta
-            this.soloLectura = encuesta.tipoAccion === 1 ? true : false
-          }
-        })
+        if(this.idEncuesta == 2){
+          this.servicioEncuesta.obtenerEncuestaCuantitativa().subscribe({
+            next: (respuesta)=>{
+              this.encuestaCuantitativa = respuesta.formularios
+              this.soloLectura = false
+            }
+          })
+        }else{
+          this.servicioEncuesta.obtenerEncuesta(this.idVigilado!, this.idEncuesta!, this.idReporte!).subscribe({
+            next: ( encuesta )=>{
+              this.encuesta = encuesta
+              this.soloLectura = encuesta.tipoAccion === 1 ? true : false
+            }
+          })
+        }
       }
     }) 
     
@@ -89,10 +101,26 @@ export class PaginaEncuestaComponent implements OnInit {
   }
 
   guardarEncuesta(){
+    if(this.idEncuesta == 2){
+      this.guardarEncuestaCuantitativa()
+      return;
+    }
     this.componenteEncuesta.guardarRespuestas()
   }
 
+  guardarEncuestaCuantitativa(){
+    this.componenteEncuestaCuantitativa.guardar()
+  }
+
+  enviarEncuestaCuantitativa(){
+    this.componenteEncuestaCuantitativa.enviar()
+  }
+
   enviarEncuesta(){
+    if(this.idEncuesta == 2){
+      this.enviarEncuestaCuantitativa()
+      return;
+    }
     if(!this.idEncuesta || !this.idReporte || !this.idVigilado){
       this.popup.abrirPopupFallido('Error', 'Faltan datos de la encuesta, el reporte o el vigilado')
       return;
